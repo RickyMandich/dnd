@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Personaggio{
     private String nome;
     private int iniziativa;
@@ -17,55 +14,112 @@ public class Personaggio{
     private boolean amico;
     private boolean[][] morte;
 
-    public Personaggio() {
-        nome = "nome";
-        iniziativa = 0;
-        hp = 10;
-        ca = 14;
-        comp = 2;
-        for(int i=0;i<6;i++) {
-            punteggi[i] = new Caratteristica();
-            bonus[i] = new Caratteristica();
-            punteggi[i].valore = 0;
-            bonus[i].valore = 0;
-            switch(i){
-                case 0:
-                    punteggi[i].nome = "Forza\t\t";
-                    bonus[i].nome = "Forza\t\t";
-                    break;
-                case 1:
-                    punteggi[i].nome = "Destrezza\t";
-                    bonus[i].nome = "Destrezza\t";
-                    break;
-                case 2:
-                    punteggi[i].nome = "Costituzione";
-                    bonus[i].nome = "Costituzione";
-                    break;
-                case 3:
-                    punteggi[i].nome = "Intelligenza";
-                    bonus[i].nome = "Intelligenza";
-                    break;
-                case 4:
-                    punteggi[i].nome = "Saggezza\t";
-                    bonus[i].nome = "Saggezza\t";
-                    break;
-                case 5:
-                    punteggi[i].nome = "Carisma\t";
-                    bonus[i].nome = "Carisma\t";
-                    break;
-            }
-        }
-        xp = 200;
-        lvl = 4;
-        ordine = 0;
-        tiro = 0;
-        dannoIniziale = 0;
-        amico = true;
-        morte = new boolean[2][3];
-        for(int i=0;i<2;i++){
-            for(int j=0;j<3;j++){
-                morte [i][j]=false;
-            }
+    //inserire come parametro la stringa "valori" nel caso si vogliano assegnare dei valori di default mentre
+    //inserire la stringa "input" nel caso si vogliano inserire da tastiera tutti i dati non ricavabili
+    public Personaggio(String metodo_valori) {
+        switch (metodo_valori) {
+            case "valori":
+                nome = "nome";
+                iniziativa = 0;
+                hp = 10;
+                ca = 14;
+                comp = 2;
+                for (int i = 0; i < 6; i++) {
+                    punteggi[i] = new Caratteristica();
+                    bonus[i] = new Caratteristica();
+                    punteggi[i].valore = 10;
+                    bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                    switch (i) {
+                        case 0:
+                            punteggi[i].nome = "Forza\t\t";
+                            bonus[i].nome = "Forza\t\t";
+                            break;
+                        case 1:
+                            punteggi[i].nome = "Destrezza\t";
+                            bonus[i].nome = "Destrezza\t";
+                            break;
+                        case 2:
+                            punteggi[i].nome = "Costituzione";
+                            bonus[i].nome = "Costituzione";
+                            break;
+                        case 3:
+                            punteggi[i].nome = "Intelligenza";
+                            bonus[i].nome = "Intelligenza";
+                            break;
+                        case 4:
+                            punteggi[i].nome = "Saggezza\t";
+                            bonus[i].nome = "Saggezza\t";
+                            break;
+                        case 5:
+                            punteggi[i].nome = "Carisma\t";
+                            bonus[i].nome = "Carisma\t";
+                            break;
+                    }
+                }
+                xp = 200;
+                lvl = 4;
+                ordine = 0;
+                tiro = 0;
+                dannoIniziale = 0;
+                amico = true;
+                morte = new boolean[2][3];
+                for (int i = 0; i < 2; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        morte[i][j] = false;
+                    }
+                }
+                break;
+            case "input":
+                nome = "nome";
+                iniziativa = 0;
+                hp = 10;
+                ca = 14;
+                comp = 2;
+                for (int i = 0; i < 6; i++) {
+                    punteggi[i] = new Caratteristica();
+                    bonus[i] = new Caratteristica();
+                    switch (i) {
+                        case 0:
+                            punteggi[i].nome = "Forza\t\t";
+                            bonus[i].nome = "Forza\t\t";
+                            break;
+                        case 1:
+                            punteggi[i].nome = "Destrezza\t";
+                            bonus[i].nome = "Destrezza\t";
+                            break;
+                        case 2:
+                            punteggi[i].nome = "Costituzione";
+                            bonus[i].nome = "Costituzione";
+                            break;
+                        case 3:
+                            punteggi[i].nome = "Intelligenza";
+                            bonus[i].nome = "Intelligenza";
+                            break;
+                        case 4:
+                            punteggi[i].nome = "Saggezza\t";
+                            bonus[i].nome = "Saggezza\t";
+                            break;
+                        case 5:
+                            punteggi[i].nome = "Carisma\t";
+                            bonus[i].nome = "Carisma\t";
+                            break;
+                    }
+                    punteggi[i].valore = Interazione.input("qual'è il punteggio di " + punteggi[i].nome + "di " + nome);
+                    bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                }
+                xp = 200;
+                lvl = 4;
+                ordine = 0;
+                tiro = 0;
+                dannoIniziale = 0;
+                amico = true;
+                morte = new boolean[2][3];
+                for (int i = 0; i < 2; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        morte[i][j] = false;
+                    }
+                }
+                break;
         }
     }
 
@@ -98,11 +152,11 @@ public class Personaggio{
     }
 
     public int getValoreBonus(int indice) {
-        return punteggi[indice].valore;
+        return bonus[indice].valore;
     }
 
     public String getNomeBonus(int indice) {
-        return punteggi[indice].nome;
+        return bonus[indice].nome;
     }
 
     public int getXp() {
