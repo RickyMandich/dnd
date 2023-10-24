@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=programma_dnd_java
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment2.params=pg\ tot
+comment2.target=void\ creaPg(Personaggio[],\ int)
+numComments=3

@@ -22,6 +22,10 @@ public class Interazione {
         scan.close();
         return b;
     }
+    //funzione che prende in input un double
+    public static boolean boolput(String a){
+        return input(a+"\n(insert 1 for true and 0 for false)")==1;
+    }
     //funzione che prende in input una stringa
     public static String strput(String a){
         output(a);

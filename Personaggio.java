@@ -58,23 +58,12 @@ public class Personaggio{
                 }
                 xp = 200;
                 lvl = 4;
-                ordine = 0;
-                tiro = 0;
                 dannoIniziale = 0;
-                amico = true;
-                morte = new boolean[2][3];
-                for (int i = 0; i < 2; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        morte[i][j] = false;
-                    }
-                }
                 break;
             case "input":
-                nome = "nome";
-                iniziativa = 0;
-                hp = 10;
-                ca = 14;
-                comp = 2;
+                nome = Interazione.strput("qual'è il nome di questo personaggio?");
+                hp = Interazione.input("quanti punti ferita ha "+nome+"?");
+                ca = Interazione.input("qual'è la classe armatura di "+nome+"?");
                 for (int i = 0; i < 6; i++) {
                     punteggi[i] = new Caratteristica();
                     bonus[i] = new Caratteristica();
@@ -107,20 +96,55 @@ public class Personaggio{
                     punteggi[i].valore = Interazione.input("qual'è il punteggio di " + punteggi[i].nome + "di " + nome);
                     bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
                 }
-                xp = 200;
-                lvl = 4;
-                ordine = 0;
-                tiro = 0;
-                dannoIniziale = 0;
-                amico = true;
-                morte = new boolean[2][3];
-                for (int i = 0; i < 2; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        morte[i][j] = false;
-                    }
+                iniziativa = bonus[Caratteristica.destrezza].valore;
+                xp = Interazione.input("quali sono i punti esperienza di "+nome+"?");
+                lvl = Interazione.input("di che livello è "+nome+"?");
+                switch(lvl){
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        comp = 2;
+                        break;
+                    case 5:
+                    case 6:
+                    case 7:
+                    case 8:
+                        comp = 3;
+                        break;
+                    case 9:
+                    case 10:
+                    case 11:
+                    case 12:
+                        comp = 4;
+                        break;
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                        comp = 5;
+                        break;
+                    case 17:
+                    case 18:
+                    case 19:
+                    case 20:
+                        comp = 6;
+                        break;
                 }
+                dannoIniziale = Interazione.input("qual'è il danno iniziale di "+nome);
+                break;
+            default:
                 break;
         }
+        ordine = 0;
+        tiro = 0;
+        morte = new boolean[2][3];
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 3; j++) {
+                morte[i][j] = false;
+            }
+        }
+        amico = Interazione.boolput(nome+" è un amico?");
     }
 
     public String getNome() {
