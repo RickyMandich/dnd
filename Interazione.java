@@ -8,7 +8,6 @@ public class Interazione {
     public static int input(String a){
         output(a);
         Scanner scan = new Scanner(System.in);
-        while(!scan.hasNextInt());
         int b = scan.nextInt();
         scan.close();
         return b;
@@ -17,7 +16,6 @@ public class Interazione {
     public static double doubput(String a){
         output(a);
         Scanner scan = new Scanner(System.in);
-        while(!scan.hasNextDouble());
         double b = scan.nextDouble();
         scan.close();
         return b;
@@ -30,10 +28,9 @@ public class Interazione {
     public static String strput(String a){
         output(a);
         Scanner scan = new Scanner(System.in);
-        while(!scan.hasNextLine());
-        a = scan.nextLine();
+        String b = scan.nextLine();
         scan.close();
-        return a;
+        return b;
     }
 
 }
