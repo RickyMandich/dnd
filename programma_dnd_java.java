@@ -5,14 +5,10 @@ public class programma_dnd_java {
         int tot = Interazione.input("quanti personaggi stanno combattendo?");
         Personaggio[] pg = new Personaggio[tot];
         creaPg(pg, tot);
-        for(int i=0;i<tot;i++){
-            Interazione.output(pg[i].toString());
-        }
+        for(int i=0;i<tot;i++) Interazione.output(pg[i].toString());
     }
 
     public static void creaPg(Personaggio[] pg, int tot){
-        for(int i=0;i<tot;i++){
-            pg[i] = new Personaggio("valori");
-        }
+        for(int i=0;i<tot;i++) pg[i] = new Personaggio("valori");
     }
 }
