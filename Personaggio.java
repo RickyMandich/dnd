@@ -235,4 +235,40 @@ public class Personaggio{
         info+="tiri salvezza contro morte:\n"+getMorte()+"\n";
         return info;
     }
+
+    public boolean equals(Personaggio pg){
+        if(this.nome != pg.nome){
+            return false;
+        }
+        if(this.hp != pg.hp){
+            return false;
+        }
+        if(this.ca != pg.ca){
+            return false;
+        }
+        if(this.comp != pg.comp){
+            return false;
+        }
+        for(int i=0;i<6;i++){
+            if(!this.punteggi[i].equals(pg.punteggi)){
+                return false;
+            }
+            if(!this.bonus[i].equals(pg.bonus)){
+                return false;
+            }
+        }
+        if(this.xp != pg.xp){
+            return false;
+        }
+        if(this.lvl != pg.lvl){
+            return false;
+        }
+        if(this.dannoIniziale != pg.dannoIniziale){
+            return false;
+        }
+        if(this.amico != pg.amico){
+            return false;
+        }
+        return true;
+    }
 }
