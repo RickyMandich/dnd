@@ -8,6 +8,7 @@ public class programma_dnd_java {
         for(int i=0;i<tot;i++) {
             Interazione.output(pg[i].toString());
         }
+        Interazione.close();
     }
 
     public static void creaPg(Personaggio[] pg, int tot){

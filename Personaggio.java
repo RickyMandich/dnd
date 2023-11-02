@@ -17,7 +17,7 @@ public class Personaggio{
     //inserire come parametro la stringa "valori" nel caso si vogliano assegnare dei valori di default mentre
     //inserire la stringa "input" nel caso si vogliano inserire da tastiera tutti i dati non ricavabili
     public Personaggio(String nome) {
-        String metodo_valori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"valori\") o tramite input (inserisci \"input\")");
+        String metodoValori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"valori\") o tramite input (inserisci \"input\")");
         for (int i = 0; i < 6; i++) {
             punteggi[i] = new Caratteristica();
             bonus[i] = new Caratteristica();
@@ -48,11 +48,15 @@ public class Personaggio{
                 }
             }
         }
-        switch (metodo_valori) {
+        switch (metodoValori) {
             case "valori" -> {
                 iniziativa = 0;
                 hp = 10;
                 ca = 14;
+                for(int i=0;i<6;i++){
+                    punteggi[i].valore = 10;
+                    bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                }
                 comp = 2;
                 xp = 200;
                 lvl = 4;
