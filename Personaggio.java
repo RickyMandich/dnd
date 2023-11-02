@@ -16,10 +16,10 @@ public class Personaggio{
 
     //inserire come parametro la stringa "valori" nel caso si vogliano assegnare dei valori di default mentre
     //inserire la stringa "input" nel caso si vogliano inserire da tastiera tutti i dati non ricavabili
-    public Personaggio(String metodo_valori) {
+    public Personaggio(String nome) {
+        String metodo_valori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"valori\") o tramite input (inserisci \"input\")");
         switch (metodo_valori) {
             case "valori" -> {
-                nome = "nome";
                 iniziativa = 0;
                 hp = 10;
                 ca = 14;
@@ -61,7 +61,6 @@ public class Personaggio{
                 dannoIniziale = 0;
             }
             case "input" -> {
-                nome = Interazione.strput("qual'è il nome di questo personaggio?");
                 hp = Interazione.input("quanti punti ferita ha " + nome + "?");
                 ca = Interazione.input("qual'è la classe armatura di " + nome + "?");
                 for (int i = 0; i < 6; i++) {
@@ -69,31 +68,31 @@ public class Personaggio{
                     bonus[i] = new Caratteristica();
                     switch (i) {
                         case 0 -> {
-                            punteggi[i].nome = "Forza\t\t";
-                            bonus[i].nome = "Forza\t\t";
+                            punteggi[i].nome = "Forza\t\t\t";
+                            bonus[i].nome = "Forza";
                         }
                         case 1 -> {
-                            punteggi[i].nome = "Destrezza\t";
-                            bonus[i].nome = "Destrezza\t";
+                            punteggi[i].nome = "Destrezza\t\t";
+                            bonus[i].nome = "Destrezza";
                         }
                         case 2 -> {
-                            punteggi[i].nome = "Costituzione";
+                            punteggi[i].nome = "Costituzione\t";
                             bonus[i].nome = "Costituzione";
                         }
                         case 3 -> {
-                            punteggi[i].nome = "Intelligenza";
+                            punteggi[i].nome = "Intelligenza\t";
                             bonus[i].nome = "Intelligenza";
                         }
                         case 4 -> {
-                            punteggi[i].nome = "Saggezza\t";
-                            bonus[i].nome = "Saggezza\t";
+                            punteggi[i].nome = "Saggezza\t\t";
+                            bonus[i].nome = "Saggezza";
                         }
                         case 5 -> {
-                            punteggi[i].nome = "Carisma\t";
-                            bonus[i].nome = "Carisma\t";
+                            punteggi[i].nome = "Carisma\t\t";
+                            bonus[i].nome = "Carisma";
                         }
                     }
-                    punteggi[i].valore = Interazione.input("qual'è il punteggio di " + punteggi[i].nome + "di " + nome);
+                    punteggi[i].valore = Interazione.input("qual'è il punteggio di " + bonus[i].nome + " di " + nome);
                     bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
                 }
                 iniziativa = bonus[Caratteristica.destrezza].valore;
@@ -111,6 +110,7 @@ public class Personaggio{
             default -> {
             }
         }
+        this.nome = nome;
         ordine = 0;
         tiro = 0;
         morte = new boolean[2][3];
@@ -213,7 +213,7 @@ public class Personaggio{
     public String getBonus() {
         String info = "";
         for (int i = 0; i < 6; i++) {
-            info = info.concat("\tbonus " + getNomeBonus(i) + "\t\t\t" + getValoreBonus(i) + "\n");
+            info = info.concat("\tbonus " + getNomePunteggi(i) + "\t\t\t" + getValoreBonus(i) + "\n");
         }
         return info;
     }
