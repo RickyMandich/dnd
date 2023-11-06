@@ -1,13 +1,13 @@
 public class programma_dnd_java {
     public static void main(String[] args) {
-        Personaggio mat = new Personaggio(Interazione.strput("qual'è il nome di questo personaggio?"));
-        Interazione.output(mat.toString());
         int tot = Interazione.input("quanti altri personaggi stanno combattendo?");
         Personaggio[] pg = new Personaggio[tot];
         creaPg(pg, tot);
         for(int i=0;i<tot;i++) {
             Interazione.output(pg[i].toString());
         }
+
+
         Interazione.close();
     }
 
