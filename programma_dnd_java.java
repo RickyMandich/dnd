@@ -7,7 +7,6 @@ public class programma_dnd_java {
             Interazione.output(pg[i].toString());
         }
 
-
         Interazione.close();
     }
 
