@@ -22,27 +22,27 @@ public class Personaggio{
             punteggi[i] = new Caratteristica();
             bonus[i] = new Caratteristica();
             switch (i) {
-                case 0 -> {
+                case Caratteristica.forza -> {
                     punteggi[i].nome = "Forza\t\t\t";
                     bonus[i].nome = "Forza";
                 }
-                case 1 -> {
+                case Caratteristica.destrezza -> {
                     punteggi[i].nome = "Destrezza\t\t";
                     bonus[i].nome = "Destrezza";
                 }
-                case 2 -> {
+                case Caratteristica.costituzione -> {
                     punteggi[i].nome = "Costituzione\t";
                     bonus[i].nome = "Costituzione";
                 }
-                case 3 -> {
+                case Caratteristica.intelligenza -> {
                     punteggi[i].nome = "Intelligenza\t";
                     bonus[i].nome = "Intelligenza";
                 }
-                case 4 -> {
+                case Caratteristica.saggezza -> {
                     punteggi[i].nome = "Saggezza\t\t";
                     bonus[i].nome = "Saggezza";
                 }
-                case 5 -> {
+                case Caratteristica.carisma -> {
                     punteggi[i].nome = "Carisma\t\t";
                     bonus[i].nome = "Carisma";
                 }
