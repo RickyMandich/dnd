@@ -82,8 +82,7 @@ public class Personaggio{
             case 13, 14, 15, 16 -> comp = 5;
             case 17, 18, 19, 20 -> comp = 6;
         }
-        xp=puntiEsperienza[lvl - 1];
-        iniziativa = bonus[Caratteristica.destrezza].valore;
+        xp = puntiEsperienza[lvl - 1];
         this.nome = nome;
         ordine = 0;
         tiro = 0;
@@ -246,18 +245,38 @@ public class Personaggio{
         return true;
     }
 
+    public void scambia(Personaggio pg1, Personaggio pg2){
+        Personaggio pgTemp = pg1;
+        pg1 = pg2;
+        pg2 = pgTemp;
+    }
+
     public void preparazioneOrdine(Personaggio[] pg){
         Random ran = new Random();
         for(int i = 0; i < pg.length; i++){
-            pg[i].iniziativa = ran.nextInt(1, 20) + pg[i].iniziativa;
+            pg[i].iniziativa = ran.nextInt(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
         }
-        bubbleSort(pg);
+        boolean uguale = true;
+        do {
+            uguale = false;
+            bubbleSort(pg);
+            if (pg[0].iniziativa == pg[1].iniziativa) {
+                int max = 1;
+                uguale = true;
+                while(pg[max].iniziativa == pg[max-1].iniziativa){
+                    max++;
+                }
+                for(int i = 0; i < max; i++){
+                    pg[i].iniziativa = ran.nextInt(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
+                }
+            }
+        }while(uguale);
     }
 
     public void bubbleSort(Personaggio[] pg){
         for(int i=1;i<pg.length;i++){
             if(pg[i].iniziativa>pg[i-1].iniziativa){
-
+                scambia(pg[i-1], pg[i]);
             }
         }
     }
