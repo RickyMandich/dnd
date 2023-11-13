@@ -17,6 +17,7 @@ public class Personaggio{
     //inserire come parametro la stringa "valori" nel caso si vogliano assegnare dei valori di default mentre
     //inserire la stringa "input" nel caso si vogliano inserire da tastiera tutti i dati non ricavabili
     public Personaggio(String nome) {
+        int[] puntiEsperienza = {0, 300, 900, 2700, 6500, 14000, 23000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 195000, 225000, 265000, 305000, 355000};
         String metodoValori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"valori\") o tramite input (inserisci \"input\")");
         for (int i = 0; i < 6; i++) {
             punteggi[i] = new Caratteristica();
@@ -50,16 +51,13 @@ public class Personaggio{
         }
         switch (metodoValori) {
             case "valori" -> {
-                iniziativa = 0;
                 hp = 10;
                 ca = 14;
                 for(int i=0;i<6;i++){
                     punteggi[i].valore = 10;
                     bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
                 }
-                comp = 2;
-                xp = 200;
-                lvl = 4;
+                lvl = 1;
                 dannoIniziale = 0;
             }
             case "input" -> {
@@ -69,21 +67,21 @@ public class Personaggio{
                     punteggi[i].valore = Interazione.input("qual'è il punteggio di " + bonus[i].nome + " di " + nome);
                     bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
                 }
-                iniziativa = bonus[Caratteristica.destrezza].valore;
-                xp = Interazione.input("quali sono i punti esperienza di " + nome + "?");
                 lvl = Interazione.input("di che livello è " + nome + "?");
-                switch (lvl) {
-                    case 1, 2, 3, 4 -> comp = 2;
-                    case 5, 6, 7, 8 -> comp = 3;
-                    case 9, 10, 11, 12 -> comp = 4;
-                    case 13, 14, 15, 16 -> comp = 5;
-                    case 17, 18, 19, 20 -> comp = 6;
-                }
                 dannoIniziale = Interazione.input("qual'è il danno iniziale di " + nome);
             }
             default -> {
             }
         }
+        switch (lvl) {
+            case 1, 2, 3, 4 -> comp = 2;
+            case 5, 6, 7, 8 -> comp = 3;
+            case 9, 10, 11, 12 -> comp = 4;
+            case 13, 14, 15, 16 -> comp = 5;
+            case 17, 18, 19, 20 -> comp = 6;
+        }
+        xp=puntiEsperienza[lvl - 1];
+        iniziativa = bonus[Caratteristica.destrezza].valore;
         this.nome = nome;
         ordine = 0;
         tiro = 0;
@@ -244,5 +242,12 @@ public class Personaggio{
             return false;
         }
         return true;
+    }
+
+    public String preparazioneOrdine(Personaggio[] pg){
+        for(int i = 0; i < pg.length; i++){
+            Math.random().
+        }
+        return "";
     }
 }
