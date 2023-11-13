@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Personaggio{
     private String nome;
     private int iniziativa;
@@ -244,10 +246,19 @@ public class Personaggio{
         return true;
     }
 
-    public String preparazioneOrdine(Personaggio[] pg){
+    public void preparazioneOrdine(Personaggio[] pg){
+        Random ran = new Random();
         for(int i = 0; i < pg.length; i++){
-            Math.random().
+            pg[i].iniziativa = ran.nextInt(1, 20) + pg[i].iniziativa;
         }
-        return "";
+        bubbleSort(pg);
+    }
+
+    public void bubbleSort(Personaggio[] pg){
+        for(int i=1;i<pg.length;i++){
+            if(pg[i].iniziativa>pg[i-1].iniziativa){
+
+            }
+        }
     }
 }
