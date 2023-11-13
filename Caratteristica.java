@@ -10,8 +10,15 @@ public class Caratteristica {
     public static final int saggezza = 4;
     public static final int carisma = 5;
 
-    public Caratteristica(){
-        nome = "";
+    public Caratteristica(int i){
+        switch (i) {
+            case Caratteristica.forza -> nome = "Forza";
+            case Caratteristica.destrezza -> nome = "Destrezza";
+            case Caratteristica.costituzione -> nome = "Costituzione";
+            case Caratteristica.intelligenza -> nome = "Intelligenza";
+            case Caratteristica.saggezza -> nome = "Saggezza";
+            case Caratteristica.carisma -> nome = "Carisma";
+        }
         valore = 0;
     }
 
