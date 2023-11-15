@@ -261,12 +261,12 @@ public class Personaggio{
             uguale = false;
             bubbleSort(pg);
             if (pg[0].iniziativa == pg[1].iniziativa) {
-                int max = 1;
+                int pareggi = 1;
                 uguale = true;
-                while(pg[max].iniziativa == pg[max-1].iniziativa){
-                    max++;
+                while(pg[pareggi].iniziativa == pg[pareggi-1].iniziativa){
+                    pareggi++;
                 }
-                for(int i = 0; i < max; i++){
+                for(int i = 0; i < pareggi; i++){
                     pg[i].iniziativa = ran.nextInt(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
                 }
             }
