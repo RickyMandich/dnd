@@ -22,34 +22,9 @@ public class Personaggio{
         int[] puntiEsperienza = {0, 300, 900, 2700, 6500, 14000, 23000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 195000, 225000, 265000, 305000, 355000};
         String metodoValori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"valori\") o tramite input (inserisci \"input\")");
         for (int i = 0; i < 6; i++) {
-            punteggi[i] = new Caratteristica();
-            bonus[i] = new Caratteristica();
-            switch (i) {
-                case Caratteristica.forza -> {
-                    punteggi[i].nome = "Forza\t\t\t";
-                    bonus[i].nome = "Forza";
-                }
-                case Caratteristica.destrezza -> {
-                    punteggi[i].nome = "Destrezza\t\t";
-                    bonus[i].nome = "Destrezza";
-                }
-                case Caratteristica.costituzione -> {
-                    punteggi[i].nome = "Costituzione\t";
-                    bonus[i].nome = "Costituzione";
-                }
-                case Caratteristica.intelligenza -> {
-                    punteggi[i].nome = "Intelligenza\t";
-                    bonus[i].nome = "Intelligenza";
-                }
-                case Caratteristica.saggezza -> {
-                    punteggi[i].nome = "Saggezza\t\t";
-                    bonus[i].nome = "Saggezza";
-                }
-                case Caratteristica.carisma -> {
-                    punteggi[i].nome = "Carisma\t\t";
-                    bonus[i].nome = "Carisma";
-                }
-            }
+            punteggi[i] = new Caratteristica(i);
+            punteggi[i].nome += "\t\t\t";
+            bonus[i] = new Caratteristica(i);
         }
         switch (metodoValori) {
             case "valori" -> {
@@ -249,6 +224,12 @@ public class Personaggio{
         Personaggio pgTemp = pg1;
         pg1 = pg2;
         pg2 = pgTemp;
+    }
+
+    public void scambia(Personaggio pg1){
+        Personaggio pgTemp = pg1;
+        pg1 = this;
+        this = pgTemp;
     }
 
     public void preparazioneOrdine(Personaggio[] pg){
