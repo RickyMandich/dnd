@@ -130,6 +130,30 @@ public class Personaggio{
         return amico;
     }
 
+    //funzione che prende come parametro il tiro contro morte, segna il successo o il fallimento e riterno un booleano corrispondente allo stato del personaggio (0 = morto, 1 = svenuto, 2 = ripreso)
+    public int setMorte(int risultato){
+        int i = 0;
+        int j;
+        if(risultato>10){
+            j = 0;
+        }else {
+            j = 1;
+        }
+        while(morte[j][i]){
+            i++;
+        }
+        morte[j][i] = true;
+        if(morte[0][2]){
+            for(i=0;i<3;i++){
+                morte[0][i] = false;
+            }
+            return 2;
+        }else if(morte[1][2]){
+            return 0;
+        }else {
+            return 1;
+        }
+    }
     public boolean getMorte(int riga, int colonna) {
         return morte[riga][colonna];
     }
@@ -167,20 +191,21 @@ public class Personaggio{
     }
 
     public String toString(){
-        String info = "nome:\t\t\t\t\t\t\t"+getNome()+"\n";
-        info+="iniziativa:\t\t\t\t\t\t"+getIniziativa()+"\n";
-        info+="punti ferita:\t\t\t\t\t"+getHp()+"\n";
-        info+="classe armatura:\t\t\t\t"+getCa()+"\n";
-        info+="bonus competenza:\t\t\t\t"+getComp()+"\n";
-        info+="punteggi statistiche:\n"+getPunteggi()+"\n";
-        info+="bonus statistiche:\n"+getBonus()+"\n";
-        info+="punti esperienza:\t\t\t\t"+getXp()+"\n";
-        info+="livello:\t\t\t\t\t\t"+getLvl()+"\n";
-        info+="ordine:\t\t\t\t\t\t\t"+getOrdine()+"\n";
-        info+="tiro:\t\t\t\t\t\t\t"+getTiro()+"\n";
-        info+="danno iniziale:\t\t\t\t\t"+getDannoIniziale()+"\n";
-        info+="amico:\t\t\t\t\t\t\t"+getAmico()+"\n";
-        info+="tiri salvezza contro morte:\n"+getMorte()+"\n";
+        String info = "";
+        info += "nome:\t\t\t\t\t\t\t"+getNome()+"\n";
+        info +="iniziativa:\t\t\t\t\t\t"+getIniziativa()+"\n";
+        info +="punti ferita:\t\t\t\t\t"+getHp()+"\n";
+        info +="classe armatura:\t\t\t\t"+getCa()+"\n";
+        info +="bonus competenza:\t\t\t\t"+getComp()+"\n";
+        info +="punteggi statistiche:\n"+getPunteggi()+"\n";
+        info +="bonus statistiche:\n"+getBonus()+"\n";
+        info +="punti esperienza:\t\t\t\t"+getXp()+"\n";
+        info +="livello:\t\t\t\t\t\t"+getLvl()+"\n";
+        info +="ordine:\t\t\t\t\t\t\t"+getOrdine()+"\n";
+        info +="tiro:\t\t\t\t\t\t\t"+getTiro()+"\n";
+        info +="danno iniziale:\t\t\t\t\t"+getDannoIniziale()+"\n";
+        info +="amico:\t\t\t\t\t\t\t"+getAmico()+"\n";
+        info +="tiri salvezza contro morte:\n"+getMorte()+"\n";
         return info;
     }
 
@@ -226,12 +251,6 @@ public class Personaggio{
         pg2 = pgTemp;
     }
 
-    public void scambia(Personaggio pg1){
-        Personaggio pgTemp = pg1;
-        pg1 = this;
-        this = pgTemp;
-    }
-
     public void preparazioneOrdine(Personaggio[] pg){
         Random ran = new Random();
         for(int i = 0; i < pg.length; i++){
@@ -260,5 +279,32 @@ public class Personaggio{
                 scambia(pg[i-1], pg[i]);
             }
         }
+    }
+
+    public void combattimento(Personaggio[] pg){
+        boolean scontro = controlloScontro(pg);
+        while(scontro) {
+            scontro = controlloScontro(pg);
+
+        }
+    }
+
+    public boolean controlloScontro(Personaggio[] pg){
+        boolean scontro = true;
+        int j = 0;
+        while(pg[j].morte[1][2] && scontro){
+            j++;
+            if(j==pg.length){
+                scontro = false;
+            }
+        }
+        int i = j+1;
+        while((pg[i].morte[1][2] || pg[i].amico==pg[j].amico) && scontro){
+            i++;
+            if(i==pg.length){
+                scontro = false;
+            }
+        }
+        return scontro;
     }
 }

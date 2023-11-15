@@ -6,6 +6,7 @@ public class programma_dnd_java {
         for(int i=0;i<tot;i++) {
             Interazione.output(pg[i].toString());
         }
+        pg[0].preparazioneOrdine(pg);
 
         Interazione.close();
     }
