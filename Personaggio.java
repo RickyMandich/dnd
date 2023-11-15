@@ -285,7 +285,7 @@ public class Personaggio{
         boolean scontro = controlloScontro(pg);
         while(scontro) {
             scontro = controlloScontro(pg);
-
+            
         }
     }
 
