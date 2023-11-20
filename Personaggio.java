@@ -1,20 +1,20 @@
 import java.util.Random;
 
 public class Personaggio{
-    private String nome;
-    private int iniziativa;
-    private int hp;
-    private int ca;
-    private int comp;
-    private Caratteristica[] punteggi = new Caratteristica[6];
-    private Caratteristica[] bonus = new Caratteristica[6];
-    private int xp;
-    private int lvl;
-    private int ordine;
-    private int tiro;
-    private int dannoIniziale;
-    private boolean amico;
-    private boolean[][] morte;
+    protected String nome;
+    protected int iniziativa;
+    protected int hp;
+    protected int ca;
+    protected int comp;
+    protected Caratteristica[] punteggi = new Caratteristica[6];
+    protected Caratteristica[] bonus = new Caratteristica[6];
+    protected int xp;
+    protected int lvl;
+    protected int ordine;
+    protected int tiro;
+    protected int dannoIniziale;
+    protected boolean amico;
+    protected boolean[][] morte;
 
     //inserire come parametro la stringa "valori" nel caso si vogliano assegnare dei valori di default mentre
     //inserire la stringa "input" nel caso si vogliano inserire da tastiera tutti i dati non ricavabili
@@ -251,7 +251,7 @@ public class Personaggio{
         pg2 = pgTemp;
     }
 
-    public void preparazioneOrdine(Personaggio[] pg){
+    protected void preparazioneOrdine(Personaggio[] pg){
         Random ran = new Random();
         for(int i = 0; i < pg.length; i++){
             pg[i].iniziativa = ran.nextInt(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
@@ -273,7 +273,7 @@ public class Personaggio{
         }while(uguale);
     }
 
-    public void bubbleSort(Personaggio[] pg){
+    protected void bubbleSort(Personaggio[] pg){
         for(int i=1;i<pg.length;i++){
             if(pg[i].iniziativa>pg[i-1].iniziativa){
                 scambia(pg[i-1], pg[i]);
@@ -281,15 +281,7 @@ public class Personaggio{
         }
     }
 
-    public void combattimento(Personaggio[] pg){
-        boolean scontro = controlloScontro(pg);
-        while(scontro) {
-            scontro = controlloScontro(pg);
-            
-        }
-    }
-
-    public boolean controlloScontro(Personaggio[] pg){
+    protected boolean controlloScontro(Personaggio[] pg){
         boolean scontro = true;
         int j = 0;
         while(pg[j].morte[1][2] && scontro){
@@ -306,5 +298,52 @@ public class Personaggio{
             }
         }
         return scontro;
+    }
+    protected String elencoNemici(Personaggio[] pg){
+        String elenco = "";
+        for(int i=0;i<pg.length;i++){
+            if(this.amico!=pg[i].amico) {
+                elenco = elenco.concat((i + 1) + "\t" + pg[i].nome + "\n");
+            }
+        }
+        return elenco;
+    }
+    protected void attacco(Personaggio pg2){
+        this.hp -= dannoIniziale;
+        int caratteristicaUsata;
+        if(Interazione.boolput("uso forza per attaccare?\t(altrimenti considero destrezza)")){
+            caratteristicaUsata = Caratteristica.forza;
+        }else{
+            caratteristicaUsata = Caratteristica.destrezza;
+        }
+        Random ran = new Random();
+        int competenza = 0;
+        if(Interazione.boolput(this.nome + " ha competenza in questo attacco?")){
+            competenza = 1;
+        }
+        int dado = Interazione.input("che dado tiro per i danni?");
+        this.tiro = ran.nextInt()%20+1+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
+        if(this.tiro > pg2.ca){
+            pg2.hp -= ran.nextInt()%dado+1+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+            if(this.tiro-(this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) == 20){
+                pg2.hp -= ran.nextInt()%dado+1+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+            }
+        }
+    }
+
+    public void combattimento(Personaggio[] pg){
+        boolean scontro = controlloScontro(pg);
+        while(scontro) {
+            scontro = controlloScontro(pg);
+            for(int i=0;i<pg.length;i++){
+                Interazione.output("ora tocca a " + pg[i].nome + "\n");
+                if(!pg[i].morte[1][2]){
+                    Interazione.output(elencoNemici(pg));
+                    pg[i].attacco(pg[Interazione.input("inserisci il numero relativo al personaggio, tra quelli di questo elenco, che vuoi attaccare")-1]);
+                }else{
+                    Interazione.output(pg[i].nome + " è morto, per cui passo al personaggio successivo\n");
+                }
+            }
+        }
     }
 }

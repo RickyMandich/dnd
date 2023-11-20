@@ -7,7 +7,7 @@ public class programma_dnd_java {
             Interazione.output(pg[i].toString());
         }
         pg[0].preparazioneOrdine(pg);
-
+        pg[0].combattimento(pg);
         Interazione.close();
     }
 
