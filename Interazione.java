@@ -9,7 +9,9 @@ public class Interazione {
     //funzione che prende in input un intero
     public static int input(String a){
         output(a);
-        return scan.nextInt();
+        int b = scan.nextInt();
+        scan.nextLine();
+        return b;
     }
     //funzione che prende in input un double
     public static double doubput(String a){

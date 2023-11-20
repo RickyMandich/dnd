@@ -303,7 +303,7 @@ public class Personaggio{
         String elenco = "";
         for(int i=0;i<pg.length;i++){
             if(this.amico!=pg[i].amico) {
-                elenco = elenco.concat((i + 1) + "\t" + pg[i].nome + "\n");
+                elenco = elenco.concat((i + 1) + "\t" + pg[i].nome + "(" + pg[i].hp + ")" + "\n");
             }
         }
         return elenco;
@@ -338,7 +338,7 @@ public class Personaggio{
             for(int i=0;i<pg.length;i++){
                 Interazione.output("ora tocca a " + pg[i].nome + "\n");
                 if(!pg[i].morte[1][2]){
-                    Interazione.output(elencoNemici(pg));
+                    Interazione.output(pg[i].elencoNemici(pg));
                     pg[i].attacco(pg[Interazione.input("inserisci il numero relativo al personaggio, tra quelli di questo elenco, che vuoi attaccare")-1]);
                 }else{
                     Interazione.output(pg[i].nome + " è morto, per cui passo al personaggio successivo\n");
