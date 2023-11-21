@@ -280,8 +280,7 @@ public class Personaggio{
             }
         }
     }
-
-    protected boolean controlloScontro(Personaggio[] pg){
+    protected boolean controlloScontroTiri(Personaggio[] pg){
         boolean scontro = true;
         int j = 0;
         while(pg[j].morte[1][2] && scontro){
@@ -292,6 +291,24 @@ public class Personaggio{
         }
         int i = j+1;
         while((pg[i].morte[1][2] || pg[i].amico==pg[j].amico) && scontro){
+            i++;
+            if(i==pg.length){
+                scontro = false;
+            }
+        }
+        return scontro;
+    }
+    protected boolean controlloScontroVita(Personaggio[] pg){
+        boolean scontro = true;
+        int j = 0;
+        while(pg[j].hp<1 && scontro){
+            j++;
+            if(j==pg.length){
+                scontro = false;
+            }
+        }
+        int i = j+1;
+        while((pg[i].hp<1 || pg[i].amico==pg[j].amico) && scontro){
             i++;
             if(i==pg.length){
                 scontro = false;
@@ -321,29 +338,22 @@ public class Personaggio{
         if(Interazione.boolput(this.nome + " ha competenza in questo attacco?")){
             competenza = 1;
         }
-
         int dado = Interazione.input("che dado tiro per i danni?");
-        int numCasuale = ran.nextInt();
-        if(numCasuale<0) numCasuale *= -1;
-        int tiroNat = (numCasuale%20)+1;
-        this.tiro = tiroNat+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
+        this.tiro = ran.nextInt(1, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
         if(this.tiro > pg2.ca){
-            pg2.hp -= ran.nextInt()%dado+1+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+            pg2.hp -= ran.nextInt(1, dado)+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
             if(this.tiro-(this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) == 20){
-                pg2.hp -= ran.nextInt()%dado+1+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+                pg2.hp -= ran.nextInt(1, dado)+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
             }
         }
-        Interazione.output(numCasuale + " %20+1 + " + this.bonus[caratteristicaUsata].valore + " + " + (competenza * this.comp) + "\n");
-        Interazione.output(tiroNat + " + " + (this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) + "\n");
-        Interazione.output(this.tiro + "\n");
     }
     protected String info(){
         return nome + "\thp:  " + hp + "\n";
     }
     public void combattimento(Personaggio[] pg){
-        boolean scontro = controlloScontro(pg);
+        boolean scontro = true;
         while(scontro) {
-            scontro = controlloScontro(pg);
+            scontro = controlloScontroVita(pg);
             for(int i=0;i<pg.length;i++){
                 Interazione.output("ora tocca a " + pg[i].info() + "\n");
                 if(pg[i].hp>1){
