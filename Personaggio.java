@@ -321,25 +321,35 @@ public class Personaggio{
         if(Interazione.boolput(this.nome + " ha competenza in questo attacco?")){
             competenza = 1;
         }
+
         int dado = Interazione.input("che dado tiro per i danni?");
-        this.tiro = ran.nextInt()%20+1+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
+        int numCasuale = ran.nextInt();
+        if(numCasuale<0) numCasuale *= -1;
+        int tiroNat = (numCasuale%20)+1;
+        this.tiro = tiroNat+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
         if(this.tiro > pg2.ca){
             pg2.hp -= ran.nextInt()%dado+1+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
             if(this.tiro-(this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) == 20){
                 pg2.hp -= ran.nextInt()%dado+1+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
             }
         }
+        Interazione.output(numCasuale + " %20+1 + " + this.bonus[caratteristicaUsata].valore + " + " + (competenza * this.comp) + "\n");
+        Interazione.output(tiroNat + " + " + (this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) + "\n");
+        Interazione.output(this.tiro + "\n");
     }
-
+    protected String info(){
+        return nome + "\thp:  " + hp + "\n";
+    }
     public void combattimento(Personaggio[] pg){
         boolean scontro = controlloScontro(pg);
         while(scontro) {
             scontro = controlloScontro(pg);
             for(int i=0;i<pg.length;i++){
-                Interazione.output("ora tocca a " + pg[i].nome + "\n");
-                if(!pg[i].morte[1][2]){
+                Interazione.output("ora tocca a " + pg[i].info() + "\n");
+                if(pg[i].hp>1){
                     Interazione.output(pg[i].elencoNemici(pg));
                     pg[i].attacco(pg[Interazione.input("inserisci il numero relativo al personaggio, tra quelli di questo elenco, che vuoi attaccare")-1]);
+                    Interazione.output("tiro per colpire:\t" + pg[i].tiro + "\n");
                 }else{
                     Interazione.output(pg[i].nome + " è morto, per cui passo al personaggio successivo\n");
                 }
