@@ -301,14 +301,14 @@ public class Personaggio{
     protected boolean controlloScontroVita(Personaggio[] pg){
         boolean scontro = true;
         int j = 0;
-        while(pg[j].hp<1 && scontro){
+        while(scontro && pg[j].hp<1){
             j++;
             if(j==pg.length){
                 scontro = false;
             }
         }
-        int i = j+1;
-        while((pg[i].hp<1 || pg[i].amico==pg[j].amico) && scontro){
+        int i = j;
+        while(scontro && (pg[i].hp<1 || pg[i].amico==pg[j].amico)){
             i++;
             if(i==pg.length){
                 scontro = false;
@@ -339,7 +339,7 @@ public class Personaggio{
             competenza = 1;
         }
         int dado = Interazione.input("che dado tiro per i danni?");
-        this.tiro = ran.nextInt(1, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
+        this.tiro = ran.nextInt(15, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
         if(this.tiro > pg2.ca){
             pg2.hp -= ran.nextInt(1, dado)+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
             if(this.tiro-(this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) == 20){
@@ -351,12 +351,10 @@ public class Personaggio{
         return nome + "\thp:  " + hp + "\n";
     }
     public void combattimento(Personaggio[] pg){
-        boolean scontro = true;
-        while(scontro) {
-            scontro = controlloScontroVita(pg);
+        while(controlloScontroVita(pg)) {
             for(int i=0;i<pg.length;i++){
-                Interazione.output("ora tocca a " + pg[i].info() + "\n");
-                if(pg[i].hp>1){
+                Interazione.output("ora tocca a " + pg[i].info());
+                if(pg[i].hp>0){
                     Interazione.output(pg[i].elencoNemici(pg));
                     pg[i].attacco(pg[Interazione.input("inserisci il numero relativo al personaggio, tra quelli di questo elenco, che vuoi attaccare")-1]);
                     Interazione.output("tiro per colpire:\t" + pg[i].tiro + "\n");
@@ -365,5 +363,6 @@ public class Personaggio{
                 }
             }
         }
+        Interazione.output("lo scontro è finito");
     }
 }
