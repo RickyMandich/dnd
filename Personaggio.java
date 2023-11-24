@@ -4,6 +4,7 @@ public class Personaggio{
     protected String nome;
     protected int iniziativa;
     protected int hp;
+    protected int hpTot;
     protected int ca;
     protected int comp;
     protected Caratteristica[] punteggi = new Caratteristica[6];
@@ -14,7 +15,8 @@ public class Personaggio{
     protected int tiro;
     protected int dannoIniziale;
     protected boolean amico;
-    protected boolean[][] morte;
+    protected boolean[][] tiriControMorte;
+    protected boolean morto;
 
     //inserire come parametro la stringa "valori" nel caso si vogliano assegnare dei valori di default mentre
     //inserire la stringa "input" nel caso si vogliano inserire da tastiera tutti i dati non ricavabili
@@ -26,9 +28,11 @@ public class Personaggio{
             punteggi[i].nome += "\t\t\t";
             bonus[i] = new Caratteristica(i);
         }
+        morto = false;
         switch (metodoValori) {
             case "valori" -> {
                 hp = 10;
+                hpTot = hp;
                 ca = 14;
                 for(int i=0;i<6;i++){
                     punteggi[i].valore = 10;
@@ -39,6 +43,7 @@ public class Personaggio{
             }
             case "input" -> {
                 hp = Interazione.input("quanti punti ferita ha " + nome + "?");
+                hpTot = hp;
                 ca = Interazione.input("qual'è la classe armatura di " + nome + "?");
                 for (int i = 0; i < 6; i++) {
                     punteggi[i].valore = Interazione.input("qual'è il punteggio di " + bonus[i].nome + " di " + nome);
@@ -61,10 +66,10 @@ public class Personaggio{
         this.nome = nome;
         ordine = 0;
         tiro = 0;
-        morte = new boolean[2][3];
+        tiriControMorte = new boolean[2][3];
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 3; j++) {
-                morte[i][j] = false;
+                tiriControMorte[i][j] = false;
             }
         }
         amico = Interazione.boolput(nome+" è un amico?");
@@ -139,26 +144,26 @@ public class Personaggio{
         }else {
             j = 1;
         }
-        while(morte[j][i]){
+        while(tiriControMorte[j][i]){
             i++;
         }
-        morte[j][i] = true;
-        if(morte[0][2]){
+        tiriControMorte[j][i] = true;
+        if(tiriControMorte[0][2]){
             for(i=0;i<3;i++){
-                morte[0][i] = false;
+                tiriControMorte[0][i] = false;
             }
             return 2;
-        }else if(morte[1][2]){
+        }else if(tiriControMorte[1][2]){
             return 0;
         }else {
             return 1;
         }
     }
     public boolean getMorte(int riga, int colonna) {
-        return morte[riga][colonna];
+        return tiriControMorte[riga][colonna];
     }
 
-    public String getMorte() {
+    public String getTiriControMorte() {
         String info = "";
         for(int i=0;i<2;i++){
             info = info.concat("\t");
@@ -205,7 +210,7 @@ public class Personaggio{
         info +="tiro:\t\t\t\t\t\t\t"+getTiro()+"\n";
         info +="danno iniziale:\t\t\t\t\t"+getDannoIniziale()+"\n";
         info +="amico:\t\t\t\t\t\t\t"+getAmico()+"\n";
-        info +="tiri salvezza contro morte:\n"+getMorte()+"\n";
+        info +="tiri salvezza contro morte:\n"+ getTiriControMorte()+"\n";
         return info;
     }
 
@@ -280,35 +285,17 @@ public class Personaggio{
             }
         }
     }
-    protected boolean controlloScontroTiri(Personaggio[] pg){
+    protected boolean controlloScontro(Personaggio[] pg){
         boolean scontro = true;
         int j = 0;
-        while(pg[j].morte[1][2] && scontro){
+        while(pg[j].morto && scontro){
             j++;
             if(j==pg.length){
                 scontro = false;
             }
         }
         int i = j+1;
-        while((pg[i].morte[1][2] || pg[i].amico==pg[j].amico) && scontro){
-            i++;
-            if(i==pg.length){
-                scontro = false;
-            }
-        }
-        return scontro;
-    }
-    protected boolean controlloScontroVita(Personaggio[] pg){
-        boolean scontro = true;
-        int j = 0;
-        while(scontro && pg[j].hp<1){
-            j++;
-            if(j==pg.length){
-                scontro = false;
-            }
-        }
-        int i = j;
-        while(scontro && (pg[i].hp<1 || pg[i].amico==pg[j].amico)){
+        while((pg[i].morto || pg[i].amico==pg[j].amico) && scontro){
             i++;
             if(i==pg.length){
                 scontro = false;
@@ -351,18 +338,43 @@ public class Personaggio{
         return nome + "\thp:  " + hp + "\n";
     }
     public void combattimento(Personaggio[] pg){
-        while(controlloScontroVita(pg)) {
+        while(controlloScontro(pg)) {
             for(int i=0;i<pg.length;i++){
                 Interazione.output("ora tocca a " + pg[i].info());
                 if(pg[i].hp>0){
                     Interazione.output(pg[i].elencoNemici(pg));
                     pg[i].attacco(pg[Interazione.input("inserisci il numero relativo al personaggio, tra quelli di questo elenco, che vuoi attaccare")-1]);
                     Interazione.output("tiro per colpire:\t" + pg[i].tiro + "\n");
+                }else if(pg[i].hp> -(pg[i].hpTot/2)){
+                    controMorte();
                 }else{
                     Interazione.output(pg[i].nome + " è morto, per cui passo al personaggio successivo\n");
+                    morto = true;
                 }
             }
         }
         Interazione.output("lo scontro è finito");
+    }
+    protected void incMorte(int tiro){
+        int j;
+        if(tiro>10) j=0;
+        else j=1;
+        int i=0;
+        while(tiriControMorte[j][i]) i++;
+        tiriControMorte[j][i] = true;
+    }
+    protected void controMorte(){
+        Random ran = new Random();
+        incMorte(ran.nextInt(1, 20));
+        if(tiriControMorte[0][2]) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 2; j++) {
+                    tiriControMorte[j][i] = false;
+                }
+            }
+            hp = 1;
+        }else if(tiriControMorte[1][2]){
+            morto = true;
+        }
     }
 }
