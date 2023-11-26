@@ -279,11 +279,16 @@ public class Personaggio{
     }
 
     protected void bubbleSort(Personaggio[] pg){
-        for(int i=1;i<pg.length;i++){
-            if(pg[i].iniziativa>pg[i-1].iniziativa){
-                scambia(pg[i-1], pg[i]);
+        boolean scambio;
+        do{
+            scambio = false;
+            for (int i = 1; i < pg.length; i++) {
+                if (pg[i].iniziativa > pg[i - 1].iniziativa) {
+                    scambia(pg[i - 1], pg[i]);
+                    scambio = true;
+                }
             }
-        }
+        }while(scambio);
     }
     protected boolean controlloScontro(Personaggio[] pg){
         boolean scontro = true;
@@ -294,7 +299,7 @@ public class Personaggio{
                 scontro = false;
             }
         }
-        int i = j+1;
+        int i = j;
         while((pg[i].morto || pg[i].amico==pg[j].amico) && scontro){
             i++;
             if(i==pg.length){
@@ -345,7 +350,7 @@ public class Personaggio{
                     Interazione.output(pg[i].elencoNemici(pg));
                     pg[i].attacco(pg[Interazione.input("inserisci il numero relativo al personaggio, tra quelli di questo elenco, che vuoi attaccare")-1]);
                     Interazione.output("tiro per colpire:\t" + pg[i].tiro + "\n");
-                }else if(pg[i].hp> -(pg[i].hpTot/2)){
+                }else if(pg[i].hp> -(pg[i].hpTot/2) && !pg[i].morto){
                     controMorte();
                 }else{
                     Interazione.output(pg[i].nome + " è morto, per cui passo al personaggio successivo\n");
