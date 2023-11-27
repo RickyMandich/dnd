@@ -11,6 +11,12 @@ public class programma_dnd_java {
         Interazione.close();
     }
 
+    public static void scambia(Personaggio pg1, Personaggio pg2){
+        Personaggio pgTemp = pg1;
+        pg1 = pg2;
+        pg2 = pgTemp;
+    }
+
     public static void creaPg(Personaggio[] pg, int tot){
         for(int i=0;i<tot;i++) {
             pg[i] = new Personaggio(Interazione.strput("qual'è il nome di questo personaggio?"));
