@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Personaggio{
     protected String nome;
     protected int iniziativa;
@@ -257,9 +255,8 @@ public class Personaggio{
     }
 
     protected void preparazioneOrdine(Personaggio[] pg){
-        Random ran = new Random();
         for(int i = 0; i < pg.length; i++){
-            pg[i].iniziativa = ran.nextInt(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
+            pg[i].iniziativa = Dadi.tiro(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
         }
         boolean uguale = true;
         do {
@@ -272,7 +269,7 @@ public class Personaggio{
                     pareggi++;
                 }
                 for(int i = 0; i < pareggi; i++){
-                    pg[i].iniziativa = ran.nextInt(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
+                    pg[i].iniziativa = Dadi.tiro(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
                 }
             }
         }while(uguale);
@@ -325,17 +322,16 @@ public class Personaggio{
         }else{
             caratteristicaUsata = Caratteristica.destrezza;
         }
-        Random ran = new Random();
         int competenza = 0;
         if(Interazione.boolput(this.nome + " ha competenza in questo attacco?")){
             competenza = 1;
         }
         int dado = Interazione.input("che dado tiro per i danni?");
-        this.tiro = ran.nextInt(15, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
+        this.tiro = Dadi.tiro(15, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
         if(this.tiro > pg2.ca){
-            pg2.hp -= ran.nextInt(1, dado)+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+            pg2.hp -= Dadi.tiro(1, dado)+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
             if(this.tiro-(this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) == 20){
-                pg2.hp -= ran.nextInt(1, dado)+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+                pg2.hp -= Dadi.tiro(1, dado)+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
             }
         }
     }
@@ -369,8 +365,7 @@ public class Personaggio{
         tiriControMorte[j][i] = true;
     }
     protected void controMorte(){
-        Random ran = new Random();
-        incMorte(ran.nextInt(1, 20));
+        incMorte(Dadi.tiro(1, 20));
         if(tiriControMorte[0][2]) {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 2; j++) {
