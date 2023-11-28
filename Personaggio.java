@@ -9,7 +9,7 @@ public class Personaggio{
     protected Caratteristica[] bonus = new Caratteristica[6];
     protected int xp;
     protected int lvl;
-    protected int ordine;
+    protected boolean ispirazione;
     protected int tiro;
     protected int dannoIniziale;
     protected boolean amico;
@@ -62,7 +62,7 @@ public class Personaggio{
         }
         xp = puntiEsperienza[lvl - 1];
         this.nome = nome;
-        ordine = 0;
+        ispirazione = false;
         tiro = 0;
         tiriControMorte = new boolean[2][3];
         for (int i = 0; i < 2; i++) {
@@ -117,8 +117,8 @@ public class Personaggio{
         return lvl;
     }
 
-    public int getOrdine() {
-        return ordine;
+    public boolean getOrdine() {
+        return ispirazione;
     }
 
     public int getTiro() {
