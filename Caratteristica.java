@@ -21,6 +21,10 @@ public class Caratteristica {
         }
         valore = 0;
     }
+    public void scambiaCaratteristica(Caratteristica c){
+        Interazione.scambiaString(this.nome, c.nome);
+        Interazione.scambiaInt(this.valore, c.valore);
+    }
 
     public static int getBonus(int punteggio){
         int bonus = punteggio-10;

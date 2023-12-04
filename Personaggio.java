@@ -247,6 +247,31 @@ public class Personaggio{
         }
         return true;
     }
+
+    public void scambiaPersonaggio(Personaggio pg){
+        Interazione.scambiaString(this.nome, pg.nome);
+        Interazione.scambiaInt(this.iniziativa, pg.iniziativa);
+        Interazione.scambiaInt(this.hp, pg.hp);
+        Interazione.scambiaInt(this.hpTot, pg.hpTot);
+        Interazione.scambiaInt(this.ca, pg.ca);
+        Interazione.scambiaInt(this.comp, pg.comp);
+        for(int i=0;i<this.punteggi.length;i++) {
+            this.punteggi[i].scambiaCaratteristica(pg.punteggi[i]);
+            this.bonus[i].scambiaCaratteristica(pg.bonus[i]);
+        }
+        Interazione.scambiaInt(this.xp, pg.xp);
+        Interazione.scambiaInt(this.lvl, pg.lvl);
+        Interazione.scambiaBool(this.ispirazione, pg.ispirazione);
+        Interazione.scambiaInt(this.tiro, pg.tiro);
+        Interazione.scambiaInt(this.dannoIniziale, pg.dannoIniziale);
+        Interazione.scambiaBool(this.amico, pg.amico);
+        for(int i=0;i<2;i++){
+            for(int j=0;j<3;j++){
+                Interazione.scambiaBool(this.tiriControMorte[i][j], pg.tiriControMorte[i][j]);
+            }
+        }
+        Interazione.scambiaBool(this.morto, pg.morto);
+    }
     protected boolean controlloScontro(Personaggio[] pg){
         boolean scontro = true;
         int j = 0;
