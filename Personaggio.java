@@ -23,7 +23,7 @@ public class Personaggio{
         String metodoValori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"valori\") o tramite input (inserisci \"input\")");
         for (int i = 0; i < 6; i++) {
             punteggi[i] = new Caratteristica(i);
-            punteggi[i].nome += "\t\t\t";
+            punteggi[i].nome += "";
             bonus[i] = new Caratteristica(i);
         }
         morto = false;
@@ -202,7 +202,7 @@ public class Personaggio{
         info += "nome:\t\t\t\t\t\t\t"+getNome()+"\n";
         info +="iniziativa:\t\t\t\t\t\t"+getIniziativa()+"\n";
         info +="punti ferita:\t\t\t\t\t"+getHp()+"\n";
-        info +="punti ferita totali:\t\t\t\t\t"+getHpTot()+"\n";
+        info +="punti ferita totali:\t\t\t\t"+getHpTot()+"\n";
         info +="classe armatura:\t\t\t\t"+getCa()+"\n";
         info +="bonus competenza:\t\t\t\t"+getComp()+"\n";
         info +="punteggi statistiche:\n"+getPunteggi()+"\n";
