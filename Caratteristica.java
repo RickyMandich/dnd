@@ -21,9 +21,21 @@ public class Caratteristica {
         }
         valore = 0;
     }
+
+    protected void scambiaNome(Caratteristica c){
+        String nome = this.nome;
+        this.nome = c.nome;
+        c.nome = nome;
+    }
+
+    protected void scambiavalore(Caratteristica c){
+        int valore = this.valore;
+        this.valore = c.valore;
+        c.valore = valore;
+    }
     public void scambiaCaratteristica(Caratteristica c){
-        Interazione.scambiaString(this.nome, c.nome);
-        Interazione.scambiaInt(this.valore, c.valore);
+        this.scambiaNome(c);
+        this.scambiavalore(c);
     }
 
     public static int getBonus(int punteggio){

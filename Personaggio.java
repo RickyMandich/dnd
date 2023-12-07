@@ -85,6 +85,10 @@ public class Personaggio{
         return hp;
     }
 
+    public int getHpTot() {
+        return hpTot;
+    }
+
     public int getCa() {
         return ca;
     }
@@ -198,6 +202,7 @@ public class Personaggio{
         info += "nome:\t\t\t\t\t\t\t"+getNome()+"\n";
         info +="iniziativa:\t\t\t\t\t\t"+getIniziativa()+"\n";
         info +="punti ferita:\t\t\t\t\t"+getHp()+"\n";
+        info +="punti ferita totali:\t\t\t\t\t"+getHpTot()+"\n";
         info +="classe armatura:\t\t\t\t"+getCa()+"\n";
         info +="bonus competenza:\t\t\t\t"+getComp()+"\n";
         info +="punteggi statistiche:\n"+getPunteggi()+"\n";
@@ -247,30 +252,104 @@ public class Personaggio{
         }
         return true;
     }
-
-    public void scambiaPersonaggio(Personaggio pg){
-        Interazione.scambiaString(this.nome, pg.nome);
-        Interazione.scambiaInt(this.iniziativa, pg.iniziativa);
-        Interazione.scambiaInt(this.hp, pg.hp);
-        Interazione.scambiaInt(this.hpTot, pg.hpTot);
-        Interazione.scambiaInt(this.ca, pg.ca);
-        Interazione.scambiaInt(this.comp, pg.comp);
+    protected void scambiaNome(Personaggio pg){
+        String nome = this.nome;
+        this.nome = pg.nome;
+        pg.nome = nome;
+    }
+    protected void scambiaIniziativa(Personaggio pg){
+        int iniziativa = this.iniziativa;
+        this.iniziativa = pg.iniziativa;
+        pg.iniziativa = iniziativa;
+    }
+    protected void scambiaHp(Personaggio pg){
+        int hp = this.hp;
+        this.hp = pg.hp;
+        pg.hp = hp;
+    }
+    protected void scambiaHpTot(Personaggio pg){
+        int hpTot = this.hpTot;
+        this.hpTot = pg.hpTot;
+        pg.hpTot = hpTot;
+    }
+    protected void scambiaCa(Personaggio pg){
+        int ca = this.ca;
+        this.ca = pg.ca;
+        pg.ca = ca;
+    }
+    protected void scambiaComp(Personaggio pg){
+        int comp = this.comp;
+        this.comp = pg.comp;
+        pg.comp = comp;
+    }
+    protected void scambiaCaratteristiche(Personaggio pg){
         for(int i=0;i<this.punteggi.length;i++) {
             this.punteggi[i].scambiaCaratteristica(pg.punteggi[i]);
             this.bonus[i].scambiaCaratteristica(pg.bonus[i]);
         }
-        Interazione.scambiaInt(this.xp, pg.xp);
-        Interazione.scambiaInt(this.lvl, pg.lvl);
-        Interazione.scambiaBool(this.ispirazione, pg.ispirazione);
-        Interazione.scambiaInt(this.tiro, pg.tiro);
-        Interazione.scambiaInt(this.dannoIniziale, pg.dannoIniziale);
-        Interazione.scambiaBool(this.amico, pg.amico);
+    }
+    protected void scambiaXp(Personaggio pg){
+        int xp = this.xp;
+        this.xp = pg.xp;
+        pg.xp = xp;
+    }
+    protected void scambiaLvl(Personaggio pg){
+        int lvl = this.lvl;
+        this.lvl = pg.lvl;
+        pg.lvl = lvl;
+    }
+    protected void scambiaIspirazione(Personaggio pg){
+        boolean ispirazione = this.ispirazione;
+        this.ispirazione = pg.ispirazione;
+        pg.ispirazione = ispirazione;
+    }
+    protected void scambiaTiro(Personaggio pg){
+        int tiro = this.tiro;
+        this.tiro = pg.tiro;
+        pg.tiro = tiro;
+    }
+    protected void scambiaDannoIniziale(Personaggio pg){
+        int dannoIniziale = this.dannoIniziale;
+        this.dannoIniziale = pg.dannoIniziale;
+        pg.dannoIniziale = dannoIniziale;
+    }
+    protected void scambiaAmico(Personaggio pg){
+        boolean amico = this.amico;
+        this.amico = pg.amico;
+        pg.amico = amico;
+    }
+    protected void scambiaTiriControMorte(Personaggio pg){
         for(int i=0;i<2;i++){
-            for(int j=0;j<3;j++){
-                Interazione.scambiaBool(this.tiriControMorte[i][j], pg.tiriControMorte[i][j]);
-            }
+            for(int j=0;j<3;j++) this.scambiaTiriControMorte(pg, i, j);
         }
-        Interazione.scambiaBool(this.morto, pg.morto);
+    }
+    protected void scambiaTiriControMorte(Personaggio pg, int i, int j){
+        boolean tiriControMorte = this.tiriControMorte[i][j];
+        this.tiriControMorte[i][j] = pg.tiriControMorte[i][j];
+        pg.tiriControMorte[i][j] = tiriControMorte;
+    }
+    protected void scambiaMorto(Personaggio pg){
+        boolean morto = this.morto;
+        this.morto = pg.morto;
+        pg.morto = morto;
+    }
+
+    public void scambiaPersonaggio(Personaggio pg){
+        this.scambiaNome(pg);
+        this.scambiaIniziativa(pg);
+        this.scambiaHp(pg);
+        this.scambiaHpTot(pg);
+        this.scambiaCa(pg);
+        this.scambiaComp(pg);
+        this.scambiaCaratteristiche(pg);
+        this.scambiaXp(pg);
+        this.scambiaLvl(pg);
+        this.scambiaIspirazione(pg);
+        this.scambiaTiro(pg);
+        this.scambiaDannoIniziale(pg);
+        this.scambiaAmico(pg);
+        this.scambiaTiriControMorte(pg);
+        this.scambiaMorto(pg);
     }
     protected boolean controlloScontro(Personaggio[] pg){
         boolean scontro = true;
