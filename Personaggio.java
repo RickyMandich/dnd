@@ -379,7 +379,7 @@ public class Personaggio{
         return elenco;
     }
     protected boolean controlloAttaccato(Personaggio[] pg, int attaccato){
-        if(attaccato >= pg.length) return false;
+        if(attaccato<0 || attaccato >= pg.length) return false;
         if(this.amico == pg[attaccato].amico) return false;
         return true;
     }
