@@ -378,6 +378,11 @@ public class Personaggio{
         }
         return elenco;
     }
+    protected boolean controlloAttaccato(Personaggio[] pg, int attaccato){
+        if(attaccato >= pg.length) return false;
+        if(this.amico == pg[attaccato].amico) return false;
+        return true;
+    }
     protected void attacco(Personaggio pg2){
         this.hp -= dannoIniziale;
         int caratteristicaUsata;

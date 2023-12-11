@@ -2,7 +2,7 @@ public class programma_dnd_java {
     public static void main(String[] args) {
         int tot = Interazione.input("quanti altri personaggi stanno combattendo?");
         Personaggio[] pg = new Personaggio[tot];
-        creaPg(pg, tot);
+        creaPg(pg);
         for(int i=0;i<tot;i++) {
             Interazione.output(pg[i].toString());
         }
@@ -14,9 +14,13 @@ public class programma_dnd_java {
         while(pg[0].controlloScontro(pg)) {
             for(int i=0;i<pg.length;i++){
                 Interazione.output("ora tocca a " + pg[i].info());
-                if(pg[i].hp>0){
+                if(pg[i].hp>0) {
                     Interazione.output(pg[i].elencoNemici(pg));
-                    pg[i].attacco(pg[Interazione.input("inserisci il numero relativo al personaggio, tra quelli di questo elenco, che vuoi attaccare")-1]);
+                    int attaccato;
+                    do {
+                        attaccato = Interazione.input("inserisci il numero relativo al personaggio, tra quelli di questo elenco, che vuoi attaccare") - 1;
+                    }while(!pg[i].controlloAttaccato(pg, attaccato));
+                    pg[i].attacco(pg[attaccato]);
                     Interazione.output("tiro per colpire:\t" + pg[i].tiro + "\n");
                 }else if(pg[i].hp> -(pg[i].hpTot/2) && !pg[i].morto){
                     pg[i].controMorte();
@@ -63,8 +67,8 @@ public class programma_dnd_java {
         }while(scambio);
     }
 
-    public static void creaPg(Personaggio[] pg, int tot){
-        for(int i=0;i<tot;i++) {
+    public static void creaPg(Personaggio[] pg){
+        for(int i=0;i<pg.length;i++) {
             pg[i] = new Personaggio(Interazione.strput("qual'è il nome del personaggio " + (i+1) + "?"));
         }
     }
