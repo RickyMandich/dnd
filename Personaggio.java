@@ -390,12 +390,27 @@ public class Personaggio{
         if(Interazione.boolput(this.nome + " ha competenza in questo attacco?")){
             competenza = 1;
         }
-        int dado = Interazione.input("che dado tiro per i danni?");
-        this.tiro = Dadi.tiro(15, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
+        int dado = 2;
+        do{
+            if(dado<=1) Interazione.output("il dado non può essere più piccolo o uguale a 1");
+            dado = Interazione.input("che dado tiro per i danni?");
+        }while(dado<=1);
+        int nDadi = 1;
+        do{
+            if(nDadi<1) Interazione.output("devi tirare almeno un dado");
+            nDadi = Interazione.input("quanti d" + dado + "tiro per i danni?");
+        }while(nDadi<1);
+        this.tiro = Dadi.tiro(1, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
         if(this.tiro > pg2.ca){
-            pg2.hp -= Dadi.tiro(1, dado)+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+            pg2.hp -= (this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+            for(int i=0;i<nDadi;i++){
+                pg2.hp -= Dadi.tiro(1, dado);
+            }
             if(this.tiro-(this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) == 20){
-                pg2.hp -= Dadi.tiro(1, dado)+(this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+                pg2.hp -= (this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+                for(int i=0;i<nDadi;i++){
+                    pg2.hp -= Dadi.tiro(1, dado);
+                }
             }
         }
     }
