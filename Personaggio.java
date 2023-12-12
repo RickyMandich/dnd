@@ -410,7 +410,7 @@ public class Personaggio{
     protected boolean controlloScontro(Personaggio[] pg){
         boolean scontro = true;
         int j = 0;
-        while(pg[j].morto && scontro){
+        while(((pg[j].tiriControMorte[0][0] || pg[j].tiriControMorte[1][0]) || pg[j].morto) && scontro){
             j++;
             if(j==pg.length){
                 scontro = false;
@@ -428,7 +428,7 @@ public class Personaggio{
     protected String elencoNemici(Personaggio[] pg){
         String elenco = "";
         for(int i=0;i<pg.length;i++){
-            if(this.amico!=pg[i].amico) {
+            if(this.amico != pg[i].amico && pg[i].hp > 0){
                 elenco = elenco.concat((i + 1) + "\t" + pg[i].nome + "(" + pg[i].hp + ")" + "\n");
             }
         }
@@ -437,6 +437,7 @@ public class Personaggio{
     protected boolean controlloAttaccato(Personaggio[] pg, int attaccato){
         if(attaccato<0 || attaccato >= pg.length) return false;
         if(this.amico == pg[attaccato].amico) return false;
+        if(pg[attaccato].hp > 0) return false;
         return true;
     }
     protected void attacco(Personaggio pg2){
