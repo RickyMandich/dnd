@@ -29,15 +29,47 @@ public class Personaggio{
         morto = false;
         switch (metodoValori) {
             case "valori" -> {
-                hp = 10;
-                hpTot = hp;
-                ca = 14;
-                for(int i=0;i<6;i++){
-                    punteggi[i].valore = 10;
-                    bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                if(Interazione.boolput("è un goblin?")){
+                    hp = 7;
+                    hpTot = hp;
+                    ca = 15;
+                    punteggi[Caratteristica.forza].valore = 8;
+                    punteggi[Caratteristica.destrezza].valore = 14;
+                    punteggi[Caratteristica.costituzione].valore = 10;
+                    punteggi[Caratteristica.intelligenza].valore = 10;
+                    punteggi[Caratteristica.saggezza].valore = 8;
+                    punteggi[Caratteristica.carisma].valore = 8;
+                    for (int i = 0; i < 6; i++) {
+                        bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                    }
+                    lvl = 1;
+                    dannoIniziale = 0;
+                }else if(Interazione.boolput("è un brigante umano?")){
+                    hp = 10;
+                    hpTot = hp;
+                    ca = 14;
+                    punteggi[Caratteristica.forza].valore = 10;
+                    punteggi[Caratteristica.destrezza].valore = 10;
+                    punteggi[Caratteristica.costituzione].valore = 10;
+                    punteggi[Caratteristica.intelligenza].valore = 10;
+                    punteggi[Caratteristica.saggezza].valore = 10;
+                    punteggi[Caratteristica.carisma].valore = 10;
+                    for (int i = 0; i < 6; i++) {
+                        bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                    }
+                    lvl = 1;
+                    dannoIniziale = 0;
+                }else {
+                    hp = 10;
+                    hpTot = hp;
+                    ca = 14;
+                    for (int i = 0; i < 6; i++) {
+                        punteggi[i].valore = 10;
+                        bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                    }
+                    lvl = 1;
+                    dannoIniziale = 0;
                 }
-                lvl = 1;
-                dannoIniziale = 0;
             }
             case "input" -> {
                 hp = Interazione.input("quanti punti ferita ha " + nome + "?");
