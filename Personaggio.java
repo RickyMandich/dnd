@@ -29,10 +29,10 @@ public class Personaggio{
         morto = false;
         switch (metodoValori) {
             case "valori" -> {
-                if(Interazione.boolput("è un nemico?")) {
+                boolean standard = !Interazione.boolput("vuoi inserire i dati un un personaggio o un mostro prefatto?");
+                if(Interazione.boolput("è un nemico?") && !standard) {
                     if (Interazione.boolput("è un goblin?")) {
                         hp = 7;
-                        hpTot = hp;
                         ca = 15;
                         punteggi[Caratteristica.forza].valore = 8;
                         punteggi[Caratteristica.destrezza].valore = 14;
@@ -45,9 +45,8 @@ public class Personaggio{
                         }
                         lvl = 1;
                         dannoIniziale = 0;
-                    } else if (Interazione.boolput("è un brigante umano? (ancora non finito)")) {
+                    }else if(Interazione.boolput("è un brigante umano? (ancora non finito)")) {
                         hp = 10;
-                        hpTot = hp;
                         ca = 14;
                         punteggi[Caratteristica.forza].valore = 10;
                         punteggi[Caratteristica.destrezza].valore = 10;
@@ -61,20 +60,11 @@ public class Personaggio{
                         lvl = 1;
                         dannoIniziale = 0;
                     }else {
-                        hp = 10;
-                        hpTot = hp;
-                        ca = 14;
-                        for (int i = 0; i < 6; i++) {
-                            punteggi[i].valore = 10;
-                            bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
-                        }
-                        lvl = 1;
-                        dannoIniziale = 0;
+                        standard = true;
                     }
-                }else {
-                    if(Interazione.boolput("è il pg mat?")){
+                }else if(!standard){
+                    if(Interazione.boolput("è il pg mat?") && !standard){
                         hp = 42;
-                        hpTot = hp;
                         ca = 12;
                         punteggi[Caratteristica.forza].valore = 12;
                         punteggi[Caratteristica.destrezza].valore = 12;
@@ -88,21 +78,23 @@ public class Personaggio{
                         lvl = 5;
                         dannoIniziale = 0;
                     }else {
-                        hp = 10;
-                        hpTot = hp;
-                        ca = 14;
-                        for (int i = 0; i < 6; i++) {
-                            punteggi[i].valore = 10;
-                            bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
-                        }
-                        lvl = 1;
-                        dannoIniziale = 0;
+                        standard = true;
                     }
+                }
+                if(standard){
+                    Interazione.output("allora metto i valori standard");
+                    hp = 10;
+                    ca = 14;
+                    for (int i = 0; i < 6; i++) {
+                        punteggi[i].valore = 10;
+                        bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                    }
+                    lvl = 1;
+                    dannoIniziale = 0;
                 }
             }
             case "input" -> {
                 hp = Interazione.input("quanti punti ferita ha " + nome + "?");
-                hpTot = hp;
                 ca = Interazione.input("qual'è la classe armatura di " + nome + "?");
                 for (int i = 0; i < 6; i++) {
                     punteggi[i].valore = Interazione.input("qual'è il punteggio di " + bonus[i].nome + " di " + nome);
@@ -114,6 +106,7 @@ public class Personaggio{
             default -> {
             }
         }
+        hpTot = hp;
         switch (lvl) {
             case 1, 2, 3, 4 -> comp = 2;
             case 5, 6, 7, 8 -> comp = 3;
