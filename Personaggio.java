@@ -29,46 +29,75 @@ public class Personaggio{
         morto = false;
         switch (metodoValori) {
             case "valori" -> {
-                if(Interazione.boolput("è un goblin?")){
-                    hp = 7;
-                    hpTot = hp;
-                    ca = 15;
-                    punteggi[Caratteristica.forza].valore = 8;
-                    punteggi[Caratteristica.destrezza].valore = 14;
-                    punteggi[Caratteristica.costituzione].valore = 10;
-                    punteggi[Caratteristica.intelligenza].valore = 10;
-                    punteggi[Caratteristica.saggezza].valore = 8;
-                    punteggi[Caratteristica.carisma].valore = 8;
-                    for (int i = 0; i < 6; i++) {
-                        bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                if(Interazione.boolput("è un nemico?")) {
+                    if (Interazione.boolput("è un goblin?")) {
+                        hp = 7;
+                        hpTot = hp;
+                        ca = 15;
+                        punteggi[Caratteristica.forza].valore = 8;
+                        punteggi[Caratteristica.destrezza].valore = 14;
+                        punteggi[Caratteristica.costituzione].valore = 10;
+                        punteggi[Caratteristica.intelligenza].valore = 10;
+                        punteggi[Caratteristica.saggezza].valore = 8;
+                        punteggi[Caratteristica.carisma].valore = 8;
+                        for (int i = 0; i < 6; i++) {
+                            bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                        }
+                        lvl = 1;
+                        dannoIniziale = 0;
+                    } else if (Interazione.boolput("è un brigante umano? (ancora non finito)")) {
+                        hp = 10;
+                        hpTot = hp;
+                        ca = 14;
+                        punteggi[Caratteristica.forza].valore = 10;
+                        punteggi[Caratteristica.destrezza].valore = 10;
+                        punteggi[Caratteristica.costituzione].valore = 10;
+                        punteggi[Caratteristica.intelligenza].valore = 10;
+                        punteggi[Caratteristica.saggezza].valore = 10;
+                        punteggi[Caratteristica.carisma].valore = 10;
+                        for (int i = 0; i < 6; i++) {
+                            bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                        }
+                        lvl = 1;
+                        dannoIniziale = 0;
+                    }else {
+                        hp = 10;
+                        hpTot = hp;
+                        ca = 14;
+                        for (int i = 0; i < 6; i++) {
+                            punteggi[i].valore = 10;
+                            bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                        }
+                        lvl = 1;
+                        dannoIniziale = 0;
                     }
-                    lvl = 1;
-                    dannoIniziale = 0;
-                }else if(Interazione.boolput("è un brigante umano? (ancora non finito)")){
-                    hp = 10;
-                    hpTot = hp;
-                    ca = 14;
-                    punteggi[Caratteristica.forza].valore = 10;
-                    punteggi[Caratteristica.destrezza].valore = 10;
-                    punteggi[Caratteristica.costituzione].valore = 10;
-                    punteggi[Caratteristica.intelligenza].valore = 10;
-                    punteggi[Caratteristica.saggezza].valore = 10;
-                    punteggi[Caratteristica.carisma].valore = 10;
-                    for (int i = 0; i < 6; i++) {
-                        bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
-                    }
-                    lvl = 1;
-                    dannoIniziale = 0;
                 }else {
-                    hp = 10;
-                    hpTot = hp;
-                    ca = 14;
-                    for (int i = 0; i < 6; i++) {
-                        punteggi[i].valore = 10;
-                        bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                    if(Interazione.boolput("è il pg mat?")){
+                        hp = 42;
+                        hpTot = hp;
+                        ca = 12;
+                        punteggi[Caratteristica.forza].valore = 12;
+                        punteggi[Caratteristica.destrezza].valore = 12;
+                        punteggi[Caratteristica.costituzione].valore = 14;
+                        punteggi[Caratteristica.intelligenza].valore = 12;
+                        punteggi[Caratteristica.saggezza].valore = 12;
+                        punteggi[Caratteristica.carisma].valore = 16;
+                        for (int i = 0; i < 6; i++) {
+                            bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                        }
+                        lvl = 5;
+                        dannoIniziale = 0;
+                    }else {
+                        hp = 10;
+                        hpTot = hp;
+                        ca = 14;
+                        for (int i = 0; i < 6; i++) {
+                            punteggi[i].valore = 10;
+                            bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                        }
+                        lvl = 1;
+                        dannoIniziale = 0;
                     }
-                    lvl = 1;
-                    dannoIniziale = 0;
                 }
             }
             case "input" -> {
