@@ -44,7 +44,7 @@ public class Personaggio{
                     }
                     lvl = 1;
                     dannoIniziale = 0;
-                }else if(Interazione.boolput("è un brigante umano?")){
+                }else if(Interazione.boolput("è un brigante umano? (ancora non finito)")){
                     hp = 10;
                     hpTot = hp;
                     ca = 14;
