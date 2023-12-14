@@ -1,30 +1,6 @@
 import java.util.Scanner;
 public class Interazione {
     private static final Scanner scan = new Scanner(System.in);
-    //funzione che scambia due interi
-    public static void scambiaInt(int a, int b){
-        int temp = a;
-        a = b;
-        b = temp;
-    }
-    //funzione che scambia due double
-    public static void scambiaDouble(double a, double b){
-        double temp = a;
-        a = b;
-        b = temp;
-    }
-    //funzione che scambia due stringhe
-    public static void scambiaBool(boolean a, boolean b){
-        boolean temp = a;
-        a = b;
-        b = temp;
-    }
-    //funzione che scambia due stringhe
-    public static void scambiaString(String a, String b){
-        String temp = a;
-        a = b;
-        b = temp;
-    }
 
     //funzione che da in output una stringa
     public static void output(String a){
