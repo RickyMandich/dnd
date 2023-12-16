@@ -19,6 +19,7 @@ public class Personaggio{
     //inserire come parametro la stringa "valori" nel caso si vogliano assegnare dei valori di default mentre
     //inserire la stringa "input" nel caso si vogliano inserire da tastiera tutti i dati non ricavabili
     public Personaggio(String nome) {
+        this.nome = nome;
         int[] puntiEsperienza = {0, 300, 900, 2700, 6500, 14000, 23000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 195000, 225000, 265000, 305000, 355000};
         String metodoValori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"valori\") o tramite input (inserisci \"input\")");
         for (int i = 0; i < 6; i++) {
@@ -27,10 +28,11 @@ public class Personaggio{
             bonus[i] = new Caratteristica(i);
         }
         morto = false;
+        amico = Interazione.boolput(nome+" è un amico?");
         switch (metodoValori) {
             case "valori" -> {
-                boolean standard = !Interazione.boolput("vuoi inserire i dati un un personaggio o un mostro prefatto?");
-                if(Interazione.boolput("è un nemico?") && !standard) {
+                boolean personalizzato = Interazione.boolput("vuoi inserire i dati un un personaggio o un mostro prefatto?");
+                if(!this.amico && personalizzato) {
                     if (Interazione.boolput("è un goblin?")) {
                         hp = 7;
                         ca = 15;
@@ -46,24 +48,24 @@ public class Personaggio{
                         lvl = 1;
                         dannoIniziale = 0;
                     }else if(Interazione.boolput("è un brigante umano? (ancora non finito)")) {
-                        hp = 10;
+                        hp = 16;
                         ca = 14;
-                        punteggi[Caratteristica.forza].valore = 10;
-                        punteggi[Caratteristica.destrezza].valore = 10;
-                        punteggi[Caratteristica.costituzione].valore = 10;
-                        punteggi[Caratteristica.intelligenza].valore = 10;
-                        punteggi[Caratteristica.saggezza].valore = 10;
-                        punteggi[Caratteristica.carisma].valore = 10;
+                        punteggi[Caratteristica.forza].valore = 11;
+                        punteggi[Caratteristica.destrezza].valore = 14;
+                        punteggi[Caratteristica.costituzione].valore = 12;
+                        punteggi[Caratteristica.intelligenza].valore = 9;
+                        punteggi[Caratteristica.saggezza].valore = 9;
+                        punteggi[Caratteristica.carisma].valore = 11;
                         for (int i = 0; i < 6; i++) {
                             bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
                         }
                         lvl = 1;
                         dannoIniziale = 0;
                     }else {
-                        standard = true;
+                        personalizzato = false;
                     }
-                }else if(!standard){
-                    if(Interazione.boolput("è il pg mat?") && !standard){
+                }else if(personalizzato){
+                    if(Interazione.boolput("è il pg mat?")){
                         hp = 42;
                         ca = 12;
                         punteggi[Caratteristica.forza].valore = 12;
@@ -78,10 +80,10 @@ public class Personaggio{
                         lvl = 5;
                         dannoIniziale = 0;
                     }else {
-                        standard = true;
+                        personalizzato = false;
                     }
                 }
-                if(standard){
+                if(!personalizzato){
                     Interazione.output("allora metto i valori standard");
                     hp = 10;
                     ca = 14;
@@ -115,7 +117,6 @@ public class Personaggio{
             case 17, 18, 19, 20 -> comp = 6;
         }
         xp = puntiEsperienza[lvl - 1];
-        this.nome = nome;
         ispirazione = false;
         tiro = 0;
         tiriControMorte = new boolean[2][3];
@@ -124,7 +125,6 @@ public class Personaggio{
                 tiriControMorte[i][j] = false;
             }
         }
-        amico = Interazione.boolput(nome+" è un amico?");
     }
 
     public String getNome() {
@@ -256,7 +256,7 @@ public class Personaggio{
         info += "nome:\t\t\t\t\t\t\t"+getNome()+"\n";
         info +="iniziativa:\t\t\t\t\t\t"+getIniziativa()+"\n";
         info +="punti ferita:\t\t\t\t\t"+getHp()+"\n";
-        info +="punti ferita totali:\t\t\t\t"+getHpTot()+"\n";
+        info +="punti ferita totali:\t\t\t"+getHpTot()+"\n";
         info +="classe armatura:\t\t\t\t"+getCa()+"\n";
         info +="bonus competenza:\t\t\t\t"+getComp()+"\n";
         info +="punteggi statistiche:\n"+getPunteggi()+"\n";
@@ -491,8 +491,7 @@ public class Personaggio{
     protected boolean controlloAttaccato(Personaggio[] pg, int attaccato){
         if(attaccato<0 || attaccato >= pg.length) return false;
         if(this.amico == pg[attaccato].amico) return false;
-        if(pg[attaccato].hp > 0) return false;
-        return true;
+        return pg[attaccato].hp > 0;
     }
     protected void attacco(Personaggio pg2){
         this.hp -= dannoIniziale;
@@ -514,7 +513,7 @@ public class Personaggio{
         int nDadi = 1;
         do{
             if(nDadi<1) Interazione.output("devi tirare almeno un dado");
-            nDadi = Interazione.input("quanti d" + dado + "tiro per i danni?");
+            nDadi = Interazione.input("quanti d" + dado + " tiro per i danni?");
         }while(nDadi<1);
         this.tiro = Dadi.tiro(1, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
         if(this.tiro > pg2.ca){
