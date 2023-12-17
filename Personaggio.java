@@ -33,7 +33,7 @@ public class Personaggio{
             case "valori" -> {
                 boolean personalizzato = Interazione.boolput("vuoi inserire i dati un un personaggio o un mostro prefatto?");
                 if(!this.amico && personalizzato) {
-                    if (Interazione.boolput("è un goblin?")) {
+                    if(Interazione.boolput("è un goblin?")) {
                         hp = 7;
                         ca = 15;
                         punteggi[Caratteristica.forza].valore = 8;
@@ -61,7 +61,7 @@ public class Personaggio{
                         }
                         lvl = 1;
                         dannoIniziale = 0;
-                    }else {
+                    }else{
                         personalizzato = false;
                     }
                 }else if(personalizzato){
