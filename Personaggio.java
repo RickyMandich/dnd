@@ -411,11 +411,23 @@ public class Personaggio{
                 Interazione.output("ora tocca a " + pg[i].info());
                 if(pg[i].hp>0) {
                     Interazione.output(pg[i].elencoNemici(pg));
-                    int attaccato;
+                    int totNemici = 0;
+                    for(int j=0;j<pg.length;j++){
+                        if(pg[j].amico != pg[i].amico){
+                            if(pg[j].hp>0){
+                                totNemici++;
+                            }
+                        }
+                    }
+                    int tot;
                     do {
-                        attaccato = Interazione.input("inserisci il numero relativo al personaggio, tra quelli di questo elenco, che vuoi attaccare") - 1;
-                    }while(!pg[i].controlloAttaccato(pg, attaccato));
-                    pg[i].attacco(pg[attaccato]);
+                        tot = Interazione.input("quanti personaggi subiscono l'attacco?");
+                    }while(tot>totNemici);
+                    Personaggio[] pgAtt = new Personaggio[tot];
+                    for(int j=0;j<tot;j++){
+                        pgAtt[j] = pg[Interazione.input("quale personaggio attacchi?")];
+                    }
+                    pg[i].attacco(pgAtt);
                     Interazione.output("tiro per colpire:\t" + pg[i].tiro + "\n");
                 }else if(pg[i].hp> -(pg[i].hpTot/2) && !pg[i].morto){
                     pg[i].controMorte();
@@ -494,32 +506,6 @@ public class Personaggio{
         return pg[attaccato].hp > 0;
     }
 
-    protected void attacco(Personaggio pg1){
-        Personaggio[] pg = new Personaggio[1];
-        pg[0] = pg1;
-        attacco(pg);
-    }
-    protected void attacco(Personaggio pg1, Personaggio pg2){
-        Personaggio[] pg = new Personaggio[2];
-        pg[0] = pg1;
-        pg[1] = pg2;
-        attacco(pg);
-    }
-    protected void attacco(Personaggio pg1, Personaggio pg2, Personaggio pg3){
-        Personaggio[] pg = new Personaggio[3];
-        pg[0] = pg1;
-        pg[1] = pg2;
-        pg[2] = pg3;
-        attacco(pg);
-    }
-    protected void attacco(Personaggio pg1, Personaggio pg2, Personaggio pg3, Personaggio pg4){
-        Personaggio[] pg = new Personaggio[4];
-        pg[0] = pg1;
-        pg[1] = pg2;
-        pg[2] = pg3;
-        pg[3] = pg4;
-        attacco(pg);
-    }
     protected void attacco(Personaggio[] pgAtt){
         this.hp -= dannoIniziale;
         int caratteristicaUsata;
