@@ -493,7 +493,34 @@ public class Personaggio{
         if(this.amico == pg[attaccato].amico) return false;
         return pg[attaccato].hp > 0;
     }
-    protected void attacco(Personaggio pg2){
+
+    protected void attacco(Personaggio pg1){
+        Personaggio[] pg = new Personaggio[1];
+        pg[0] = pg1;
+        attacco(pg);
+    }
+    protected void attacco(Personaggio pg1, Personaggio pg2){
+        Personaggio[] pg = new Personaggio[2];
+        pg[0] = pg1;
+        pg[1] = pg2;
+        attacco(pg);
+    }
+    protected void attacco(Personaggio pg1, Personaggio pg2, Personaggio pg3){
+        Personaggio[] pg = new Personaggio[3];
+        pg[0] = pg1;
+        pg[1] = pg2;
+        pg[2] = pg3;
+        attacco(pg);
+    }
+    protected void attacco(Personaggio pg1, Personaggio pg2, Personaggio pg3, Personaggio pg4){
+        Personaggio[] pg = new Personaggio[4];
+        pg[0] = pg1;
+        pg[1] = pg2;
+        pg[2] = pg3;
+        pg[3] = pg4;
+        attacco(pg);
+    }
+    protected void attacco(Personaggio[] pgAtt){
         this.hp -= dannoIniziale;
         int caratteristicaUsata;
         if(Interazione.boolput("uso forza per attaccare?\t(altrimenti considero destrezza)")){
@@ -516,17 +543,21 @@ public class Personaggio{
             nDadi = Interazione.input("quanti d" + dado + " tiro per i danni?");
         }while(nDadi<1);
         this.tiro = Dadi.tiro(1, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
-        if(this.tiro > pg2.ca){
-            pg2.hp -= (this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
-            for(int i=0;i<nDadi;i++){
-                pg2.hp -= Dadi.tiro(1, dado);
-            }
-            if(this.tiro-(this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) == 20){
-                pg2.hp -= (this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
-                for(int i=0;i<nDadi;i++){
-                    pg2.hp -= Dadi.tiro(1, dado);
+        int i=0;
+        while(i<pgAtt.length) {
+            if (this.tiro > pgAtt[i].ca) {
+                pgAtt[i].hp -= (this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+                for (int j = 0; j < nDadi; j++) {
+                    pgAtt[i].hp -= Dadi.tiro(1, dado);
+                }
+                if (this.tiro - (this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) == 20) {
+                    pgAtt[i].hp -= (this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+                    for (int j = 0; j < nDadi; j++) {
+                        pgAtt[i].hp -= Dadi.tiro(1, dado);
+                    }
                 }
             }
+            i++;
         }
     }
     protected String info(){
