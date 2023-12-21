@@ -5,8 +5,7 @@ public class Personaggio{
     protected int hpTot;
     protected int ca;
     protected int comp;
-    protected Caratteristica[] punteggi = new Caratteristica[6];
-    protected Caratteristica[] bonus = new Caratteristica[6];
+    protected arrayCaratteristica caratteristiche = new arrayCaratteristica();
     protected int xp;
     protected int lvl;
     protected boolean ispirazione;
@@ -22,11 +21,7 @@ public class Personaggio{
         this.nome = nome;
         int[] puntiEsperienza = {0, 300, 900, 2700, 6500, 14000, 23000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 195000, 225000, 265000, 305000, 355000};
         String metodoValori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"valori\") o tramite input (inserisci \"input\")");
-        for (int i = 0; i < 6; i++) {
-            punteggi[i] = new Caratteristica(i);
-            punteggi[i].nome += "";
-            bonus[i] = new Caratteristica(i);
-        }
+        caratteristiche = new arrayCaratteristica();
         morto = false;
         amico = Interazione.boolput(nome+" è un amico?");
         switch (metodoValori) {
@@ -36,14 +31,14 @@ public class Personaggio{
                     if(Interazione.boolput("è un goblin?")) {
                         hp = 7;
                         ca = 15;
-                        punteggi[Caratteristica.forza].valore = 8;
-                        punteggi[Caratteristica.destrezza].valore = 14;
-                        punteggi[Caratteristica.costituzione].valore = 10;
-                        punteggi[Caratteristica.intelligenza].valore = 10;
-                        punteggi[Caratteristica.saggezza].valore = 8;
-                        punteggi[Caratteristica.carisma].valore = 8;
+                        caratteristiche[Caratteristica.forza].valore = 8;
+                        caratteristiche[Caratteristica.destrezza].valore = 14;
+                        caratteristiche[Caratteristica.costituzione].valore = 10;
+                        caratteristiche[Caratteristica.intelligenza].valore = 10;
+                        caratteristiche[Caratteristica.saggezza].valore = 8;
+                        caratteristiche[Caratteristica.carisma].valore = 8;
                         for (int i = 0; i < 6; i++) {
-                            bonus[i].valore = Caratteristica.getBonus(punteggi[i].valore);
+                            bonus[i].valore = Caratteristica.getBonus(caratteristiche[i].valore);
                         }
                         lvl = 1;
                         dannoIniziale = 0;
