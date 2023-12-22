@@ -1,9 +1,9 @@
 public class arrayCaratteristica {
-    public Caratteristica[] caratt = new Caratteristica[6];
+    public Caratteristica[] carat = new Caratteristica[6];
 
     public arrayCaratteristica(){
-        for(int i=0;i< caratt.length;i++){
-            caratt[i] = new Caratteristica(i);
+        for(int i = 0; i< carat.length; i++){
+            carat[i] = new Caratteristica(i);
         }
     }
 }
