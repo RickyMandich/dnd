@@ -5,7 +5,7 @@ public class Personaggio{
     protected int hpTot;
     protected int ca;
     protected int comp;
-    protected arrayCaratteristica caratteristiche = new arrayCaratteristica();
+    protected ArrayCaratteristica caratteristiche = new ArrayCaratteristica();
     protected int xp;
     protected int lvl;
     protected boolean ispirazione;
@@ -21,7 +21,7 @@ public class Personaggio{
         this.nome = nome;
         int[] puntiEsperienza = {0, 300, 900, 2700, 6500, 14000, 23000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 195000, 225000, 265000, 305000, 355000};
         String metodoValori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"valori\") o tramite input (inserisci \"input\")");
-        caratteristiche = new arrayCaratteristica();
+        caratteristiche = new ArrayCaratteristica();
         morto = false;
         amico = Interazione.boolput(nome+" è un amico?");
         switch (metodoValori) {
@@ -263,33 +263,15 @@ public class Personaggio{
     }
 
     public boolean equals(Personaggio pg){
-        if(this.nome != pg.nome){
-            return false;
-        }
-        if(this.hp != pg.hp){
-            return false;
-        }
-        if(this.ca != pg.ca){
-            return false;
-        }
-        if(this.comp != pg.comp){
-            return false;
-        }
-        for(Caratteristica c: caratteristiche.carat){
-            if(c.punteggio!=)
-        }
-        if(this.xp != pg.xp){
-            return false;
-        }
-        if(this.lvl != pg.lvl){
-            return false;
-        }
-        if(this.dannoIniziale != pg.dannoIniziale){
-            return false;
-        }
-        if (this.amico != pg.amico) {
-            return false;
-        }
+        if(this.nome != pg.nome) return false;
+        if(this.hp != pg.hp) return false;
+        if(this.ca != pg.ca) return false;
+        if(this.comp != pg.comp) return false;
+        if(!caratteristiche.equals(pg.caratteristiche)) return false;
+        if(this.xp != pg.xp) return false;
+        if(this.lvl != pg.lvl) return false;
+        if(this.dannoIniziale != pg.dannoIniziale) return false;
+        if (this.amico != pg.amico) return false;
         return true;
     }
     protected void scambiaNome(Personaggio pg){
@@ -323,10 +305,7 @@ public class Personaggio{
         pg.comp = comp;
     }
     protected void scambiaCaratteristiche(Personaggio pg){
-        for(int i=0;i<this.punteggi.length;i++) {
-            this.punteggi[i].scambiaCaratteristica(pg.punteggi[i]);
-            this.bonus[i].scambiaCaratteristica(pg.bonus[i]);
-        }
+        this.caratteristiche.scambiaArrayCaratteristica(pg.caratteristiche);
     }
     protected void scambiaXp(Personaggio pg){
         int xp = this.xp;
@@ -427,8 +406,8 @@ public class Personaggio{
     }
 
     protected void preparazioneOrdine(Personaggio[] pg){
-        for(int i = 0; i < pg.length; i++){
-            pg[i].iniziativa = Dadi.tiro(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
+        for(Personaggio p: pg){
+            p.iniziativa = Dadi.tiro(1, 20) + p.caratteristiche.carat[Caratteristica.destrezza].bonus;
         }
         boolean uguale = true;
         do {
@@ -440,8 +419,8 @@ public class Personaggio{
                 while(pg[pareggi].iniziativa == pg[pareggi-1].iniziativa){
                     pareggi++;
                 }
-                for(int i = 0; i < pareggi; i++){
-                    pg[i].iniziativa = Dadi.tiro(1, 20) + pg[i].bonus[Caratteristica.destrezza].valore;
+                for(Personaggio p: pg){
+                    p.iniziativa = Dadi.tiro(1, 20) + p.caratteristiche.carat[Caratteristica.destrezza].bonus;
                 }
             }
         }while(uguale);
@@ -514,22 +493,20 @@ public class Personaggio{
             if(nDadi<1) Interazione.output("devi tirare almeno un dado");
             nDadi = Interazione.input("quanti d" + dado + " tiro per i danni?");
         }while(nDadi<1);
-        this.tiro = Dadi.tiro(1, 20)+this.bonus[caratteristicaUsata].valore + (competenza * this.comp);
-        int i=0;
-        while(i<pgAtt.length) {
-            if (this.tiro > pgAtt[i].ca) {
-                pgAtt[i].hp -= (this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+        this.tiro = Dadi.tiro(1, 20)+caratteristiche.carat[caratteristicaUsata].bonus + (competenza * this.comp);
+        for(Personaggio pg:pgAtt){
+            if (this.tiro > pg.ca) {
+                pg.hp -= (this.caratteristiche.carat[caratteristicaUsata].bonus + this.comp) * competenza;
                 for (int j = 0; j < nDadi; j++) {
-                    pgAtt[i].hp -= Dadi.tiro(1, dado);
+                    pg.hp -= Dadi.tiro(1, dado);
                 }
-                if (this.tiro - (this.bonus[caratteristicaUsata].valore + (competenza * this.comp)) == 20) {
-                    pgAtt[i].hp -= (this.bonus[caratteristicaUsata].valore + this.comp) * competenza;
+                if (this.tiro - (this.caratteristiche.carat[caratteristicaUsata].bonus + (competenza * this.comp)) == 20) {
+                    pg.hp -= (this.caratteristiche.carat[caratteristicaUsata].bonus + this.comp) * competenza;
                     for (int j = 0; j < nDadi; j++) {
-                        pgAtt[i].hp -= Dadi.tiro(1, dado);
+                        pg.hp -= Dadi.tiro(1, dado);
                     }
                 }
             }
-            i++;
         }
     }
     protected String info(){

@@ -53,4 +53,11 @@ public class Caratteristica {
             bonus--;
         bonus /= 2;
     }
+
+    public boolean equals(Caratteristica c) {
+        if(this.nome!=c.nome) return false;
+        if(this.punteggio!=c.punteggio) return false;
+        if(this.bonus!=c.bonus) return false;
+        return true;
+    }
 }
