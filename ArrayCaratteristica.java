@@ -6,6 +6,14 @@ public class ArrayCaratteristica {
             carat[i] = new Caratteristica(i);
         }
     }
+    public ArrayCaratteristica(String[] row){
+        for(int i=0;i<carat.length;i++) carat[i] = new Caratteristica(i);
+        Parser p = new Parser();
+        for(int i=0;i<carat.length;i++){
+            this.carat[i].punteggio = p.parseInt(row[i]);
+            this.carat[i].getBonus();
+        }
+    }
 
     public void scambiaArrayCaratteristica(ArrayCaratteristica a){
         for(int i=0;i< carat.length;i++) {

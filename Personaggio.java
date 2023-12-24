@@ -130,6 +130,33 @@ public class Personaggio{
             }
         }
     }
+    public Personaggio(String[] row){
+        Parser p = new Parser();
+        String[] rowCaratteristiche = new String[6];
+        for(int i=0;i<rowCaratteristiche.length;i++){
+            rowCaratteristiche[i] = row[i+6];
+        }
+        this.nome = row[0];
+        this.iniziativa = p.parseInt(row[1]);
+        this.hp = p.parseInt(row[2]);
+        this.hpTot = p.parseInt(row[3]);
+        this.ca = p.parseInt(row[4]);
+        this.comp = p.parseInt(row[5]);
+        this.caratteristiche = new ArrayCaratteristica(rowCaratteristiche);
+        this.xp = p.parseInt(row[12]);
+        this.lvl = p.parseInt(row[13]);
+        this.ispirazione = p.parseBool(row[14]);
+        this.dannoIniziale = p.parseInt(row[15]);
+        this.amico = p.parseBool(row[16]);
+        this.tiriControMorte = new boolean[2][3];
+        this.tiriControMorte[0][0] = p.parseBool(row[17]);
+        this.tiriControMorte[0][1] = p.parseBool(row[18]);
+        this.tiriControMorte[0][2] = p.parseBool(row[19]);
+        this.tiriControMorte[1][0] = p.parseBool(row[20]);
+        this.tiriControMorte[1][1] = p.parseBool(row[21]);
+        this.tiriControMorte[1][2] = p.parseBool(row[22]);
+        this.morto = p.parseBool(row[23]);
+    }
 
     public String getNome() {
         return nome;
@@ -175,7 +202,7 @@ public class Personaggio{
         return lvl;
     }
 
-    public boolean getOrdine() {
+    public boolean getIspirazione() {
         return ispirazione;
     }
 
@@ -263,11 +290,33 @@ public class Personaggio{
         info +="bonus statistiche:\n"+getBonus()+"\n";
         info +="punti esperienza:\t\t\t\t"+getXp()+"\n";
         info +="livello:\t\t\t\t\t\t"+getLvl()+"\n";
-        info +="ordine:\t\t\t\t\t\t\t"+getOrdine()+"\n";
+        info +="ordine:\t\t\t\t\t\t\t"+ getIspirazione()+"\n";
         info +="tiro:\t\t\t\t\t\t\t"+getTiro()+"\n";
         info +="danno iniziale:\t\t\t\t\t"+getDannoIniziale()+"\n";
         info +="amico:\t\t\t\t\t\t\t"+getAmico()+"\n";
         info +="tiri salvezza contro morte:\n"+ getTiriControMorte()+"\n";
+        return info;
+    }
+
+    public String toCsv(){
+        String info = "";
+        info = nome;
+        info += "," + iniziativa;
+        info += "," + hp;
+        info += "," + hpTot;
+        info += "," + ca;
+        info += "," + comp;
+        for(Caratteristica c: caratteristiche.carat) info = info.concat("," + c.punteggio);
+        info += "," + xp;
+        info += "," + lvl;
+        info += "," + ispirazione;
+        info += "," + dannoIniziale;
+        info += "," + amico;
+        for(int i=0;i<2;i++){
+            for(int j=0;j<3;j++) info = info.concat("," + tiriControMorte[i][j]);
+        }
+        info += "," + morto;
+        info += "\n";
         return info;
     }
 

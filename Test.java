@@ -1,4 +1,4 @@
-public class programma_dnd_java {
+public class Test {
     public static void main(String[] args) {
         int tot = Interazione.input("quanti altri personaggi stanno combattendo?");
         Personaggio[] pg = new Personaggio[tot];
