@@ -12,8 +12,28 @@ public class Test {
     }
 
     public static void creaPg(Personaggio[] pg){
-        for(int i=0;i<pg.length;i++) {
-            pg[i] = new Personaggio(Interazione.strput("qual'è il nome del personaggio " + (i+1) + "?"));
+        int i=0;
+        while(i<pg.length){
+            if(pg[i] != null){
+                if(Interazione.boolput("vuoi modificare il personaggio?")) pg[i].modificaPg();
+                i++;
+            }else if(Interazione.boolput("vuoi prendere questo personaggio dal file dati?")){
+                Reader r = new Reader();
+                String[][] tabel = r.getCsv("Personaggi.csv");
+                outElencoCsv(tabel);
+                pg[i] = new Personaggio(tabel[Interazione.input("\ninserisci il valore corrispondente al personaggio che vuoi inserire\t(poi sarà possibile modificare il personaggio")]);
+            }else{
+                pg[i] = new Personaggio();
+            }
+        }
+    }
+    public static void outElencoCsv(String[][] tabel){
+        for(int i=0;i<tabel.length;i++){
+            System.out.print(i + ")\t");
+            for(String r:tabel[i]){
+                System.out.printf("%-35s", r);
+            }
+            Interazione.output("");
         }
     }
 }

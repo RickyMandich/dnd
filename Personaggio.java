@@ -12,124 +12,37 @@ public class Personaggio{
     protected int tiro;
     protected int dannoIniziale;
     protected boolean amico;
-    protected boolean[][] tiriControMorte;
+    protected boolean[][] tiriControMorte = new boolean[2][3];
     protected boolean morto;
 
-    //inserire come parametro la stringa "valori" nel caso si vogliano assegnare dei valori di default mentre
-    //inserire la stringa "input" nel caso si vogliano inserire da tastiera tutti i dati non ricavabili
-    public Personaggio(String nome) {
-        this.nome = nome;
-        int[] puntiEsperienza = {0, 300, 900, 2700, 6500, 14000, 23000, 48000, 64000, 85000, 100000, 120000, 140000, 165000, 195000, 195000, 225000, 265000, 305000, 355000};
-        String metodoValori = Interazione.strput("vuoi che io prenda i valori di " + nome + " standard (inserisci \"standard\") o da personaggi già fatti? (inserisci \"prefatti\")\nAttenzione:\tNel caso in cui la stringa inserita sia diversa ti chiederò tutti i dati in input)");
-        caratteristiche = new ArrayCaratteristica();
-        morto = false;
-        amico = Interazione.boolput(nome+" è un amico?");
-        switch (metodoValori) {
-            case "prefatti" -> {
-                boolean personalizzato = true;
-                if(!this.amico && personalizzato) {
-                    if(Interazione.boolput("è un goblin?")) {
-                        hp = 7;
-                        ca = 15;
-                        caratteristiche.carat[Caratteristica.forza].punteggio = 8;
-                        caratteristiche.carat[Caratteristica.destrezza].punteggio = 14;
-                        caratteristiche.carat[Caratteristica.costituzione].punteggio = 10;
-                        caratteristiche.carat[Caratteristica.intelligenza].punteggio = 10;
-                        caratteristiche.carat[Caratteristica.saggezza].punteggio = 8;
-                        caratteristiche.carat[Caratteristica.carisma].punteggio = 8;
-                        for(Caratteristica c: caratteristiche.carat) {
-                            c.getBonus();
-                        }
-                        lvl = 1;
-                        dannoIniziale = 0;
-                    }else if(Interazione.boolput("è un brigante umano?")) {
-                        hp = 16;
-                        ca = 14;
-                        caratteristiche.carat[Caratteristica.forza].punteggio = 11;
-                        caratteristiche.carat[Caratteristica.destrezza].punteggio = 14;
-                        caratteristiche.carat[Caratteristica.costituzione].punteggio = 12;
-                        caratteristiche.carat[Caratteristica.intelligenza].punteggio = 9;
-                        caratteristiche.carat[Caratteristica.saggezza].punteggio = 9;
-                        caratteristiche.carat[Caratteristica.carisma].punteggio = 11;
-                        for(Caratteristica c: caratteristiche.carat) {
-                            c.getBonus();
-                        }
-                        lvl = 1;
-                        dannoIniziale = 0;
-                    }else{
-                        personalizzato = false;
-                    }
-                }else if(personalizzato){
-                    if(Interazione.boolput("è il pg mat?")){
-                        hp = 42;
-                        ca = 12;
-                        caratteristiche.carat[Caratteristica.forza].punteggio = 12;
-                        caratteristiche.carat[Caratteristica.destrezza].punteggio = 12;
-                        caratteristiche.carat[Caratteristica.costituzione].punteggio = 14;
-                        caratteristiche.carat[Caratteristica.intelligenza].punteggio = 12;
-                        caratteristiche.carat[Caratteristica.saggezza].punteggio = 12;
-                        caratteristiche.carat[Caratteristica.carisma].punteggio = 16;
-                        for(Caratteristica c: caratteristiche.carat) {
-                            c.getBonus();
-                        }
-                        lvl = 5;
-                        dannoIniziale = 0;
-                    }else {
-                        personalizzato = false;
-                    }
-                }
-                if(!personalizzato){
-                    Interazione.output("allora metto i valori standard");
-                    hp = 10;
-                    ca = 14;
-                    for(Caratteristica c: caratteristiche.carat) {
-                        c.punteggio = 10;
-                        c.getBonus();
-                    }
-                    lvl = 1;
-                    dannoIniziale = 0;
-                }
-            }
-            case "standard" -> {
-                Interazione.output("allora metto i valori standard");
-                hp = 10;
-                ca = 14;
-                for(Caratteristica c: caratteristiche.carat) {
-                    c.punteggio = 10;
-                    c.getBonus();
-                }
-                lvl = 1;
-                dannoIniziale = 0;
-            }
-            default -> {
-                hp = Interazione.input("quanti punti ferita ha " + nome + "?");
-                ca = Interazione.input("qual'è la classe armatura di " + nome + "?");
-                for (Caratteristica c: caratteristiche.carat) {
-                    c.punteggio = Interazione.input("qual'è il punteggio di " + c.nome + " di " + nome);
-                    c.getBonus();
-                }
-                lvl = Interazione.input("di che livello è " + nome + "?");
-                dannoIniziale = Interazione.input("qual'è il danno iniziale di " + nome);
-            }
+    public Personaggio() {
+        this.nome = Interazione.strput("inserisci il nome del personaggio");
+        this.hp = Interazione.input("inserisci i punti ferita attuali di " + this.nome);
+        this.hpTot = Interazione.input("inserisci i punti ferita massimi di " + this.nome);
+        this.ca = Interazione.input("nserisci la classe armatura di " + this.nome);
+        this.comp = Interazione.input("inserisci il bonus competenza di " + this.nome);
+        this.caratteristiche = new ArrayCaratteristica(this.nome);
+        this.xp = Interazione.input("quanti punti esperienza ha " + this.nome);
+        this.lvl = Interazione.input("qual'è il livello di " + this.nome);
+        this.ispirazione = Interazione.boolput(this.nome + " ha un punto ispirazione?");
+        this.dannoIniziale = Interazione.input("qual'è il danno iniziale di " + this.nome);
+        this.amico = Interazione.boolput(this.nome + "è un amico?");
+        int successi;
+        do {
+            successi = Interazione.input("quanti successi nei tiri contro morte ha " + this.nome + "?");
+        } while (successi > 2 || successi < 0);
+        int fallimenti;
+        do {
+            fallimenti = Interazione.input("quanti fallimenti nei tiri contro morte ha " + this.nome + "?");
+        }while(fallimenti>2||fallimenti<0);
+        for(int i=0;i<2;i++){
+            for(int j=0;j<3;j++) tiriControMorte[i][j] = false;
         }
-        hpTot = hp;
-        switch (lvl) {
-            case 1, 2, 3, 4 -> comp = 2;
-            case 5, 6, 7, 8 -> comp = 3;
-            case 9, 10, 11, 12 -> comp = 4;
-            case 13, 14, 15, 16 -> comp = 5;
-            case 17, 18, 19, 20 -> comp = 6;
-        }
-        xp = puntiEsperienza[lvl - 1];
-        ispirazione = false;
-        tiro = 0;
-        tiriControMorte = new boolean[2][3];
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 3; j++) {
-                tiriControMorte[i][j] = false;
-            }
-        }
+        for(int i=0;i<successi;i++) tiriControMorte[0][i] = true;
+        for(int i=0;i<fallimenti;i++) tiriControMorte[1][i] = true;
+        this.morto = tiriControMorte[1][2];
     }
+
     public Personaggio(String[] row){
         Parser p = new Parser();
         String[] rowCaratteristiche = new String[6];
@@ -148,7 +61,6 @@ public class Personaggio{
         this.ispirazione = p.parseBool(row[14]);
         this.dannoIniziale = p.parseInt(row[15]);
         this.amico = p.parseBool(row[16]);
-        this.tiriControMorte = new boolean[2][3];
         this.tiriControMorte[0][0] = p.parseBool(row[17]);
         this.tiriControMorte[0][1] = p.parseBool(row[18]);
         this.tiriControMorte[0][2] = p.parseBool(row[19]);
@@ -428,6 +340,78 @@ public class Personaggio{
         this.scambiaTiriControMorte(pg);
         this.scambiaMorto(pg);
     }
+    public void modificaPg(){
+        boolean run = true;
+        String output = getOutput();
+        while (run){
+            switch (Interazione.input(output)){
+                case 1:
+                    this.hp = Interazione.input("inserisci i punti ferita attuali di " + this.nome);
+                    break;
+                case 2:
+                    this.hpTot = Interazione.input("inserisci i punti ferita massimi di " + this.nome);
+                    break;
+                case 3:
+                    this.ca = Interazione.input("inserisci la classe armatura di " + this.nome);
+                    break;
+                case 4:
+                    this.comp = Interazione.input("inserisci il bonus competenza di " + this.nome);
+                    break;
+                case 5:
+                    int caratteristicaUsata=Interazione.input("quale caratteristica vuoi modificare?\n1) forza\n2)destrezza\n3)costituzione\n4)intelligenza\n5)saggezza\n6)carisma");
+                    caratteristiche.carat[caratteristicaUsata].punteggio = Interazione.input("qual'è il punteggio di " + caratteristiche.carat[caratteristicaUsata].nome +" di " + this.nome);
+                    break;
+                case 6:
+                    this.xp = Interazione.input("quanti punti esperienza ha " + this.nome);
+                    break;
+                case 7:
+                    this.lvl = Interazione.input("qual'è il livello di " + this.nome);
+                    break;
+                case 8:
+                    this.dannoIniziale = Interazione.input("qual'è il danno iniziale di " + this.nome);
+                    break;
+                case 9:
+                    this.amico = Interazione.boolput(this.nome + "è un amico?");
+                    break;
+                case 10:
+                    int successi;
+                    do {
+                        successi = Interazione.input("quanti successi nei tiri contro morte ha " + this.nome + "?");
+                    } while (successi > 2 || successi < 0);
+                    int fallimenti;
+                    do {
+                        fallimenti = Interazione.input("quanti fallimenti nei tiri contro morte ha " + this.nome + "?");
+                    }while(fallimenti>2||fallimenti<0);
+                    for(int i=0;i<2;i++){
+                        for(int j=0;j<3;j++) tiriControMorte[i][j] = false;
+                    }
+                    for(int i=0;i<successi;i++) tiriControMorte[0][i] = true;
+                    for(int i=0;i<fallimenti;i++) tiriControMorte[1][i] = true;
+                    this.morto = tiriControMorte[1][2];
+                    break;
+                case 11:
+                    run = false;
+                    break;
+            }
+        }
+    }
+
+    private static String getOutput() {
+        String output = "cosa vuoi fare?\n";
+        output += "inserisci 01 per modificare i punti ferita attuali\n";
+        output += "inserisci 02 per modificare i punti ferita massimi\n";
+        output += "inserisci 03 per modificare la classe armatura\n";
+        output += "inserisci 04 per modificare il bonus competenza\n";
+        output += "inserisci 05 per modificare le caratteristiche\n";
+        output += "inserisci 06 per modificare i punti esperienza\n";
+        output += "inserisci 07 per modificare il livello\n";
+        output += "inserisci 08 per modificare il danno iniziale\n";
+        output += "inserisci 09 per modificare se è amico o meno\n";
+        output += "inserisci 10 per modificare i tiri salvezza contro morte\n";
+        output += "inserisci 11 per uscire\n";
+        return output;
+    }
+
     public void combattimento(Personaggio[] pg){
         while(pg[0].controlloScontro(pg)) {
             for(int i=0;i<pg.length;i++){
@@ -506,7 +490,7 @@ public class Personaggio{
             }
         }
         int i = j;
-        while((pg[i].morto || pg[i].amico==pg[j].amico) && scontro){
+        while(scontro && (pg[i].morto || pg[i].amico==pg[j].amico)){
             i++;
             if(i==pg.length){
                 scontro = false;

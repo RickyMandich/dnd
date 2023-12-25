@@ -1,6 +1,13 @@
 public class ArrayCaratteristica {
     public Caratteristica[] carat = new Caratteristica[6];
 
+    public ArrayCaratteristica(String nome){
+        for(int i = 0; i< carat.length; i++){
+            carat[i] = new Caratteristica(i);
+            carat[i].punteggio = Interazione.input("qual'è il punteggio di " + carat[i].nome +" di " + nome);
+            carat[i].getBonus();
+        }
+    }
     public ArrayCaratteristica(){
         for(int i = 0; i< carat.length; i++){
             carat[i] = new Caratteristica(i);
