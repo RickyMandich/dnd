@@ -1,5 +1,18 @@
 public class Test {
     public static void main(String[] args) {
+        Reader r = new Reader();
+        String[][] tabel = r.getCsv("Personaggi.csv");
+        outElencoCsv(tabel);
+        int index = Interazione.input("\ninserisci il valore corrispondente al personaggio che vuoi inserire\t(poi sarà possibile modificare il personaggio");
+        Personaggio p1 = new Personaggio(tabel[index]);
+        Interazione.output(p1 + "\n");
+        String csv = p1.toCsv();
+        String[] arrayCsv = csv.split(",");
+        for(int i=0;i<tabel[index].length;i++){
+            System.out.printf("%-30s %-30s\n", arrayCsv[i], tabel[index][i]);
+        }
+    }
+    public static void eseguiProgramma() {
         int tot = Interazione.input("quanti altri personaggi stanno combattendo?");
         Personaggio[] pg = new Personaggio[tot];
         creaPg(pg);

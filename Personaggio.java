@@ -45,17 +45,13 @@ public class Personaggio{
 
     public Personaggio(String[] row){
         Parser p = new Parser();
-        String[] rowCaratteristiche = new String[6];
-        for(int i=0;i<rowCaratteristiche.length;i++){
-            rowCaratteristiche[i] = row[i+6];
-        }
         this.nome = row[0];
         this.iniziativa = p.parseInt(row[1]);
         this.hp = p.parseInt(row[2]);
         this.hpTot = p.parseInt(row[3]);
         this.ca = p.parseInt(row[4]);
         this.comp = p.parseInt(row[5]);
-        this.caratteristiche = new ArrayCaratteristica(rowCaratteristiche);
+        this.caratteristiche = new ArrayCaratteristica(subRow(row, 6, 11));
         this.xp = p.parseInt(row[12]);
         this.lvl = p.parseInt(row[13]);
         this.ispirazione = p.parseBool(row[14]);
@@ -68,6 +64,13 @@ public class Personaggio{
         this.tiriControMorte[1][1] = p.parseBool(row[21]);
         this.tiriControMorte[1][2] = p.parseBool(row[22]);
         this.morto = p.parseBool(row[23]);
+    }
+    public String[] subRow(String[] row, int inizio, int fine){
+        String[] subRow = new String[fine-inizio+1];
+        for(int i = 0; i<subRow.length; i++){
+            subRow[i] = row[i+inizio];
+        }
+        return subRow;
     }
 
     public String getNome() {
