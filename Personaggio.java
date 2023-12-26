@@ -216,21 +216,21 @@ public class Personaggio{
     public String toCsv(){
         String info = "";
         info = nome;
-        info += "," + iniziativa;
-        info += "," + hp;
-        info += "," + hpTot;
-        info += "," + ca;
-        info += "," + comp;
-        for(Caratteristica c: caratteristiche.carat) info = info.concat("," + c.punteggio);
-        info += "," + xp;
-        info += "," + lvl;
-        info += "," + ispirazione;
-        info += "," + dannoIniziale;
-        info += "," + amico;
+        info += ", " + iniziativa;
+        info += ", " + hp;
+        info += ", " + hpTot;
+        info += ", " + ca;
+        info += ", " + comp;
+        for(Caratteristica c: caratteristiche.carat) info = info.concat(", " + c.punteggio);
+        info += ", " + xp;
+        info += ", " + lvl;
+        info += ", " + ispirazione;
+        info += ", " + dannoIniziale;
+        info += ", " + amico;
         for(int i=0;i<2;i++){
-            for(int j=0;j<3;j++) info = info.concat("," + tiriControMorte[i][j]);
+            for(int j=0;j<3;j++) info = info.concat(", " + tiriControMorte[i][j]);
         }
-        info += "," + morto;
+        info += ", " + morto;
         info += "\n";
         return info;
     }

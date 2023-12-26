@@ -1,38 +1,66 @@
 public class Test {
     public static void main(String[] args) {
-        //eseguiProgramma();
-        testSingoloPgCsv();
+        eseguiProgramma();
+        //testSingoloPgCsv();
+        Interazione.close();
     }
-    public static void testSingoloPgCsv() {
+    public static void testSingoloPgCsv(){
+        testWriteSingoloPgCsv(testReadSingoloPgCsv());
+    }
+    public static Personaggio[] testReadSingoloPgCsv() {
         Reader r = new Reader();
         String[][] tabel = r.getCsv("Personaggi.csv");
-        outElencoCsv(tabel);
-        int index = Interazione.input("\ninserisci il valore corrispondente al personaggio che vuoi inserire\t(poi sarà possibile modificare il personaggio");
-        Personaggio p1 = new Personaggio(tabel[index]);
-        Interazione.output(p1 + "\n");
-        String csv = p1.toCsv();
-        String[] arrayCsv = csv.split(",");
-        for(int i=0;i<tabel[index].length;i++){
-            System.out.printf("%-30s %-30s\n", arrayCsv[i], tabel[index][i]);
+        Personaggio[] pg = new Personaggio[tabel.length-1];
+        for (int j = 0; j < pg.length; j++) {
+            outElencoCsv(tabel);
+            int index = Interazione.input("\ninserisci il valore corrispondente al personaggio che vuoi inserire\t(poi sarà possibile modificare il personaggio");
+            pg[j] = new Personaggio(tabel[index]);
+            Interazione.output(pg[j] + "\n");
+            String csv = pg[j].toCsv();
+            String[] arrayCsv = csv.split(", ");
+            for (int i = 0; i < tabel[index].length; i++) {
+                System.out.printf("%-30s %-30s\n", tabel[index][i], arrayCsv[i]);
+            }
         }
+        return pg;
+    }
+    public static void testWriteSingoloPgCsv(Personaggio[] pg){
+        Writer w = new Writer("csv\\Personaggi_output.csv");
+        for(Personaggio p:pg) {
+            w.addCsv(p.toCsv());
+            Interazione.output("ho aggiunto " + p.nome + " al file csv");
+        }
+        w.close();
+    }
+    public static void writePgCsv(Personaggio[] pg){
+        Writer w = new Writer("csv\\Personaggi_output.csv");
+        for(Personaggio p:pg) {
+            w.addCsv(p.toCsv());
+            Interazione.output("ho aggiunto " + p.nome + " al file csv");
+        }
+        w.close();
     }
     public static void eseguiProgramma() {
-        int tot = Interazione.input("quanti altri personaggi stanno combattendo?");
+        int tot = Interazione.input("quanti personaggi stanno combattendo?");
         Personaggio[] pg = new Personaggio[tot];
-        creaPg(pg);
+        pg = creaPg(pg);
         for(int i=0;i<tot;i++) {
             Interazione.output(pg[i].toString());
         }
-        pg[0].preparazioneOrdine(pg);
-        pg[0].combattimento(pg);
-        Interazione.close();
+        //pg[0].preparazioneOrdine(pg);
+        //pg[0].combattimento(pg);
+
+        if(Interazione.boolput("vuoi salvare i personaggi allo stato attuale?")) writePgCsv(pg);
     }
 
-    public static void creaPg(Personaggio[] pg){
+    public static Personaggio[] creaPg(Personaggio[] pg){
         int i=0;
         while(i<pg.length){
             if(pg[i] != null){
                 if(Interazione.boolput("vuoi modificare il personaggio?")) pg[i].modificaPg();
+                if(i == pg.length-1){
+                    if(Interazione.boolput("vuoi aggiungere altri personaggi?")) pg = addPg(pg);
+                }
                 i++;
             }else if(Interazione.boolput("vuoi prendere questo personaggio dal file dati?")){
                 Reader r = new Reader();
@@ -43,12 +71,20 @@ public class Test {
                 pg[i] = new Personaggio();
             }
         }
+        return pg;
+    }
+    public static Personaggio[] addPg(Personaggio[] pg){
+        Personaggio[] newPg = new Personaggio[pg.length + Interazione.input("quanti altri personaggi vuoi aggiungere?")];
+        for(int i=0;i<pg.length;i++){
+            newPg[i] = pg[i];
+        }
+        return newPg;
     }
     public static void outElencoCsv(String[][] tabel){
         for(int i=0;i<tabel.length;i++){
             System.out.print(i + ")\t");
-            for(String r:tabel[i]){
-                System.out.printf("%-35s", r);
+            for(int j=0;j<tabel[i].length;j++){
+                System.out.printf("%-35s", tabel[i][j]);
             }
             Interazione.output("");
         }
