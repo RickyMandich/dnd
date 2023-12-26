@@ -1,5 +1,9 @@
 public class Test {
     public static void main(String[] args) {
+        //eseguiProgramma();
+        testSingoloPgCsv();
+    }
+    public static void testSingoloPgCsv() {
         Reader r = new Reader();
         String[][] tabel = r.getCsv("Personaggi.csv");
         outElencoCsv(tabel);
