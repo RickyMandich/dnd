@@ -8,7 +8,7 @@ public class Reader {
         try{
             reader = new BufferedReader(new FileReader(file));
             while((line = reader.readLine()) != null){
-                String[] row = line.split(",");
+                String[] row = line.split(", ");
                 tabel = aggiungiRiga(tabel, row);
             }
         }

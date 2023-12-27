@@ -348,6 +348,9 @@ public class Personaggio{
         String output = getOutput();
         while (run){
             switch (Interazione.input(output)){
+                case 0:
+                    this.nome = Interazione.strput("inserisci il nome del personaggio che stai modificando");
+                    break;
                 case 1:
                     this.hp = Interazione.input("inserisci i punti ferita attuali di " + this.nome);
                     break;

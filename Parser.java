@@ -4,7 +4,7 @@ public class Parser{
         char[] array = stringa.toCharArray();
         for(int i=0;i<array.length;i++){
             if(array[i]<48 || array[i]>57){
-                array = rimuoviCella(array);
+                array = rimuoviCella(array, i);
             }
         }
         int[] arrayInteri = new int[array.length];
@@ -27,9 +27,14 @@ public class Parser{
         }
         return risultato;
     }
-    public char[] rimuoviCella(char[] array){
-        char[] newArray = new char[array.length-1];
-        for(int i=0;i< newArray.length;i++) newArray[i] = array[i];
+    public static char[] rimuoviCella(char[] oldArray, int daEliminare){
+        char[] newArray = new char[oldArray.length-1];
+        int newIndex = 0;
+        for(int oldIndex=0;oldIndex<oldArray.length;oldIndex++){
+            if(oldIndex!=daEliminare){
+                newArray[newIndex++] = oldArray[oldIndex];
+            }
+        }
         return newArray;
     }
     public int[] giraArray(int[] array){
