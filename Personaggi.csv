@@ -1,6 +1,6 @@
 nome, iniziativa, punti ferita, punti ferita totali, classe armatura, competenza, punteggio forza, punteggio destrezza, punteggio costituzione, punteggio intelligenza, punteggio saggezza, punteggio carisma, punti esperienza, livello, ispirazione, danno iniziale, amico, primo successo contro morte, secondo successo contro morte, terzo successo contro morte, primo fallimento contro morte, secondo fallimento contro morte, terzo fallimento contro morte, morto
-Mat Al'Aybara, 1, 42, 42, 12, 3, 12, 12, 14, 12, 12, 16, 6500, 5, false, 0, false, false, false, false, false, false, false, false, 
-Kenny "Kennuccio" Zaraki, 3, 16, 16, 16, 2, 16, 16, 16, 8, 12, 10, 0, 1, false, 0, false, false, false, false, false, false, false, false, 
+Mat Al'Aybara, 1, 42, 42, 12, 3, 12, 12, 14, 12, 12, 16, 6500, 5, false, 0, true, false, false, false, false, false, false, false, 
+Kenny "Kennuccio" Zaraki, 3, 16, 16, 16, 2, 16, 16, 16, 8, 12, 10, 0, 1, false, 0, true, false, false, false, false, false, false, false, 
 Bandito umanoide, 0, 16, 16, 14, 4, 11, 14, 12, 9, 9, 11, 100, 2, false, 0, false, false, false, false, false, false, false, false, 
 Goblin, 0, 7, 7, 15, 4, 8, 14, 10, 10, 8, 8, 50, 1, false, 0, false, false, false, false, false, false, false, false, 
 Png casuale, 0, 4, 4, 10, 2, 10, 10, 10, 10, 10, 10, 10, 1, false, 0, false, false, false, false, false, false, false, false, 

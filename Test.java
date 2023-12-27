@@ -33,7 +33,7 @@ public class Test {
                     if(Interazione.boolput("vuoi aggiungere altri personaggi?")) pg = addPg(pg);
                 }
                 i++;
-            }else if(Interazione.boolput("vuoi prendere questo personaggio dal file dati?")){
+            }else if(Interazione.boolput("vuoi prendere il " + (i+1) +"° personaggio dal file dati?")){
                 Reader r = new Reader();
                 String[][] tabel = r.getCsv("Personaggi.csv");
                 outElencoCsv(tabel);
