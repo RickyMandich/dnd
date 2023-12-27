@@ -1,36 +1,7 @@
 public class Test {
     public static void main(String[] args) {
         eseguiProgramma();
-        //testSingoloPgCsv();
         Interazione.close();
-    }
-    public static void testSingoloPgCsv(){
-        testWriteSingoloPgCsv(testReadSingoloPgCsv());
-    }
-    public static Personaggio[] testReadSingoloPgCsv() {
-        Reader r = new Reader();
-        String[][] tabel = r.getCsv("Personaggi.csv");
-        Personaggio[] pg = new Personaggio[tabel.length-1];
-        for (int j = 0; j < pg.length; j++) {
-            outElencoCsv(tabel);
-            int index = Interazione.input("\ninserisci il valore corrispondente al personaggio che vuoi inserire\t(poi sarà possibile modificare il personaggio");
-            pg[j] = new Personaggio(tabel[index]);
-            Interazione.output(pg[j] + "\n");
-            String csv = pg[j].toCsv();
-            String[] arrayCsv = csv.split(", ");
-            for (int i = 0; i < tabel[index].length; i++) {
-                System.out.printf("%-30s %-30s\n", tabel[index][i], arrayCsv[i]);
-            }
-        }
-        return pg;
-    }
-    public static void testWriteSingoloPgCsv(Personaggio[] pg){
-        Writer w = new Writer("csv\\Personaggi_output.csv");
-        for(Personaggio p:pg) {
-            w.addCsv(p.toCsv());
-            Interazione.output("ho aggiunto " + p.nome + " al file csv");
-        }
-        w.close();
     }
     public static void writePgCsv(Personaggio[] pg){
         Writer w = new Writer("csv\\Personaggi_output.csv");
@@ -47,8 +18,8 @@ public class Test {
         for(int i=0;i<tot;i++) {
             Interazione.output(pg[i].toString());
         }
-        //pg[0].preparazioneOrdine(pg);
-        //pg[0].combattimento(pg);
+        pg[0].preparazioneOrdine(pg);
+        pg[0].combattimento(pg);
 
         if(Interazione.boolput("vuoi salvare i personaggi allo stato attuale?")) writePgCsv(pg);
     }
