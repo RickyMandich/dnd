@@ -4,7 +4,7 @@ public class Test {
         Interazione.close();
     }
     public static void writePgCsv(Personaggio[] pg){
-        Writer w = new Writer("csv\\Personaggi_output.csv");
+        Writer w = new Writer("csv\\" + Interazione.strput("come si chiama il file output?") + ".csv");
         for(Personaggio p:pg) {
             w.addCsv(p.toCsv());
             Interazione.output("ho aggiunto " + p.nome + " al file csv");
