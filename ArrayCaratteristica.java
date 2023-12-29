@@ -1,4 +1,4 @@
-public class ArrayCaratteristica {
+public class ArrayCaratteristica{
     public Caratteristica[] carat = new Caratteristica[6];
 
     public ArrayCaratteristica(String nome){
