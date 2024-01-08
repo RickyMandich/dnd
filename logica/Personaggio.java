@@ -54,12 +54,62 @@ public class Personaggio {
         this.carisma = new Statistica(Dadi.getInt("Inserisci il punteggio di carisma di " + this.nome));
     }
 
-    public int TiroForza(){
+    public int tiroForza(){
         return Dadi.tiro(0, 20, this.forza.bonus);
     }
 
-    public int TiroDestrezza(){
+    public int tiroDestrezza(){
         return Dadi.tiro(0,20, this.destrezza.bonus);
+    }
+
+    public int tiroCostituzione(){
+        return Dadi.tiro(0,20, this.costituzione.bonus);
+    }
+
+    public int tiroIntelligenza(){
+        return Dadi.tiro(0,20, this.intelligenza.bonus);
+    }
+
+    public int tiroSaggezza(){
+        return Dadi.tiro(0,20, this.saggezza.bonus);
+    }
+
+    public int tiroCarisma(){
+        return Dadi.tiro(0,20, this.carisma.bonus);
+    }
+
+    public int tiroSalvezza(String statistica){
+        statistica = statistica.toLowerCase();
+        switch (statistica) {
+            case "for" -> {
+                if (forza.salvezza) return tiroForza() + bonusSalvezza;
+                else return tiroForza();
+            }
+            case "des" -> {
+                if (destrezza.salvezza) return tiroDestrezza() + bonusSalvezza;
+                else return tiroDestrezza();
+            }
+            case "cos" -> {
+                if (costituzione.salvezza) return tiroCostituzione() + bonusSalvezza;
+                else return tiroCostituzione();
+            }
+            case "int" -> {
+                if (intelligenza.salvezza) return tiroIntelligenza() + bonusSalvezza;
+                else return tiroIntelligenza();
+            }
+            case "sag" -> {
+                if (saggezza.salvezza) return tiroSaggezza() + bonusSalvezza;
+                else return tiroSaggezza();
+            }
+            case "car" -> {
+                if (carisma.salvezza) return tiroCarisma() + bonusSalvezza;
+                else return tiroCarisma();
+            }
+            default -> {
+                System.out.println("WARNING:\thai inserito una statistica non riconosciuta per cui ho tirato un d20 puro");
+                return Dadi.tiro(1, 20);
+            }
+        }
     }
 
 
