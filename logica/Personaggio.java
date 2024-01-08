@@ -11,6 +11,7 @@ public class Personaggio {
     protected boolean ispirazione;
     protected int tiro;
     protected int dannoIniziale;
+    protected int bonusSalvezza;
     protected boolean[][] tiriControMorte = new boolean[2][3];
     protected boolean morto;
     protected Statistica forza;
@@ -65,6 +66,7 @@ public class Personaggio {
     public class Statistica{
         public int punteggio;
         public int bonus;
+        public boolean salvezza;
 
         public Statistica(int punteggio){
             this.punteggio = punteggio;
