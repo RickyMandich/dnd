@@ -3,9 +3,9 @@ public class Personaggio{
     protected int iniziativa;
     protected int hp;
     protected int hpTot;
-    protected int ca;
+    protected int classeArmatura;
     protected int comp;
-    protected ArrayCaratteristica caratteristiche = new ArrayCaratteristica();
+    protected ArrayStatistica caratteristiche = new ArrayStatistica();
     protected int xp;
     protected int lvl;
     protected boolean ispirazione;
@@ -19,9 +19,9 @@ public class Personaggio{
         this.nome = Interazione.strput("inserisci il nome del personaggio");
         this.hp = Interazione.input("inserisci i punti ferita attuali di " + this.nome);
         this.hpTot = Interazione.input("inserisci i punti ferita massimi di " + this.nome);
-        this.ca = Interazione.input("nserisci la classe armatura di " + this.nome);
+        this.classeArmatura = Interazione.input("inserisci la classe armatura di " + this.nome);
         this.comp = Interazione.input("inserisci il bonus competenza di " + this.nome);
-        this.caratteristiche = new ArrayCaratteristica(this.nome);
+        this.caratteristiche = new ArrayStatistica(this.nome);
         this.xp = Interazione.input("quanti punti esperienza ha " + this.nome);
         this.lvl = Interazione.input("qual'è il livello di " + this.nome);
         this.ispirazione = Interazione.boolput(this.nome + " ha un punto ispirazione?");
@@ -49,9 +49,9 @@ public class Personaggio{
         this.iniziativa = p.parseInt(row[1]);
         this.hp = p.parseInt(row[2]);
         this.hpTot = p.parseInt(row[3]);
-        this.ca = p.parseInt(row[4]);
+        this.classeArmatura = p.parseInt(row[4]);
         this.comp = p.parseInt(row[5]);
-        this.caratteristiche = new ArrayCaratteristica(subRow(row, 6, 11));
+        this.caratteristiche = new ArrayStatistica(subRow(row, 6, 11));
         this.xp = p.parseInt(row[12]);
         this.lvl = p.parseInt(row[13]);
         this.ispirazione = p.parseBool(row[14]);
@@ -89,8 +89,8 @@ public class Personaggio{
         return hpTot;
     }
 
-    public int getCa() {
-        return ca;
+    public int getClasseArmatura() {
+        return classeArmatura;
     }
 
     public int getComp() {
@@ -133,7 +133,8 @@ public class Personaggio{
         return amico;
     }
 
-    //funzione che prende come parametro il tiro contro morte, segna il successo o il fallimento e riterno un booleano corrispondente allo stato del personaggio (0 = morto, 1 = svenuto, 2 = ripreso)
+    //funzione che prende come parametro il tiro contro morte, segna il successo o il fallimento e ritorna un booleano
+    // corrispondente allo stato del personaggio (0 = morto, 1 = svenuto, 2 = ripreso)
     public int setMorte(int risultato){
         int i = 0;
         int j;
@@ -199,7 +200,7 @@ public class Personaggio{
         info +="iniziativa:\t\t\t\t\t\t"+getIniziativa()+"\n";
         info +="punti ferita:\t\t\t\t\t"+getHp()+"\n";
         info +="punti ferita totali:\t\t\t"+getHpTot()+"\n";
-        info +="classe armatura:\t\t\t\t"+getCa()+"\n";
+        info +="classe armatura:\t\t\t\t"+ getClasseArmatura()+"\n";
         info +="bonus competenza:\t\t\t\t"+getComp()+"\n";
         info +="punteggi statistiche:\n"+getPunteggi()+"\n";
         info +="bonus statistiche:\n"+getBonus()+"\n";
@@ -219,9 +220,9 @@ public class Personaggio{
         info += ", " + iniziativa;
         info += ", " + hp;
         info += ", " + hpTot;
-        info += ", " + ca;
+        info += ", " + classeArmatura;
         info += ", " + comp;
-        for(Caratteristica c: caratteristiche.carat) info = info.concat(", " + c.punteggio);
+        for(Statistica c: caratteristiche.carat) info = info.concat(", " + c.punteggio);
         info += ", " + xp;
         info += ", " + lvl;
         info += ", " + ispirazione;
@@ -238,7 +239,7 @@ public class Personaggio{
     public boolean equals(Personaggio pg){
         if(this.nome != pg.nome) return false;
         if(this.hp != pg.hp) return false;
-        if(this.ca != pg.ca) return false;
+        if(this.classeArmatura != pg.classeArmatura) return false;
         if(this.comp != pg.comp) return false;
         if(!caratteristiche.equals(pg.caratteristiche)) return false;
         if(this.xp != pg.xp) return false;
@@ -268,9 +269,9 @@ public class Personaggio{
         pg.hpTot = hpTot;
     }
     protected void scambiaCa(Personaggio pg){
-        int ca = this.ca;
-        this.ca = pg.ca;
-        pg.ca = ca;
+        int ca = this.classeArmatura;
+        this.classeArmatura = pg.classeArmatura;
+        pg.classeArmatura = ca;
     }
     protected void scambiaComp(Personaggio pg){
         int comp = this.comp;
@@ -358,14 +359,28 @@ public class Personaggio{
                     this.hpTot = Interazione.input("inserisci i punti ferita massimi di " + this.nome);
                     break;
                 case 3:
-                    this.ca = Interazione.input("inserisci la classe armatura di " + this.nome);
+                    this.classeArmatura = Interazione.input("inserisci la classe armatura di " + this.nome);
                     break;
                 case 4:
                     this.comp = Interazione.input("inserisci il bonus competenza di " + this.nome);
                     break;
                 case 5:
-                    int caratteristicaUsata=Interazione.input("quale caratteristica vuoi modificare?\n1) forza\n2)destrezza\n3)costituzione\n4)intelligenza\n5)saggezza\n6)carisma");
-                    caratteristiche.carat[caratteristicaUsata].punteggio = Interazione.input("qual'è il punteggio di " + caratteristiche.carat[caratteristicaUsata].nome +" di " + this.nome);
+                    int caratteristicaUsata=Interazione.input(
+                            """
+                                    quale caratteristica vuoi modificare?
+                                    1) forza
+                                    2) destrezza
+                                    3) costituzione
+                                    4) intelligenza
+                                    5) saggezza
+                                    6) carisma"""
+                    );
+                    caratteristiche.carat[caratteristicaUsata].punteggio =
+                            Interazione.input(
+                                    "qual'è il punteggio di "
+                                        + caratteristiche.carat[caratteristicaUsata].nome
+                                        + " di " + this.nome
+                            );
                     break;
                 case 6:
                     this.xp = Interazione.input("quanti punti esperienza ha " + this.nome);
@@ -386,8 +401,11 @@ public class Personaggio{
                     } while (successi > 2 || successi < 0);
                     int fallimenti;
                     do {
-                        fallimenti = Interazione.input("quanti fallimenti nei tiri contro morte ha " + this.nome + "?");
-                    }while(fallimenti>2||fallimenti<0);
+                        fallimenti = Interazione.input(
+                                "quanti fallimenti nei tiri contro morte ha "
+                                        + this.nome
+                                        + "?");
+                    }while(fallimenti > 2 || fallimenti < 0);
                     for(int i=0;i<2;i++){
                         for(int j=0;j<3;j++) tiriControMorte[i][j] = false;
                     }
@@ -455,7 +473,7 @@ public class Personaggio{
 
     protected void preparazioneOrdine(Personaggio[] pg){
         for(Personaggio p: pg){
-            p.iniziativa = Dadi.tiro(1, 20) + p.caratteristiche.carat[Caratteristica.destrezza].bonus;
+            p.iniziativa = Dadi.tiro(1, 20) + p.caratteristiche.carat[Statistica.destrezza].bonus;
         }
         boolean uguale = true;
         do {
@@ -468,7 +486,7 @@ public class Personaggio{
                     pareggi++;
                 }
                 for(Personaggio p: pg){
-                    p.iniziativa = Dadi.tiro(1, 20) + p.caratteristiche.carat[Caratteristica.destrezza].bonus;
+                    p.iniziativa = Dadi.tiro(1, 20) + p.caratteristiche.carat[Statistica.destrezza].bonus;
                 }
             }
         }while(uguale);
@@ -523,9 +541,9 @@ public class Personaggio{
         this.hp -= dannoIniziale;
         int caratteristicaUsata;
         if(Interazione.boolput("uso forza per attaccare?\t(altrimenti considero destrezza)")){
-            caratteristicaUsata = Caratteristica.forza;
+            caratteristicaUsata = Statistica.forza;
         }else{
-            caratteristicaUsata = Caratteristica.destrezza;
+            caratteristicaUsata = Statistica.destrezza;
         }
         int competenza = 0;
         if(Interazione.boolput(this.nome + " ha competenza in questo attacco?")){
@@ -543,7 +561,7 @@ public class Personaggio{
         }while(nDadi<1);
         this.tiro = Dadi.tiro(1, 20)+caratteristiche.carat[caratteristicaUsata].bonus + (competenza * this.comp);
         for(Personaggio pg:pgAtt){
-            if (this.tiro > pg.ca) {
+            if (this.tiro > pg.classeArmatura) {
                 pg.hp -= (this.caratteristiche.carat[caratteristicaUsata].bonus + this.comp) * competenza;
                 for (int j = 0; j < nDadi; j++) {
                     pg.hp -= Dadi.tiro(1, dado);

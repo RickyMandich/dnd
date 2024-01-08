@@ -1,4 +1,4 @@
-public class Caratteristica {
+public class Statistica {
     public String nome;
     public int punteggio;
     public int bonus;
@@ -11,37 +11,37 @@ public class Caratteristica {
     public static final int saggezza = 4;
     public static final int carisma = 5;
 
-    public Caratteristica(int i){
+    public Statistica(int i){
         switch (i) {
-            case Caratteristica.forza -> nome = "Forza";
-            case Caratteristica.destrezza -> nome = "Destrezza";
-            case Caratteristica.costituzione -> nome = "Costituzione";
-            case Caratteristica.intelligenza -> nome = "Intelligenza";
-            case Caratteristica.saggezza -> nome = "Saggezza";
-            case Caratteristica.carisma -> nome = "Carisma";
+            case Statistica.forza -> nome = "Forza";
+            case Statistica.destrezza -> nome = "Destrezza";
+            case Statistica.costituzione -> nome = "Costituzione";
+            case Statistica.intelligenza -> nome = "Intelligenza";
+            case Statistica.saggezza -> nome = "Saggezza";
+            case Statistica.carisma -> nome = "Carisma";
         }
         punteggio = 0;
         getBonus();
     }
 
-    protected void scambiaNome(Caratteristica c){
+    protected void scambiaNome(Statistica c){
         String nome = this.nome;
         this.nome = c.nome;
         c.nome = nome;
     }
 
-    protected void scambiaPunteggio(Caratteristica c){
+    protected void scambiaPunteggio(Statistica c){
         int punteggio = this.punteggio;
         this.punteggio = c.punteggio;
         c.punteggio = punteggio;
     }
 
-    protected void scambiaBonus(Caratteristica c){
+    protected void scambiaBonus(Statistica c){
         int bonus = this.bonus;
         this.bonus = c.bonus;
         c.bonus = bonus;
     }
-    public void scambiaCaratteristica(Caratteristica c){
+    public void scambiaCaratteristica(Statistica c){
         this.scambiaNome(c);
         this.scambiaPunteggio(c);
         this.scambiaBonus(c);
@@ -54,7 +54,7 @@ public class Caratteristica {
         bonus /= 2;
     }
 
-    public boolean equals(Caratteristica c) {
+    public boolean equals(Statistica c) {
         if(this.nome!=c.nome) return false;
         if(this.punteggio!=c.punteggio) return false;
         if(this.bonus!=c.bonus) return false;

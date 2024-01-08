@@ -46,9 +46,7 @@ public class Test {
     }
     public static Personaggio[] addPg(Personaggio[] pg){
         Personaggio[] newPg = new Personaggio[pg.length + Interazione.input("quanti altri personaggi vuoi aggiungere?")];
-        for(int i=0;i<pg.length;i++){
-            newPg[i] = pg[i];
-        }
+        System.arraycopy(pg, 0, newPg, 0, pg.length);
         return newPg;
     }
     public static void outElencoCsv(String[][] tabel){

@@ -7,7 +7,7 @@ public class Dadi{
             return Interazione.input("inserisci il risultato naturale del dado tra " + origin + " e " + bound);
         }else{
             int num = ran.nextInt(origin, bound);
-            Interazione.output("il risultato del tiro è:\t" + num);
+            System.out.println("il risultato del tiro è:\t" + num);
             return num;
         }
     }
