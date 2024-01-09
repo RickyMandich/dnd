@@ -1,4 +1,4 @@
 package logica;
+public class Nemico extends Personaggio{
 
-public class Nemico {
 }
