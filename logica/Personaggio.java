@@ -105,11 +105,8 @@ public class Personaggio {
                 if (carisma.salvezza) return tiroCarisma() + bonusSalvezza;
                 else return tiroCarisma();
             }
-            default -> {
-                System.out.println("WARNING:\thai inserito una statistica non riconosciuta per cui ho tirato un d20 puro");
-                return Dadi.tiro(1, 20);
-            }
         }
+        throw new RuntimeException();
     }
 
 

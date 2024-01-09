@@ -471,6 +471,27 @@ public class Personaggio{
         Interazione.output("lo scontro è finito");
     }
 
+    protected void preparazioneOrdine(Personaggio[] pg){
+        for(Personaggio p: pg){
+            p.iniziativa = Dadi.tiro(1, 20) + p.caratteristiche.carat[Statistica.destrezza].bonus;
+        }
+        boolean uguale = true;
+        do {
+            uguale = false;
+            bubbleSort(pg);
+            if (pg[0].iniziativa == pg[1].iniziativa) {
+                int pareggi = 1;
+                uguale = true;
+                while(pg[pareggi].iniziativa == pg[pareggi-1].iniziativa){
+                    pareggi++;
+                }
+                for(Personaggio p: pg){
+                    p.iniziativa = Dadi.tiro(1, 20) + p.caratteristiche.carat[Statistica.destrezza].bonus;
+                }
+            }
+        }while(uguale);
+    }
+
     protected void bubbleSort(Personaggio[] pg){
         boolean scambio;
         do{
