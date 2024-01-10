@@ -22,60 +22,85 @@ public class Personaggio {
     protected Statistica carisma;
 
     public Personaggio() {
-        this.nome = Dadi.getString("inserisci il nome del personaggio");
-        this.iniziativa = Dadi.getInt("Inserisci l'iniziativa di " + this.nome);
-        this.puntiFerita = Dadi.getInt("Inserisci i punti ferita di " + this.nome);
-        this.puntiFeritaTotali = Dadi.getInt("Inserisci i punti ferita totali di " + this.nome);
-        this.classeArmatura = Dadi.getInt("Inserisci la classe armatura di " + this.nome);
-        this.competenza = Dadi.getInt("Inserisci la competenza di " + this.nome);
-        this.puntiEsperienza = Dadi.getInt("Inserisci i punti esperienza di " + this.nome);
-        this.livello = Dadi.getInt("Inserisci l'iniziativa di " + this.nome);
-        this.ispirazione = Dadi.getBoolean("Inserisci l'ispirazione di " + this.nome);
-        this.dannoIniziale = Dadi.getInt("Inserisci il danno iniziale di " + this.nome);
+        this.nome = getString("inserisci il nome del personaggio", new java.util.Scanner(System.in));
+        this.iniziativa = getInt("Inserisci l'iniziativa di " + this.nome, new java.util.Scanner(System.in));
+        this.puntiFerita = getInt("Inserisci i punti ferita di " + this.nome, new java.util.Scanner(System.in));
+        this.puntiFeritaTotali = getInt("Inserisci i punti ferita totali di " + this.nome, new java.util.Scanner(System.in));
+        this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome, new java.util.Scanner(System.in));
+        this.competenza = getInt("Inserisci la competenza di " + this.nome, new java.util.Scanner(System.in));
+        this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome, new java.util.Scanner(System.in));
+        this.livello = getInt("Inserisci l'iniziativa di " + this.nome, new java.util.Scanner(System.in));
+        this.ispirazione = getBoolean("Inserisci l'ispirazione di " + this.nome, new java.util.Scanner(System.in));
+        this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome, new java.util.Scanner(System.in));
         for(int i=0;i<2;i++) {
             for (boolean tiro : tiriControMorte[i]) tiro = false;
         }
         int successi = -1;
         int fallimenti = -1;
         while(successi<0 || successi > 2){
-            successi = Dadi.getInt("quanti successi nei tiri contro morte ha fatto " + this.nome);
+            successi = getInt("quanti successi nei tiri contro morte ha fatto " + this.nome, new java.util.Scanner(System.in));
         }
         for(int i=0;i<successi;i++) tiriControMorte[0][i] = true;
         while(fallimenti<0 || fallimenti > 2){
-            fallimenti = Dadi.getInt("quanti successi nei tiri contro morte ha fatto " + this.nome);
+            fallimenti = getInt("quanti successi nei tiri contro morte ha fatto " + this.nome, new java.util.Scanner(System.in));
         }
         for(int i=0;i<fallimenti;i++) tiriControMorte[1][i] = true;
         this.morto = tiriControMorte[1][2];
-        this.forza = new Statistica(Dadi.getInt("Inserisci il punteggio di forza di " + this.nome));
-        this.destrezza = new Statistica(Dadi.getInt("Inserisci il punteggio di destrezza di " + this.nome));
-        this.costituzione = new Statistica(Dadi.getInt("Inserisci il punteggio di costituzione di " + this.nome));
-        this.intelligenza = new Statistica(Dadi.getInt("Inserisci il punteggio di intelligenza di " + this.nome));
-        this.saggezza = new Statistica(Dadi.getInt("Inserisci il punteggio di saggezza di " + this.nome));
-        this.carisma = new Statistica(Dadi.getInt("Inserisci il punteggio di carisma di " + this.nome));
+        this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome, new java.util.Scanner(System.in)));
+        this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome, new java.util.Scanner(System.in)));
+        this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome, new java.util.Scanner(System.in)));
+        this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome, new java.util.Scanner(System.in)));
+        this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome, new java.util.Scanner(System.in)));
+        this.carisma = new Statistica(getInt("Inserisci il punteggio di carisma di " + this.nome, new java.util.Scanner(System.in)));
+    }
+
+    public int tiro(int origin, int bound){
+        return new java.util.Random().nextInt(origin, bound);
+    }
+    public int tiro(int origin, int bound, int bonus){
+        return tiro(origin, bound) + bonus;
+    }
+
+    public String getString(String stringa, java.util.Scanner scan){
+        System.out.println(stringa);
+        stringa = scan.nextLine();
+        scan.close();
+        return stringa;
+    }
+
+    public int getInt(String stringa, java.util.Scanner scan){
+        System.out.println(stringa);
+        int num = scan.nextInt();
+        scan.close();
+        return num;
+    }
+
+    public boolean getBoolean(String stringa, java.util.Scanner scan){
+        return getInt(stringa, scan) != 0;
     }
 
     public int tiroForza(){
-        return Dadi.tiro(0, 20, this.forza.bonus);
+        return tiro(0, 20, this.forza.bonus);
     }
 
     public int tiroDestrezza(){
-        return Dadi.tiro(0,20, this.destrezza.bonus);
+        return tiro(0,20, this.destrezza.bonus);
     }
 
     public int tiroCostituzione(){
-        return Dadi.tiro(0,20, this.costituzione.bonus);
+        return tiro(0,20, this.costituzione.bonus);
     }
 
     public int tiroIntelligenza(){
-        return Dadi.tiro(0,20, this.intelligenza.bonus);
+        return tiro(0,20, this.intelligenza.bonus);
     }
 
     public int tiroSaggezza(){
-        return Dadi.tiro(0,20, this.saggezza.bonus);
+        return tiro(0,20, this.saggezza.bonus);
     }
 
     public int tiroCarisma(){
-        return Dadi.tiro(0,20, this.carisma.bonus);
+        return tiro(0,20, this.carisma.bonus);
     }
 
     public int tiroSalvezza(String statistica){

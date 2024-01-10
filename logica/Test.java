@@ -2,7 +2,11 @@ package logica;
 public class Test{
     public static void main(String[] args) {
         Personaggio p = new Personaggio();
-        p.tiroSalvezza("STR");
-        System.out.println("intento non raggiunto");
+        try{
+            System.out.println("tiro salvezza:\t\t" + p.tiroSalvezza("STR"));
+        }
+        catch (Exception e){
+            System.out.println("intento non raggiunto");
+        }
     }
 }
