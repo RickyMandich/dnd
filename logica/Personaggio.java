@@ -1,4 +1,5 @@
 package logica;
+
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
@@ -55,8 +56,11 @@ public class Personaggio {
     }
 
     public int tiro(int origin, int bound){
-        return new java.util.Random().nextInt(origin, bound);
+        int num = new java.util.Random().nextInt(origin, bound);
+        System.out.println("il risultato del tiro è :" + num);
+        return num;
     }
+
     public int tiro(int origin, int bound, int bonus){
         return tiro(origin, bound) + bonus;
     }
