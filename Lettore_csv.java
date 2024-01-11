@@ -1,5 +1,5 @@
 import java.io.*;
-public class Reader {
+public class Lettore_csv {
     public String[][] getCsv(String file) {
         BufferedReader reader = null;
         String line;

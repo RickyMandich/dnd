@@ -1,8 +1,8 @@
 public class OverWrite{
     public static void main(String[] args) {
-        Reader r = new Reader();
+        Lettore_csv r = new Lettore_csv();
         String[][] tabel = r.getCsv("csv\\Personaggi_output.csv");
-        Writer w = new Writer("Personaggi.csv");
+        Scrittore_csv w = new Scrittore_csv("Personaggi.csv");
         for(int i=1;i<tabel.length;i++){
             w.addCsv(toString(tabel[i]));
         }

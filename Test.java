@@ -4,7 +4,7 @@ public class Test {
         Interazione.close();
     }
     public static void writePgCsv(Personaggio[] pg){
-        Writer w = new Writer("csv\\" + Interazione.strput("come si chiama il file output?") + ".csv");
+        Scrittore_csv w = new Scrittore_csv("csv\\" + Interazione.strput("come si chiama il file output?") + ".csv");
         for(Personaggio p:pg) {
             w.addCsv(p.toCsv());
             Interazione.output("ho aggiunto " + p.nome + " al file csv");
@@ -34,7 +34,7 @@ public class Test {
                 }
                 i++;
             }else if(Interazione.boolput("vuoi prendere il " + (i+1) +"° personaggio dal file dati?")){
-                Reader r = new Reader();
+                Lettore_csv r = new Lettore_csv();
                 String[][] tabel = r.getCsv("Personaggi.csv");
                 outElencoCsv(tabel);
                 pg[i] = new Personaggio(tabel[Interazione.input("\ninserisci il valore corrispondente al personaggio che vuoi inserire\t(poi sarà possibile modificare il personaggio")]);

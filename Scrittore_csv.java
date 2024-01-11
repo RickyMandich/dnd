@@ -1,8 +1,8 @@
 import java.io.*;
-public class Writer{
+public class Scrittore_csv {
     FileWriter writer;
 
-    public Writer(String file) {
+    public Scrittore_csv(String file) {
         try {
             writer = new FileWriter(file);
 
