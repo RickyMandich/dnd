@@ -3,8 +3,10 @@ package logica;
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
-    protected int puntiFerita;
-    protected int puntiFeritaTotali;
+    protected Class Vita{
+        public int attuale;
+        public int totale;
+    }
     protected int classeArmatura;
     protected int competenza;
     protected int puntiEsperienza;
