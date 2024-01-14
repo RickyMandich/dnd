@@ -3,10 +3,7 @@ package logica;
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
-    protected Class Vita{
-        public int attuale;
-        public int totale;
-    }
+    protected Vita puntiFerita;
     protected int classeArmatura;
     protected int competenza;
     protected int puntiEsperienza;
@@ -140,6 +137,15 @@ public class Personaggio {
         throw new RuntimeException();
     }
 
+    protected Class Vita{
+        public int attuale;
+        public int totale;
+
+        public Vita(int attuale, int totale){
+            This.attuale = attuale;
+            This.totale = totale;
+        } 
+    }
 
     public class Statistica{
         public int punteggio;
