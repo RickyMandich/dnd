@@ -24,8 +24,9 @@ public class Personaggio {
     public Personaggio() {
         this.nome = getString("inserisci il nome del personaggio", new java.util.Scanner(System.in));
         this.iniziativa = getInt("Inserisci l'iniziativa di " + this.nome, new java.util.Scanner(System.in));
-        this.puntiFerita = getInt("Inserisci i punti ferita di " + this.nome, new java.util.Scanner(System.in));
-        this.puntiFeritaTotali = getInt("Inserisci i punti ferita totali di " + this.nome, new java.util.Scanner(System.in));
+        this.puntiFerita = new Vita(
+                getInt("Inserisci i punti ferita di " + this.nome, new java.util.Scanner(System.in)),
+                getInt("Inserisci i punti ferita totali di " + this.nome, new java.util.Scanner(System.in)));
         this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome, new java.util.Scanner(System.in));
         this.competenza = getInt("Inserisci la competenza di " + this.nome, new java.util.Scanner(System.in));
         this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome, new java.util.Scanner(System.in));
@@ -137,13 +138,13 @@ public class Personaggio {
         throw new RuntimeException();
     }
 
-    protected Class Vita{
+    protected class Vita{
         public int attuale;
         public int totale;
 
         public Vita(int attuale, int totale){
-            This.attuale = attuale;
-            This.totale = totale;
+            this.attuale = attuale;
+            this.totale = totale;
         } 
     }
 
