@@ -34,4 +34,14 @@ public class Lettore_csv {
         newTabel[tabel.length] = row;
         return newTabel;
     }
+
+    public void outElencoCsv(String[][] tabel){
+        for(int i=0;i<tabel.length;i++){
+            System.out.print(i + ")\t");
+            for(int j=0;j<tabel[i].length;j++){
+                System.out.printf("%-35s", tabel[i][j]);
+            }
+            System.out.println();
+        }
+    }
 }
