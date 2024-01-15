@@ -12,6 +12,7 @@ public class Personaggio {
     protected int dannoIniziale;
     protected int bonusSalvezza;
     protected boolean test = true;
+    protected boolean amico;
     protected boolean[][] tiriControMorte = new boolean[2][3];
     protected boolean morto;
     protected Statistica forza;
@@ -34,7 +35,7 @@ public class Personaggio {
         this.competenza = getInt("Inserisci la competenza di " + this.nome);
         this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
         this.livello = getInt("Inserisci l'iniziativa di " + this.nome);
-        this.ispirazione = getBoolean(this.nome + "ha ispirazione?");
+        this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
         this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
         for(int i=0;i<2;i++) {
             for (boolean tiro : tiriControMorte[i]) tiro = false;
@@ -56,6 +57,36 @@ public class Personaggio {
         this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome));
         this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome));
         this.carisma = new Statistica(getInt("Inserisci il punteggio di carisma di " + this.nome));
+        this.amico = getBoolean(this.nome + " è un amico?");
+    }
+
+    public Personaggio(String[] row){
+        Parser p = new Parser();
+        this.nome = row[0];
+        this.iniziativa = p.parseInt(row[1]);
+        this.puntiFerita = new Vita(
+                p.parseInt(row[2]),
+                p.parseInt(row[3]));
+        this.classeArmatura = p.parseInt(row[4]);
+        this.competenza = p.parseInt(row[5]);
+        this.forza = new Statistica(p.parseInt(row[6]));
+        this.destrezza = new Statistica(p.parseInt(row[7]));
+        this.costituzione = new Statistica(p.parseInt(row[8]));
+        this.intelligenza = new Statistica(p.parseInt(row[9]));
+        this.saggezza = new Statistica(p.parseInt(row[10]));
+        this.carisma = new Statistica(p.parseInt(row[11]));
+        this.puntiEsperienza = p.parseInt(row[12]);
+        this.livello = p.parseInt(row[13]);
+        this.ispirazione = p.parseBool(row[14]);
+        this.dannoIniziale = p.parseInt(row[15]);
+        this.amico = p.parseBool(row[16]);
+        int h=17;
+        for(int i=0;i<tiriControMorte.length;i++){
+            for(int j=0;j<tiriControMorte[i].length;j++){
+                tiriControMorte[i][j] = p.parseBool(row[h++]);
+            }
+        }
+        this.morto = p.parseBool(row[23]);
     }
 
     public int tiro(int origin, int bound){
@@ -108,7 +139,7 @@ public class Personaggio {
         return tiro(0,20, this.carisma.bonus);
     }
 
-    public int tiroSalvezza(String statistica){
+    public int tiroSalvezza(String statistica) throws noSuchStatistic {
         statistica = statistica.toLowerCase();
         switch (statistica) {
             case "for" -> {
@@ -136,7 +167,7 @@ public class Personaggio {
                 else return tiroCarisma();
             }
         }
-        throw new RuntimeException();
+        throw new noSuchStatistic("la statistica inserita non è stata trovata");
     }
 
     protected class Vita{
