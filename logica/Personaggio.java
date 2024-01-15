@@ -1,5 +1,4 @@
 package logica;
-
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
@@ -12,6 +11,7 @@ public class Personaggio {
     protected int tiro;
     protected int dannoIniziale;
     protected int bonusSalvezza;
+    protected boolean test = true;
     protected boolean[][] tiriControMorte = new boolean[2][3];
     protected boolean morto;
     protected Statistica forza;
@@ -21,38 +21,41 @@ public class Personaggio {
     protected Statistica saggezza;
     protected Statistica carisma;
 
+    protected java.util.Scanner scan;
+
     public Personaggio() {
-        this.nome = getString("inserisci il nome del personaggio", new java.util.Scanner(System.in));
-        this.iniziativa = getInt("Inserisci l'iniziativa di " + this.nome, new java.util.Scanner(System.in));
+        this.scan = new java.util.Scanner(System.in);
+        this.nome = getString("inserisci il nome del personaggio");
+        this.iniziativa = getInt("Inserisci l'iniziativa di " + this.nome);
         this.puntiFerita = new Vita(
-                getInt("Inserisci i punti ferita di " + this.nome, new java.util.Scanner(System.in)),
-                getInt("Inserisci i punti ferita totali di " + this.nome, new java.util.Scanner(System.in)));
-        this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome, new java.util.Scanner(System.in));
-        this.competenza = getInt("Inserisci la competenza di " + this.nome, new java.util.Scanner(System.in));
-        this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome, new java.util.Scanner(System.in));
-        this.livello = getInt("Inserisci l'iniziativa di " + this.nome, new java.util.Scanner(System.in));
-        this.ispirazione = getBoolean("Inserisci l'ispirazione di " + this.nome, new java.util.Scanner(System.in));
-        this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome, new java.util.Scanner(System.in));
+                getInt("Inserisci i punti ferita di " + this.nome),
+                getInt("Inserisci i punti ferita totali di " + this.nome));
+        this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome);
+        this.competenza = getInt("Inserisci la competenza di " + this.nome);
+        this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
+        this.livello = getInt("Inserisci l'iniziativa di " + this.nome);
+        this.ispirazione = getBoolean(this.nome + "ha ispirazione?");
+        this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
         for(int i=0;i<2;i++) {
             for (boolean tiro : tiriControMorte[i]) tiro = false;
         }
         int successi = -1;
         int fallimenti = -1;
         while(successi<0 || successi > 2){
-            successi = getInt("quanti successi nei tiri contro morte ha fatto " + this.nome, new java.util.Scanner(System.in));
+            successi = getInt("quanti successi nei tiri contro morte ha fatto " + this.nome);
         }
         for(int i=0;i<successi;i++) tiriControMorte[0][i] = true;
         while(fallimenti<0 || fallimenti > 2){
-            fallimenti = getInt("quanti successi nei tiri contro morte ha fatto " + this.nome, new java.util.Scanner(System.in));
+            fallimenti = getInt("quanti fallimenti nei tiri contro morte ha fatto " + this.nome);
         }
         for(int i=0;i<fallimenti;i++) tiriControMorte[1][i] = true;
         this.morto = tiriControMorte[1][2];
-        this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome, new java.util.Scanner(System.in)));
-        this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome, new java.util.Scanner(System.in)));
-        this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome, new java.util.Scanner(System.in)));
-        this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome, new java.util.Scanner(System.in)));
-        this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome, new java.util.Scanner(System.in)));
-        this.carisma = new Statistica(getInt("Inserisci il punteggio di carisma di " + this.nome, new java.util.Scanner(System.in)));
+        this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome));
+        this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome));
+        this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome));
+        this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome));
+        this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome));
+        this.carisma = new Statistica(getInt("Inserisci il punteggio di carisma di " + this.nome));
     }
 
     public int tiro(int origin, int bound){
@@ -65,22 +68,20 @@ public class Personaggio {
         return tiro(origin, bound) + bonus;
     }
 
-    public String getString(String stringa, java.util.Scanner scan){
+    public String getString(String stringa){
         System.out.println(stringa);
         stringa = scan.nextLine();
-        scan.close();
         return stringa;
     }
 
-    public int getInt(String stringa, java.util.Scanner scan){
+    public int getInt(String stringa){
         System.out.println(stringa);
         int num = scan.nextInt();
-        scan.close();
         return num;
     }
 
-    public boolean getBoolean(String stringa, java.util.Scanner scan){
-        return getInt(stringa, scan) != 0;
+    public boolean getBoolean(String stringa){
+        return getInt(stringa + "\n(0 per falso e tutto il resto per vero)") != 0;
     }
 
     public int tiroForza(){
