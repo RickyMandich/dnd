@@ -138,7 +138,7 @@ public class Personaggio {
         return tiro(0,20, this.carisma.bonus);
     }
 
-    public int tiroSalvezza(String statistica) throws noSuchStatistic {
+    public int tiroSalvezza(String statistica) throws NoSuchStatistic {
         statistica = statistica.toLowerCase();
         switch (statistica) {
             case "for" -> {
@@ -166,7 +166,7 @@ public class Personaggio {
                 else return tiroCarisma();
             }
         }
-        throw new noSuchStatistic("la statistica inserita non è stata trovata");
+        throw new NoSuchStatistic("la statistica inserita non è stata trovata");
     }
 
     protected class Vita{

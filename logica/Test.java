@@ -9,7 +9,7 @@ public class Test{
         try{
             System.out.println("tiro salvezza:\t\t" + p.tiroSalvezza("FoR"));
         }
-        catch (noSuchStatistic e){
+        catch (NoSuchStatistic e){
             System.out.println("tiro salvezza non eseguito");
         }
         finally {
