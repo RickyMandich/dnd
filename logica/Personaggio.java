@@ -107,8 +107,7 @@ public class Personaggio {
 
     public int getInt(String stringa){
         System.out.println(stringa);
-        int num = scan.nextInt();
-        return num;
+        return scan.nextInt();
     }
 
     public boolean getBoolean(String stringa){
