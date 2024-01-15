@@ -23,7 +23,7 @@ public class Test{
             for(int j=0;j<tabel[i].length;j++){
                 System.out.printf("%-35s", tabel[i][j]);
             }
-            System.out.print("\n");
+            System.out.println();
         }
     }
 }
