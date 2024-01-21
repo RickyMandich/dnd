@@ -61,6 +61,7 @@ public class Personaggio {
     }
 
     public Personaggio(String[] row){
+        this.scan = new java.util.Scanner(System.in);
         Parser p = new Parser();
         this.nome = row[0];
         this.iniziativa = p.parseInt(row[1]);
@@ -136,37 +137,6 @@ public class Personaggio {
 
     public int tiroCarisma(){
         return tiro(0,20, this.carisma.bonus);
-    }
-
-    public int tiroSalvezza(String statistica) throws NoSuchStatistic {
-        statistica = statistica.toLowerCase();
-        switch (statistica) {
-            case "for" -> {
-                if (forza.salvezza) return tiroForza() + bonusSalvezza;
-                else return tiroForza();
-            }
-            case "des" -> {
-                if (destrezza.salvezza) return tiroDestrezza() + bonusSalvezza;
-                else return tiroDestrezza();
-            }
-            case "cos" -> {
-                if (costituzione.salvezza) return tiroCostituzione() + bonusSalvezza;
-                else return tiroCostituzione();
-            }
-            case "int" -> {
-                if (intelligenza.salvezza) return tiroIntelligenza() + bonusSalvezza;
-                else return tiroIntelligenza();
-            }
-            case "sag" -> {
-                if (saggezza.salvezza) return tiroSaggezza() + bonusSalvezza;
-                else return tiroSaggezza();
-            }
-            case "car" -> {
-                if (carisma.salvezza) return tiroCarisma() + bonusSalvezza;
-                else return tiroCarisma();
-            }
-        }
-        throw new NoSuchStatistic("la statistica inserita non è stata trovata");
     }
 
     protected class Vita{
