@@ -8,13 +8,13 @@ import java.util.ListIterator;
 public class PgList<T extends Personaggio> implements List<T> {
     protected Object[] pg;
     protected int size;
-
+/*
     protected T[] addT(T[] oldArray){
         Object[] newArray = new Object[oldArray.length+1];
         System.arraycopy(oldArray, 0, newArray, 0, newArray.length);
         return newArray;
     }
-
+/**/
     @Override
     public int size() {
         return size;
@@ -39,21 +39,25 @@ public class PgList<T extends Personaggio> implements List<T> {
     public Iterator<T> iterator() {
         return null;
     }
-/*/
+/**/
     @Override
     public Object[] toArray() {
         Object[] newPg = new Object[pg.length];
-        int i=0;
-        for(Object o:newPg){
-            o = pg[i];
-            i++;
+        for (int j = 0; j < newPg.length; j++) {
+            newPg[j] = pg[j];
         }
         return newPg;
     }
-/*
+
     @Override
     public <T1> T1[] toArray(T1[] a) {
-        return null;
+        if(a.length>=pg.length){
+            for(T1 o:a){
+                o = null;
+            }
+            for(int i=0;i<pg.length;i++) a[i] = pg[i];
+        }else a = toArray();
+        return a;
     }
 /*
     @Override
