@@ -1,15 +1,13 @@
 package logica;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 public class PgList<T extends Personaggio> implements List<T> {
     protected Object[] pg;
     protected int size;
-/*
-    protected T[] addT(T[] oldArray){
+
+    protected Object[] aggiungiCella(Object[] oldArray){
         Object[] newArray = new Object[oldArray.length+1];
         System.arraycopy(oldArray, 0, newArray, 0, newArray.length);
         return newArray;
@@ -48,31 +46,49 @@ public class PgList<T extends Personaggio> implements List<T> {
         }
         return newPg;
     }
-
+/*
     @Override
     public <T1> T1[] toArray(T1[] a) {
         if(a.length>=pg.length){
-            for(T1 o:a){
-                o = null;
+            for(T1 t:a){
+                t = null;
             }
             for(int i=0;i<pg.length;i++) a[i] = pg[i];
         }else a = toArray();
         return a;
     }
-/*
+/**/
     @Override
     public boolean add(T t) {
-        return false;
+        if(t==null) return false;
+        else{
+            int i=0;
+            while(pg[i]!=null){
+                if(i+1==pg.length) pg = aggiungiCella(pg);
+                i++;
+            }
+            pg[i] = t;
+            return true;
+        }
     }
-/*
+
     @Override
     public boolean remove(Object o) {
-        return false;
+        int i=0;
+        while(pg[i]!=null && pg[i] != o){
+            if(i+1 == pg.length) return false;
+            i++;
+        }
+        pg[i] = o;
+        return true;
     }
-/*
+
     @Override
     public boolean containsAll(Collection<?> c) {
-        return false;
+        for(Object o:c){
+            if(!contains(o)) return false;
+        }
+        return true;
     }
 /*
     @Override
