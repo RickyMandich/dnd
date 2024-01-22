@@ -1,3 +1,5 @@
+package vecchio;
+
 public class ArrayStatistica {
     public Statistica[] carat = new Statistica[6];
 

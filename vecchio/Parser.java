@@ -1,3 +1,5 @@
+package vecchio;
+
 public class Parser{
     public int parseInt(String stringa){
         int intero = 0;

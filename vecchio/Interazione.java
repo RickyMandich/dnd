@@ -1,3 +1,5 @@
+package vecchio;
+
 import java.util.Scanner;
 public class Interazione {
     private static final Scanner scan = new Scanner(System.in);

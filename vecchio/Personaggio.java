@@ -1,3 +1,5 @@
+package vecchio;
+
 public class Personaggio{
     protected String nome;
     protected int iniziativa;

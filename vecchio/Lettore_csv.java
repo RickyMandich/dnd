@@ -1,3 +1,5 @@
+package vecchio;
+
 import java.io.*;
 public class Lettore_csv {
     public String[][] getCsv(String file) {

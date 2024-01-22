@@ -1,3 +1,5 @@
+package vecchio;
+
 public class Statistica {
     public String nome;
     public int punteggio;

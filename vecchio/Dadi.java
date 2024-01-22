@@ -1,3 +1,5 @@
+package vecchio;
+
 import java.util.Random;
 public class Dadi{
     protected static Random ran = new Random();
