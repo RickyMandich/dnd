@@ -32,6 +32,10 @@ public class PgList<T extends Personaggio> implements List<T> {
         }
         return false;
     }
+
+    public boolean notContains(Object o){
+        return !contains(o);
+    }
 /*
     @Override
     public Iterator<T> iterator() {
@@ -46,7 +50,7 @@ public class PgList<T extends Personaggio> implements List<T> {
         }
         return newPg;
     }
-/*
+
     @Override
     public <T1> T1[] toArray(T1[] a) {
         if(a.length>=pg.length){
@@ -86,11 +90,11 @@ public class PgList<T extends Personaggio> implements List<T> {
     @Override
     public boolean containsAll(Collection<?> c) {
         for(Object o:c){
-            if(!contains(o)) return false;
+            if(notContains(o)) return false;
         }
         return true;
     }
-/*
+
     @Override
     public boolean addAll(Collection<? extends T> c) {
         return false;
