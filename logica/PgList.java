@@ -7,10 +7,15 @@ public class PgList<T extends Personaggio> implements List<T> {
     protected Object[] pg;
     protected int size;
 
-    protected Object[] aggiungiCella(Object[] oldArray){
-        Object[] newArray = new Object[oldArray.length+1];
-        System.arraycopy(oldArray, 0, newArray, 0, newArray.length);
-        return newArray;
+    protected void aggiungiCella(){
+        Object[] newArray = new Object[pg.length+1];
+        System.arraycopy(pg, 0, newArray, 0, newArray.length);
+        pg = newArray;
+    }
+    protected void aggiungiCelle(int quante){
+        for (int i=0;i<quante;i++) {
+            aggiungiCella();
+        }
     }
 /**/
     @Override
@@ -63,17 +68,26 @@ public class PgList<T extends Personaggio> implements List<T> {
     }
 /**/
     @Override
-    public boolean add(T t) {
-        if(t==null) return false;
+    public boolean add(T element) {
+        if(element==null) return false;
         else{
             int i=0;
             while(pg[i]!=null){
-                if(i+1==pg.length) pg = aggiungiCella(pg);
+                if(i+1==pg.length) aggiungiCella();
                 i++;
             }
-            pg[i] = t;
+            pg[i] = element;
             return true;
         }
+    }
+
+    @Override
+    public void add(int index, T element) {
+        if(pg[pg.length-1] != null){
+            aggiungiCella();
+        }
+        for(int i=pg.length-1;i>index;i--) pg[i] = pg[i-1];
+        pg[index] = element;
     }
 
     @Override
@@ -97,22 +111,31 @@ public class PgList<T extends Personaggio> implements List<T> {
 
     @Override
     public boolean addAll(Collection<? extends T> c) {
-        return false;
+        boolean modificato = false;
+        for(T t:c){
+            if(add(t)) modificato = true;
+        }
+        return modificato;
     }
-/*
+
     @Override
     public boolean addAll(int index, Collection<? extends T> c) {
-        return false;
+        for(T t:c) add(index++, t);
+        return true;
     }
-/*
+
     @Override
     public boolean removeAll(Collection<?> c) {
-        return false;
+        boolean modificato = false;
+        for(Object o:c){
+            if(remove(o)) modificato = true;
+        }
+        return modificato;
     }
-/*
+
     @Override
     public boolean retainAll(Collection<?> c) {
-        return false;
+
     }
 /*
     @Override
