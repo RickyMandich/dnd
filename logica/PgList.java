@@ -135,17 +135,23 @@ public class PgList<T extends Personaggio> implements List<T> {
 
     @Override
     public boolean retainAll(Collection<?> c) {
-
+        boolean modificato = false;
+        for(Object o:pg){
+            if(!c.contains(o)){
+                modificato = remove(o);
+            }
+        }
+        return modificato;
     }
-/*
+
     @Override
     public void clear() {
-
+        for(Object o:pg) o = null;
     }
-/*
+
     @Override
     public T get(int index) {
-        return null;
+        return pg[index];
     }
 /*
     @Override
