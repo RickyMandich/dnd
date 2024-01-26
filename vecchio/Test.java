@@ -16,6 +16,12 @@ public class Test {
     public static void eseguiProgramma() {
         int tot = Interazione.input("quanti personaggi stanno combattendo?");
         Personaggio[] pg = new Personaggio[tot];
+        try {
+            System.out.println(pg[2]);
+        }
+        catch (ArithmeticException e){
+            System.out.println("ho trovato un errore");
+        }
         pg = creaPg(pg);
         for(int i=0;i<tot;i++) {
             Interazione.output(pg[i].toString());

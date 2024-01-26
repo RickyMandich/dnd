@@ -77,6 +77,7 @@ public class PgList<T extends Personaggio> implements List<T> {
                 i++;
             }
             pg[i] = element;
+            size++;
             return true;
         }
     }
@@ -88,6 +89,7 @@ public class PgList<T extends Personaggio> implements List<T> {
         }
         for(int i=pg.length-1;i>index;i--) pg[i] = pg[i-1];
         pg[index] = element;
+        size++;
     }
 
     @Override
@@ -148,30 +150,36 @@ public class PgList<T extends Personaggio> implements List<T> {
     public void clear() {
         for(Object o:pg) o = null;
     }
-
+/*
     @Override
-    public T get(int index) {
+    public T get(int index){
         return pg[index];
     }
-/*
+/**/
     @Override
     public T set(int index, T element) {
-        return null;
+        T temp = pg[index];
+        pg[index] = element;
+        return temp;
     }
-/*
-    @Override
-    public void add(int index, T element) {
 
-    }
-/*
     @Override
-    public T remove(int index) {
-        return null;
+    public T remove(int index){
+        T temp = pg[index];
+        for(int i=index;i<pg.length-1;i++){
+            pg[i] = pg[i+1];
+        }
+        return temp;
     }
-/*
+
     @Override
     public int indexOf(Object o) {
-        return 0;
+        if(!contains(o)) return -1;
+        int i=0;
+        while(!pg[i].equals(o)){
+            i++;
+        }
+        return i;
     }
 /*
     @Override
