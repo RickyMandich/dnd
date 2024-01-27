@@ -150,12 +150,12 @@ public class PgList<T extends Personaggio> implements List<T> {
     public void clear() {
         for(Object o:pg) o = null;
     }
-/*
+
     @Override
     public T get(int index){
         return pg[index];
     }
-/**/
+
     @Override
     public T set(int index, T element) {
         T temp = pg[index];
