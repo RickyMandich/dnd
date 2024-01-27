@@ -181,10 +181,15 @@ public class PgList<T extends Personaggio> implements List<T> {
         }
         return i;
     }
-/*
+
     @Override
     public int lastIndexOf(Object o) {
-        return 0;
+        if(!contains(o)) return -1;
+        int i=pg.length;
+        while(!pg[i].equals(o)){
+            i--;
+        }
+        return i;
     }
 /*
     @Override
