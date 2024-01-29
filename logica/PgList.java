@@ -3,7 +3,7 @@ package logica;
 import java.util.Collection;
 import java.util.List;
 
-public class PgList<T extends Personaggio> implements List<T> {
+public class PgList/*<T extends Personaggio> implements List<T> */{/*
     protected Object[] pg;
     protected int size;
 
@@ -17,7 +17,7 @@ public class PgList<T extends Personaggio> implements List<T> {
             aggiungiCella();
         }
     }
-/**/
+
     @Override
     public int size() {
         return size;
@@ -46,7 +46,7 @@ public class PgList<T extends Personaggio> implements List<T> {
     public Iterator<T> iterator() {
         return null;
     }
-/**/
+*//*
     @Override
     public Object[] toArray() {
         Object[] newPg = new Object[pg.length];
@@ -66,7 +66,7 @@ public class PgList<T extends Personaggio> implements List<T> {
         }else a = toArray();
         return a;
     }
-/**/
+
     @Override
     public boolean add(T element) {
         if(element==null) return false;
@@ -207,5 +207,5 @@ public class PgList<T extends Personaggio> implements List<T> {
         return null;
     }
 
-    /**/
+*/
 }

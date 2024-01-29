@@ -14,10 +14,6 @@ public class Giocante extends Personaggio{
         if(test) return super.tiro(origin, bound);
         else return getInt("inserisci il risultado dei dadi");
     }
-    @Override
-    public int tiro(int origin, int bound, int bonus) {
-        return tiro(origin, bound) + bonus;
-    }
 
     public int tiroSalvezza(String statistica) throws NoSuchStatistic {
         statistica = statistica.toLowerCase();
