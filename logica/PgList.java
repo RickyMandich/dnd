@@ -1,8 +1,8 @@
 package logica;
-
+/*
 import java.util.Collection;
 import java.util.List;
-
+*/
 public class PgList/*<T extends Personaggio> implements List<T> */{/*
     protected Object[] pg;
     protected int size;
