@@ -1,7 +1,8 @@
 package logica;
+
 public class Test{
     public static void main(String[] args) {
-        Lettore_csv reader = new Lettore_csv();
+        csv.Lettore_csv reader = new csv.Lettore_csv();
         String[][] table = reader.getCsv("csv\\Personaggi.csv");
         reader.outElencoCsv(table);
         System.out.println("inserisci il numero di personaggi che vuoi creare");

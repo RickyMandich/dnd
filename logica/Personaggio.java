@@ -1,4 +1,7 @@
 package logica;
+
+import csv.Parser;
+
 public class Personaggio {
     protected String nome;
     protected int iniziativa;

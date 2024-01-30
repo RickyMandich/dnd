@@ -1,4 +1,4 @@
-package creazionecsv;
+package csv;
 
 public class Lettore_csv {
     public String[][] getCsv(String file) {

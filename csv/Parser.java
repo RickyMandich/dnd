@@ -1,4 +1,4 @@
-package logica;
+package csv;
 
 public class Parser {
     public int parseInt(String stringa){

@@ -46,7 +46,7 @@ public class Personaggio{
     }
 
     public Personaggio(String[] row){
-        Parser p = new Parser();
+        csv.Parser p = new csv.Parser();
         this.nome = row[0];
         this.iniziativa = p.parseInt(row[1]);
         this.hp = p.parseInt(row[2]);

@@ -17,7 +17,7 @@ public class ArrayStatistica {
     }
     public ArrayStatistica(String[] row){
         for(int i=0;i<carat.length;i++) carat[i] = new Statistica(i);
-        Parser p = new Parser();
+        csv.Parser p = new csv.Parser();
         for(int i=0;i<carat.length;i++){
             this.carat[i].punteggio = p.parseInt(row[i]);
             this.carat[i].getBonus();
