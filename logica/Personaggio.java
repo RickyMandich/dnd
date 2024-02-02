@@ -1,7 +1,5 @@
 package logica;
-
 import csv.Parser;
-
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
@@ -13,10 +11,7 @@ public class Personaggio {
     protected boolean ispirazione;
     protected int tiro;
     protected int dannoIniziale;
-    protected int bonusSalvezza;
-    protected boolean test = true;
     protected boolean amico;
-    protected boolean[][] tiriControMorte = new boolean[2][3];
     protected boolean morto;
     protected Statistica forza;
     protected Statistica destrezza;
@@ -40,20 +35,7 @@ public class Personaggio {
         this.livello = getInt("Inserisci l'iniziativa di " + this.nome);
         this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
         this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
-        for(int i=0;i<2;i++) {
-            for (boolean tiro : tiriControMorte[i]) tiro = false;
-        }
-        int successi = -1;
-        int fallimenti = -1;
-        while(successi<0 || successi > 2){
-            successi = getInt("quanti successi nei tiri contro morte ha fatto " + this.nome);
-        }
-        for(int i=0;i<successi;i++) tiriControMorte[0][i] = true;
-        while(fallimenti<0 || fallimenti > 2){
-            fallimenti = getInt("quanti fallimenti nei tiri contro morte ha fatto " + this.nome);
-        }
-        for(int i=0;i<fallimenti;i++) tiriControMorte[1][i] = true;
-        this.morto = tiriControMorte[1][2];
+        this.morto = !(puntiFerita.attuale>0);
         this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome));
         this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome));
         this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome));
@@ -66,31 +48,7 @@ public class Personaggio {
     public Personaggio(String[] row){
         this.scan = new java.util.Scanner(System.in);
         Parser p = new Parser();
-        this.nome = row[0];
-        this.iniziativa = p.parseInt(row[1]);
-        this.puntiFerita = new Vita(
-                p.parseInt(row[2]),
-                p.parseInt(row[3]));
-        this.classeArmatura = p.parseInt(row[4]);
-        this.competenza = p.parseInt(row[5]);
-        this.forza = new Statistica(p.parseInt(row[6]));
-        this.destrezza = new Statistica(p.parseInt(row[7]));
-        this.costituzione = new Statistica(p.parseInt(row[8]));
-        this.intelligenza = new Statistica(p.parseInt(row[9]));
-        this.saggezza = new Statistica(p.parseInt(row[10]));
-        this.carisma = new Statistica(p.parseInt(row[11]));
-        this.puntiEsperienza = p.parseInt(row[12]);
-        this.livello = p.parseInt(row[13]);
-        this.ispirazione = p.parseBool(row[14]);
-        this.dannoIniziale = p.parseInt(row[15]);
-        this.amico = p.parseBool(row[16]);
-        int h=17;
-        for(int i=0;i<tiriControMorte.length;i++){
-            for(int j=0;j<tiriControMorte[i].length;j++){
-                tiriControMorte[i][j] = p.parseBool(row[h++]);
-            }
-        }
-        this.morto = p.parseBool(row[23]);
+        //da finire....
     }
 
     public int tiro(int origin, int bound){
@@ -165,5 +123,14 @@ public class Personaggio {
             bonus /= 2;
         }
     }
+    @Override
+    public String toString(){
+        String info = "";
+        return info;
+    }
+    public String toCsv(){
+        String info = "";
 
+        return info;
+    }
 }

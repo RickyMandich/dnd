@@ -1,12 +1,14 @@
 package logica;
 public class Giocante extends Personaggio{
-    public Giocante(boolean test){
+    protected int bonusSalvezza;
+    public static boolean test;
+    protected boolean[][] tiriControMorte = new boolean[2][3];
+    public Giocante(){
         super();
-        this.test = test;
+        System.out.println("qual'è il bonus salvezza di " + nome);
     }
     public Giocante(String[] row, boolean test){
         super(row);
-        this.test = test;
     }
 
     @Override

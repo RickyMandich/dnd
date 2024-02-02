@@ -1,10 +1,11 @@
 package logica;
-
 public class Test{
     public static void main(String[] args) {
         csv.Lettore_csv reader = new csv.Lettore_csv();
         String[][] table = reader.getCsv("csv\\Personaggi.csv");
         reader.outElencoCsv(table);
+        System.out.println("stai eseguendo un test?");
+        Giocante.test = new java.util.Scanner(System.in).nextBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
         Personaggio[] pg = new Personaggio[new java.util.Scanner(System.in).nextInt()];
         for(Personaggio personaggio:pg){
@@ -25,8 +26,7 @@ public class Test{
     public static Personaggio creaPg(){
         System.out.println("vuoi creare un personaggio giocante?");
         if(new java.util.Scanner(System.in).nextBoolean()){
-            System.out.println("stai eseguendo un test?");
-            return new Giocante(new java.util.Scanner(System.in).nextBoolean());
+            return new Giocante();
         }else{
             return new Personaggio();
         }

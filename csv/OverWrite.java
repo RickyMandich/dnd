@@ -1,12 +1,12 @@
 package csv;
 
-import csv.Lettore_csv;
-
 public class OverWrite{
     public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
         String[][] table = reader.getCsv("csv\\Personaggi.csv");
         reader.outElencoCsv(table);
+        System.out.println("stai eseguendo un test?");
+        logica.Giocante.test = new java.util.Scanner(System.in).nextBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
         logica.Personaggio[] pg = new logica.Personaggio[new java.util.Scanner(System.in).nextInt()];
         for(logica.Personaggio personaggio:pg){
@@ -27,8 +27,7 @@ public class OverWrite{
     public static logica.Personaggio creaPg(){
         System.out.println("vuoi creare un personaggio giocante?");
         if(new java.util.Scanner(System.in).nextBoolean()){
-            System.out.println("stai eseguendo un test?");
-            return new logica.Giocante(new java.util.Scanner(System.in).nextBoolean());
+            return new logica.Giocante();
         }else{
             return new logica.Personaggio();
         }
