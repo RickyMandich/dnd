@@ -107,7 +107,20 @@ public class Personaggio {
         public Vita(int attuale, int totale){
             this.attuale = attuale;
             this.totale = totale;
-        } 
+        }
+
+        public String toString(){
+            String info = "";
+            info += "\tpunti ferita attuali:\t" + attuale;
+            info += "\tpunti ferita totali:\t" + totale;
+            return info;
+        }
+        public String toCsv(){
+            String info = "";
+            info += ", " + attuale;
+            info += ", " + totale;
+            return info;
+        }
     }
 
     public class Statistica{
@@ -122,14 +135,53 @@ public class Personaggio {
                 bonus--;
             bonus /= 2;
         }
+
+        @Override
+        public String toString() {
+            String info = "";
+            info += "\tpunteggio:\t\t" + punteggio + "\n";
+            info += "\tbonus:\t\t\t" + bonus + "\n";
+            info += "\tsalvezza:\t\t" + salvezza + "\n";
+            return info;
+        }
+
+        public String toCsv(){
+            String info = "";
+            info += ", " + punteggio;
+            info += ", " + bonus;
+            info += ", " + salvezza;
+            return info;
+        }
     }
     @Override
     public String toString(){
         String info = "";
+        info += "nome:\t\t\t\t" + nome + "\n";
+        info += "iniziativa:\t\t\t" + iniziativa + "\n";
+        info += "punti ferita attuali:\t\t" + puntiFerita.attuale + "\n";
+        info += "punti ferita totali:\t\t" + puntiFerita.totale + "\n";
+        info += "classe armatura:\t\t\t" + classeArmatura + "\n";
         return info;
     }
     public String toCsv(){
         String info = "";
+        info += nome;
+        info += ", " + iniziativa;
+        info += puntiFerita.toCsv();
+        info += ", " + classeArmatura;
+        info += ", " + competenza;
+        info += ", " + puntiEsperienza;
+        info += ", " + livello;
+        info += ", " + ispirazione;
+        info += ", " + dannoIniziale;
+        info += ", " + amico;
+        info += ", " + morto;
+        info += forza.toCsv();
+        info += destrezza.toCsv();
+        info += costituzione.toCsv();
+        info += intelligenza.toCsv();
+        info += saggezza.toCsv();
+        info += carisma.toCsv();
 
         return info;
     }
