@@ -1,5 +1,8 @@
 package logica;
 import csv.Parser;
+
+import java.util.InputMismatchException;
+
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
@@ -32,7 +35,7 @@ public class Personaggio {
         this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome);
         this.competenza = getInt("Inserisci la competenza di " + this.nome);
         this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
-        this.livello = getInt("Inserisci l'iniziativa di " + this.nome);
+        this.livello = getInt("Inserisci il livello di " + this.nome);
         this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
         this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
         this.morto = !(puntiFerita.attuale>0);
@@ -69,7 +72,12 @@ public class Personaggio {
 
     public int getInt(String stringa){
         System.out.println(stringa);
-        return scan.nextInt();
+        try{
+            return scan.nextInt();
+        }catch (InputMismatchException e){
+            System.out.println("ERRORE:\tdevi inserire un numero intero");
+            return getInt(stringa);
+        }
     }
 
     public boolean getBoolean(String stringa){
