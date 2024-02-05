@@ -24,7 +24,7 @@ public class inputPG {
         System.out.println("inserire \"true\" se si vuole terminare ora il programma senza salvare\t(in caso alternativo eseguiro la procedura di salvataggio e poi terminerò l'esecuzione)");
         if(new java.util.Scanner(System.in).nextBoolean()) return;
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione");
-        Scrittore_csv writer = new Scrittore_csv("csv\\" + new java.util.Scanner(System.in).nextLine());
+        Scrittore_csv writer = new Scrittore_csv("csv\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         for(logica.Personaggio personaggio:pg){
             try{
                 writer.addCsv(personaggio.toCsv());
