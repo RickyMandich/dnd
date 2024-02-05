@@ -1,8 +1,6 @@
 package logica;
-import csv.Parser;
 
 import java.util.InputMismatchException;
-
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
@@ -50,7 +48,7 @@ public class Personaggio {
 
     public Personaggio(String[] row){
         this.scan = new java.util.Scanner(System.in);
-        Parser p = new Parser();
+        csv.Parser p = new csv.Parser();
         //da finire....
     }
 
@@ -119,8 +117,8 @@ public class Personaggio {
 
         public String toString(){
             String info = "";
-            info += "\tpunti ferita attuali:\t" + attuale;
-            info += "\tpunti ferita totali:\t" + totale;
+            info += "\tattuali:\t" + attuale + "\n";
+            info += "\ttotali:\t" + totale + "\n";
             return info;
         }
         public String toCsv(){
@@ -166,9 +164,22 @@ public class Personaggio {
         String info = "";
         info += "nome:\t\t\t\t" + nome + "\n";
         info += "iniziativa:\t\t\t" + iniziativa + "\n";
-        info += "punti ferita attuali:\t\t" + puntiFerita.attuale + "\n";
-        info += "punti ferita totali:\t\t" + puntiFerita.totale + "\n";
+        info += "punti ferita:\n" + puntiFerita;
         info += "classe armatura:\t\t\t" + classeArmatura + "\n";
+        info += "competenza:\t\t\t\t" + competenza + "\n";
+        info += "punti esperienza:\t\t" + puntiEsperienza + "\n";
+        info += "livello:\t\t\t\t" + livello + "\n";
+        info += "ispirazione:\t\t\t\t" + ispirazione + "\n";
+        if(tiro != 0) info += "tiro:\t\t\t\t\t" + tiro + "\n";
+        info += "danno iniziale:\t\t\t\t" + dannoIniziale + "\n";
+        info += "amico:\t\t\t\t\t" + amico + "\n";
+        info += "morto:\t\t\t\t\t" + morto + "\n";
+        info += "forza:\n" + forza;
+        info += "destrezza:\n" + destrezza;
+        info += "costituzione:\n" + costituzione;
+        info += "intelligenza:\n" + intelligenza;
+        info += "saggezza:\n" + saggezza;
+        info += "carisma:\n" + carisma;
         return info;
     }
     public String toCsv(){

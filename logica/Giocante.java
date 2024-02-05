@@ -19,6 +19,7 @@ public class Giocante extends Personaggio{
     }
     public Giocante(String[] row, boolean test){
         super(row);
+        csv.Parser p = new csv.Parser();
         //da finire....
     }
 
