@@ -17,7 +17,7 @@ public class Giocante extends Personaggio{
         }
         this.morto = this.tiriControMorte[1][2];
     }
-    public Giocante(String[] row, boolean test){
+    public Giocante(String[] row){
         super(row);
         csv.Parser p = new csv.Parser();
         //da finire....
@@ -70,8 +70,12 @@ public class Giocante extends Personaggio{
     }
     public String getTiriControMorteCsv() {
         String info = "";
-        for (int i = 0; i < 3; i++) info = info.concat(", " + tiriControMorte[0][i]);
-        for (int i = 0; i < 3; i++) info = info.concat(", " + tiriControMorte[1][i]);
+        info = info.concat(", " + tiriControMorte[0][0]);
+        info = info.concat(", " + tiriControMorte[0][1]);
+        info = info.concat(", " + tiriControMorte[0][2]);
+        info = info.concat(", " + tiriControMorte[1][0]);
+        info = info.concat(", " + tiriControMorte[1][1]);
+        info = info.concat(", " + tiriControMorte[1][2]);
         return info;
     }
 
