@@ -1,18 +1,21 @@
 package csv;
+
+import logica.Personaggio;
+
 public class inputPG {
-    public static void main(String[] args) {
+    public static void mainOFF(String[] args) {
         String[][] a = new String[1][1];
         System.out.println(creaPgSicuro(a));
     }
-    public static void mainOFF(String[] args) {
+    public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
-        String[][] table = reader.getCsv("csv\\Personaggi.csv");
+        String[][] table = reader.getCsv("csv\\2024_02_05_21-07_Test5_Personaggi.csv");
         System.out.println("stai eseguendo un test?\t\t\t(insert \"true\" or \"false\")");
         logica.Giocante.test = new java.util.Scanner(System.in).nextBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
         logica.Personaggio[] pg = new logica.Personaggio[new java.util.Scanner(System.in).nextInt()];
-        for(logica.Personaggio personaggio:pg){
-            personaggio = creaPgSicuro(table);
+        for (int i = 0; i < pg.length; i++) {
+            pg[i] = creaPgSicuro(table);
         }
         for(logica.Personaggio personaggio:pg){
             try{
@@ -53,6 +56,7 @@ public class inputPG {
         }
     }
     public static logica.Personaggio creaPg(String[][] tabel){
+
         System.out.println("vuoi prendere un personaggio che esiste già nel file?\t\t\t(insert \"true\" or \"false\")");
         if(new java.util.Scanner(System.in).nextBoolean()){
             System.out.println("inserisci il numero relativo al personaggio da prelevare");

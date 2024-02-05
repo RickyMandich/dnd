@@ -64,9 +64,9 @@ public class Giocante extends Personaggio{
 
     public String getTiriControMorteString() {
         String info = "";
-        info += "\tsuccessi:\t";
+        info += "\tsuccessi:\t\t\t";
         for (int i = 0; i < 3; i++) info = info.concat(tiriControMorte[0][i] + "\t");
-        info = info.concat("\n\tfallimenti:\t");
+        info = info.concat("\n\tfallimenti:\t\t\t");
         for (int i = 0; i < 3; i++) info = info.concat(tiriControMorte[1][i] + "\t");
         return info + "\n";
     }
@@ -84,8 +84,8 @@ public class Giocante extends Personaggio{
     @Override
     public String toString() {
         String info = super.toString();
-        info += "ispirazione:\t\t\t\t" + ispirazione + "\n";
-        info += "bonus salvezza:\t\t" + bonusSalvezza + "\n";
+        info += "ispirazione:\t\t\t" + ispirazione + "\n";
+        info += "bonus salvezza:\t\t\t" + bonusSalvezza + "\n";
         info += getTiriControMorteString();
         return info;
     }

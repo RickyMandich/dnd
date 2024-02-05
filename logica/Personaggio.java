@@ -115,8 +115,8 @@ public class Personaggio {
 
         public String toString(){
             String info = "";
-            info += "\tattuali:\t" + attuale + "\n";
-            info += "\ttotali:\t" + totale + "\n";
+            info += "\tattuali:\t\t\t" + attuale + "\n";
+            info += "\ttotali:\t\t\t\t" + totale + "\n";
             return info;
         }
         public String toCsv(){
@@ -143,9 +143,9 @@ public class Personaggio {
         @Override
         public String toString() {
             String info = "";
-            info += "\tpunteggio:\t\t" + punteggio + "\n";
-            info += "\tbonus:\t\t\t" + bonus + "\n";
-            info += "\tsalvezza:\t\t" + salvezza + "\n";
+            info += "\tpunteggio:\t\t\t" + punteggio + "\n";
+            info += "\tbonus:\t\t\t\t" + bonus + "\n";
+            info += "\tsalvezza:\t\t\t" + salvezza + "\n";
             return info;
         }
 
@@ -160,15 +160,15 @@ public class Personaggio {
     @Override
     public String toString(){
         String info = "";
-        info += "nome:\t\t\t\t" + nome + "\n";
-        info += "iniziativa:\t\t\t" + iniziativa + "\n";
+        info += "nome:\t\t\t\t\t" + nome + "\n";
+        info += "iniziativa:\t\t\t\t" + iniziativa + "\n";
         info += "punti ferita:\n" + puntiFerita;
-        info += "classe armatura:\t\t\t" + classeArmatura + "\n";
+        info += "classe armatura:\t\t" + classeArmatura + "\n";
         info += "competenza:\t\t\t\t" + competenza + "\n";
         info += "punti esperienza:\t\t" + puntiEsperienza + "\n";
         info += "livello:\t\t\t\t" + livello + "\n";
         if(tiro != 0) info += "tiro:\t\t\t\t\t" + tiro + "\n";
-        info += "danno iniziale:\t\t\t\t" + dannoIniziale + "\n";
+        info += "danno iniziale:\t\t\t" + dannoIniziale + "\n";
         info += "amico:\t\t\t\t\t" + amico + "\n";
         info += "morto:\t\t\t\t\t" + morto + "\n";
         info += "forza:\n" + forza;
@@ -197,7 +197,6 @@ public class Personaggio {
         info += intelligenza.toCsv();
         info += saggezza.toCsv();
         info += carisma.toCsv();
-
-        return info;
+        return info + "\n";
     }
 }

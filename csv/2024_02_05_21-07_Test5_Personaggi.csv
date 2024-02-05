@@ -1,0 +1,3 @@
+nome, iniziativa, punti ferita, punti ferita totali, classe armatura, competenza, punteggio forza, punteggio destrezza, punteggio costituzione, punteggio intelligenza, punteggio saggezza, punteggio carisma, punti esperienza, livello, ispirazione, danno iniziale, amico, primo successo contro morte, secondo successo contro morte, terzo successo contro morte, primo fallimento contro morte, secondo fallimento contro morte, terzo fallimento contro morte, morto
+Paesano, 1, 5, 5, 10, 0, 0, 1, 0, true, false, 10, 0, false, 1, -5, false, 10, 0, false, 101, 45, false, 1, -5, false, 10, 0, false
+Mat, 12, 54, 54, 16, 3, 2500, 5, 0, true, false, 12, 1, false, 12, 1, false, 14, 2, false, 12, 1, false, 12, 1, false, 16, 3, false, false, 3, false, false, false, false, false, false
