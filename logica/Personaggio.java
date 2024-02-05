@@ -25,7 +25,6 @@ public class Personaggio {
     public Personaggio() {
         this.scan = new java.util.Scanner(System.in);
         this.nome = getString("inserisci il nome del personaggio");
-        this.iniziativa = getInt("Inserisci l'iniziativa di " + this.nome);
         this.puntiFerita = new Vita(
                 getInt("Inserisci i punti ferita di " + this.nome),
                 getInt("Inserisci i punti ferita totali di " + this.nome));
@@ -37,6 +36,7 @@ public class Personaggio {
         this.morto = !(puntiFerita.attuale>0);
         this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome));
         this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome));
+        this.iniziativa = this.destrezza.punteggio;
         this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome));
         this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome));
         this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome));
