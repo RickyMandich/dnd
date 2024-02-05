@@ -25,6 +25,7 @@ public class inputPG {
 
             }
         }
+        writer.close();
     }
     public static int inputTiroSalvezza(logica.Personaggio p){
         String car = "";
