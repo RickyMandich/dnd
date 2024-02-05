@@ -1,10 +1,12 @@
 package logica;
 public class Giocante extends Personaggio{
+    protected boolean ispirazione;
     protected int bonusSalvezza;
     public static boolean test;
     protected boolean[][] tiriControMorte;
     public Giocante(){
         super();
+        this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
         this.bonusSalvezza = getInt("qual'è il bonus salvezza di " + nome);
         this.tiriControMorte = new boolean[2][3];
         int successi = getInt("quanti successi nei tiri contro morte ha " + nome);
@@ -82,6 +84,7 @@ public class Giocante extends Personaggio{
     @Override
     public String toString() {
         String info = super.toString();
+        info += "ispirazione:\t\t\t\t" + ispirazione + "\n";
         info += "bonus salvezza:\t\t" + bonusSalvezza + "\n";
         info += getTiriControMorteString();
         return info;
@@ -90,6 +93,7 @@ public class Giocante extends Personaggio{
     @Override
     public String toCsv() {
         String info = super.toCsv();
+        info += ", " + ispirazione;
         info += ", " + bonusSalvezza;
         info += getTiriControMorteCsv();
         return info;

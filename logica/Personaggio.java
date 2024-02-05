@@ -9,7 +9,6 @@ public class Personaggio {
     protected int competenza;
     protected int puntiEsperienza;
     protected int livello;
-    protected boolean ispirazione;
     protected int tiro;
     protected int dannoIniziale;
     protected boolean amico;
@@ -34,7 +33,6 @@ public class Personaggio {
         this.competenza = getInt("Inserisci la competenza di " + this.nome);
         this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
         this.livello = getInt("Inserisci il livello di " + this.nome);
-        this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
         this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
         this.morto = !(puntiFerita.attuale>0);
         this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome));
@@ -169,7 +167,6 @@ public class Personaggio {
         info += "competenza:\t\t\t\t" + competenza + "\n";
         info += "punti esperienza:\t\t" + puntiEsperienza + "\n";
         info += "livello:\t\t\t\t" + livello + "\n";
-        info += "ispirazione:\t\t\t\t" + ispirazione + "\n";
         if(tiro != 0) info += "tiro:\t\t\t\t\t" + tiro + "\n";
         info += "danno iniziale:\t\t\t\t" + dannoIniziale + "\n";
         info += "amico:\t\t\t\t\t" + amico + "\n";
@@ -191,7 +188,6 @@ public class Personaggio {
         info += ", " + competenza;
         info += ", " + puntiEsperienza;
         info += ", " + livello;
-        info += ", " + ispirazione;
         info += ", " + dannoIniziale;
         info += ", " + amico;
         info += ", " + morto;
