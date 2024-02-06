@@ -10,36 +10,56 @@ public class Scrittore_csv {
         try {
             writer = new FileWriter(file);
 
-            String descrizione = "nome, ";
-            descrizione += "iniziativa, ";
-            descrizione += "punti ferita, ";
-            descrizione += "punti ferita totali, ";
-            descrizione += "classe armatura, ";
-            descrizione += "competenza, ";
+            String descrizione = "";
+            descrizione += "nome";
+            descrizione += ", " + "iniziativa";
+            descrizione += ", " + "punti ferita attuali";
+            descrizione += ", " + "punti ferita totali";
+            descrizione += ", " + "classe armatura";
+            descrizione += ", " + "competenza";
+            descrizione += ", " + "punti esperienza";
+            descrizione += ", " + "livello";
+            descrizione += ", " + "danno iniziale";
+            descrizione += ", " + "amico";
+            descrizione += ", " + "morto";
 
-            descrizione += "punteggio forza, ";
-            descrizione += "punteggio destrezza, ";
-            descrizione += "punteggio costituzione, ";
 
-            descrizione += "punteggio intelligenza, ";
-            descrizione += "punteggio saggezza, ";
-            descrizione += "punteggio carisma, ";
+            descrizione += ", " + "punteggio forza";
+            descrizione += ", " + "bonus forza";
+            descrizione += ", " + "bonus salvezza forza";
 
-            descrizione += "punti esperienza, ";
-            descrizione += "livello, ";
-            descrizione += "ispirazione, ";
-            descrizione += "danno iniziale, ";
-            descrizione += "amico, ";
+            descrizione += ", " + "punteggio destrezza";
+            descrizione += ", " + "bonus destrezza";
+            descrizione += ", " + "bonus salvezza destrezza";
 
-            descrizione += "primo successo contro morte, ";
-            descrizione += "secondo successo contro morte, ";
-            descrizione += "terzo successo contro morte, ";
+            descrizione += ", " + "punteggio costituzione";
+            descrizione += ", " + "bonus costituzione";
+            descrizione += ", " + "bonus salvezza costituzione";
 
-            descrizione += "primo fallimento contro morte, ";
-            descrizione += "secondo fallimento contro morte, ";
-            descrizione += "terzo fallimento contro morte, ";
+            descrizione += ", " + "punteggio intelligenza";
+            descrizione += ", " + "bonus intelligenza";
+            descrizione += ", " + "bonus salvezza intelligenza";
 
-            descrizione += "morto";
+            descrizione += ", " + "punteggio saggezza";
+            descrizione += ", " + "bonus saggezza";
+            descrizione += ", " + "bonus salvezza saggezza";
+
+            descrizione += ", " + "punteggio carisma";
+            descrizione += ", " + "bonus carisma";
+            descrizione += ", " + "bonus salvezza carisma";
+
+
+            descrizione += ", " + "ispirazione";
+            descrizione += ", " + "bonus salvezza";
+
+
+            descrizione += ", " + "primo successo tiri contro morte";
+            descrizione += ", " + "secondo successo tiri contro morte";
+            descrizione += ", " + "terzo successo tiri contro morte";
+
+            descrizione += ", " + "primo fallimento tiri contro morte";
+            descrizione += ", " + "secondo fallimento tiri contro morte";
+            descrizione += ", " + "terzo fallimento tiri contro morte";
 
             writer.write(descrizione + "\n");
         } catch (IOException e) {
