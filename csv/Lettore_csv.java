@@ -26,7 +26,9 @@ public class Lettore_csv {
         return tabel;
     }
     public String[][] aggiungiRiga(String[][] tabel, String[] row){
-        String[][] newTabel = new String[tabel.length+1][tabel[0].length];
+        String[][] newTabel;
+        if(tabel.length == 0) newTabel = new String[tabel.length+1][row.length];
+        else newTabel = new String[tabel.length+1][tabel[0].length];
         for(int i=0;i<tabel.length;i++){
             for(int j=0;j<row.length;j++){
                 newTabel[i][j] = tabel[i][j];
