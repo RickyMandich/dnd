@@ -1,4 +1,5 @@
 package logica;
+import csv.IncompatibleCsvException;
 public class Giocante extends Personaggio{
     protected boolean ispirazione;
     protected int bonusSalvezza;
@@ -21,14 +22,23 @@ public class Giocante extends Personaggio{
     }
     public Giocante(String[] row){
         super(row);
-        ispirazione;
-        bonusSalvezza;
-        tiriControMorte[0][0];
-        tiriControMorte[0][1];
-        tiriControMorte[0][2];
-        tiriControMorte[1][0];
-        tiriControMorte[1][1];
-        tiriControMorte[1][2];
+        this.ispirazione = row[23] == "true";
+        if(!ispirazione && row[23] != "false") throw new IncompatibleCsvException();
+        bonusSalvezza = Integer.parseInt(row[24]);
+        tiriControMorte = new boolean[2][3];
+        this.tiriControMorte[0][0] = row[25] == "true";
+        if(!tiriControMorte[0][0] && row[25] != "false") throw new IncompatibleCsvException();
+        this.tiriControMorte[0][1] = row[26] == "true";
+        if(!tiriControMorte[0][1] && row[26] != "false") throw new IncompatibleCsvException();
+        this.tiriControMorte[0][2] = row[27] == "true";
+        if(!tiriControMorte[0][2] && row[27] != "false") throw new IncompatibleCsvException();
+        this.tiriControMorte[1][0] = row[28] == "true";
+        if(!tiriControMorte[1][0] && row[28] != "false") throw new IncompatibleCsvException();
+        this.tiriControMorte[1][1] = row[29] == "true";
+        if(!tiriControMorte[1][1] && row[29] != "false") throw new IncompatibleCsvException();
+        this.tiriControMorte[1][2] = row[30] == "true";
+        if(!tiriControMorte[1][2] && row[30] != "false") throw new IncompatibleCsvException();
+        morto = tiriControMorte[1][2];
     }
 
     @Override
