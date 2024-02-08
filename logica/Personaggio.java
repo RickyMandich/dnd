@@ -1,5 +1,7 @@
 package logica;
 
+import csv.IncompatibleCsvException;
+
 import java.util.InputMismatchException;
 public class Personaggio {
     protected String nome;
@@ -34,20 +36,56 @@ public class Personaggio {
         this.livello = getInt("Inserisci il livello di " + this.nome);
         this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
         this.morto = !(puntiFerita.attuale>0);
-        this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome));
-        this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome));
+        this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome), getBoolean(nome + " ha bonus salvezza in forza?"));
+        this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome), getBoolean(nome + " ha bonus salvezza in destrezza?"));
         this.iniziativa = this.destrezza.punteggio;
-        this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome));
-        this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome));
-        this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome));
-        this.carisma = new Statistica(getInt("Inserisci il punteggio di carisma di " + this.nome));
+        this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome), getBoolean(nome + " ha bonus salvezza in costituzione?"));
+        this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome), getBoolean(nome + " ha bonus salvezza in intelligenza?"));
+        this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome), getBoolean(nome + " ha bonus salvezza in saggezza?"));
+        this.carisma = new Statistica(getInt("Inserisci il punteggio di carisma di " + this.nome), getBoolean(nome + " ha bonus salvezza in carisma?"));
         this.amico = getBoolean(this.nome + " è un amico?");
     }
 
     public Personaggio(String[] row){
         this.scan = new java.util.Scanner(System.in);
-        csv.Parser p = new csv.Parser();
-        //da finire....
+        nome = row[0];
+        iniziativa = Integer.parseInt(row[1]);
+        String[] subStringVita = new String[2];
+        for(int sub=0, originale=2;sub<subStringVita.length;sub++, originale++) subStringVita[sub] = row[originale];
+        puntiFerita = new Vita(subStringVita);
+        classeArmatura = Integer.parseInt(row[4]);
+        competenza = Integer.parseInt(row[5]);
+        puntiEsperienza = Integer.parseInt(row[6]);
+        livello = Integer.parseInt(row[7]);
+        dannoIniziale = Integer.parseInt(row[8]);
+        this.amico = row[9] == "true";
+        if(!amico && row[9] != "false") throw new IncompatibleCsvException();
+        this.morto = row[10] == "true";
+        if(!morto && row[10] != "false") throw new IncompatibleCsvException();
+
+        String[] subStringForza = new String[2];
+        for(int sub=0, originale=11;sub<subStringForza.length;sub++, originale++) subStringForza[sub] = row[originale];
+        forza = new Statistica(subStringForza);
+
+        String[] subStringDestrezza = new String[2];
+        for(int sub=0, originale=13;sub<subStringDestrezza.length;sub++, originale++) subStringDestrezza[sub] = row[originale];
+        destrezza = new Statistica(subStringDestrezza);
+
+        String[] subStringCostituzione = new String[2];
+        for(int sub=0, originale=15;sub<subStringCostituzione.length;sub++, originale++) subStringCostituzione[sub] = row[originale];
+        costituzione = new Statistica(subStringCostituzione);
+
+        String[] subStringIntelligenza = new String[2];
+        for(int sub=0, originale=17;sub<subStringIntelligenza.length;sub++, originale++) subStringIntelligenza[sub] = row[originale];
+        intelligenza = new Statistica(subStringIntelligenza);
+
+        String[] subStringSaggezza = new String[2];
+        for(int sub=0, originale=19;sub<subStringSaggezza.length;sub++, originale++) subStringSaggezza[sub] = row[originale];
+        saggezza = new Statistica(subStringSaggezza);
+
+        String[] subStringCarisma = new String[2];
+        for(int sub=0, originale=21;sub<subStringCarisma.length;sub++, originale++) subStringCarisma[sub] = row[originale];
+        carisma = new Statistica(subStringCarisma);
     }
 
     public int tiro(int origin, int bound){
@@ -113,6 +151,11 @@ public class Personaggio {
             this.totale = totale;
         }
 
+        public Vita(String[] row){
+            this.attuale = Integer.parseInt(row[0]);
+            this.totale = Integer.parseInt(row[1]);
+        }
+
         public String toString(){
             String info = "";
             info += "\tattuali:\t\t\t" + attuale + "\n";
@@ -132,12 +175,22 @@ public class Personaggio {
         public int bonus;
         public boolean salvezza;
 
-        public Statistica(int punteggio){
+        public Statistica(int punteggio, boolean salvezza){
             this.punteggio = punteggio;
             bonus = punteggio-10;
             if(bonus<0)
                 bonus--;
             bonus /= 2;
+            this.salvezza = salvezza;
+        }
+        public Statistica(String[] row){
+            this.punteggio = Integer.parseInt(row[0]);
+            bonus = punteggio-10;
+            if(bonus<0)
+                bonus--;
+            bonus /= 2;
+            this.salvezza = row[1] == "true";
+            if(!salvezza && row[1] != "false") throw new IncompatibleCsvException();
         }
 
         @Override

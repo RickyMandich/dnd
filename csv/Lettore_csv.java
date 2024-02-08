@@ -1,16 +1,16 @@
 package csv;
 
 public class Lettore_csv {
-    public String[][] getCsv(String file) {
+    public String[] tabel;
+    public void getCsv(String file) {
         java.io.BufferedReader reader = null;
         String line;
-        String[][] tabel = new String[0][];
+        tabel = new String[0];
         boolean exist = false;
         try{
             reader = new java.io.BufferedReader(new java.io.FileReader(file));
             while((line = reader.readLine()) != null){
-                String[] row = line.split(", ");
-                tabel = aggiungiRiga(tabel, row);
+                aggiungiRiga(line);
             }
         }
         catch (Exception e){
@@ -23,26 +23,23 @@ public class Lettore_csv {
                 e.printStackTrace();
             }
         }
-        return tabel;
     }
-    public String[][] aggiungiRiga(String[][] tabel, String[] row){
-        String[][] newTabel;
-        if(tabel.length == 0) newTabel = new String[tabel.length+1][row.length];
-        else newTabel = new String[tabel.length+1][tabel[0].length];
+    public void aggiungiRiga(String row){
+        String[] newTabel;
+        newTabel = new String[tabel.length+1];
         for(int i=0;i<tabel.length;i++){
-            for(int j=0;j<row.length;j++){
-                newTabel[i][j] = tabel[i][j];
-            }
+            newTabel[i] = tabel[i];
         }
         newTabel[tabel.length] = row;
-        return newTabel;
+        tabel = newTabel;
     }
 
-    public void outElencoCsv(String[][] tabel){
+    public void outElencoCsv(){
         for(int i=0;i<tabel.length;i++){
             System.out.print(i + ")\t");
-            for(int j=0;j<tabel[i].length;j++){
-                System.out.printf("%-35s", tabel[i][j]);
+            String[] row = tabel[i].split(", ");
+            for(int j=0;j<row.length;j++){
+                System.out.printf("%-35s", row[j]);
             }
             System.out.println();
         }

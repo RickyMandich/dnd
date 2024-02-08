@@ -21,8 +21,14 @@ public class Giocante extends Personaggio{
     }
     public Giocante(String[] row){
         super(row);
-        csv.Parser p = new csv.Parser();
-        //da finire....
+        ispirazione;
+        bonusSalvezza;
+        tiriControMorte[0][0];
+        tiriControMorte[0][1];
+        tiriControMorte[0][2];
+        tiriControMorte[1][0];
+        tiriControMorte[1][1];
+        tiriControMorte[1][2];
     }
 
     @Override
