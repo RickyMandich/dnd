@@ -1,7 +1,4 @@
 package csv;
-
-import logica.Personaggio;
-
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
@@ -27,7 +24,7 @@ public class inputPG{
         for(logica.Personaggio personaggio:pg){
             try{
                 writer.addCsv(personaggio.toCsv());
-            }catch (NullPointerException e){
+            }catch (NullPointerException ignored){
 
             }
         }
