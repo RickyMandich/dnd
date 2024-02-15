@@ -250,6 +250,6 @@ public class Personaggio {
         info += intelligenza.toCsv();
         info += saggezza.toCsv();
         info += carisma.toCsv();
-        return info + "\n";
+        return info;
     }
 }

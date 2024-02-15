@@ -10,25 +10,28 @@ public class inputPG{
         for (int i = 0; i < pg.length; i++) {
             pg[i] = creaPgSicuro(reader);
         }
-        for(logica.Personaggio personaggio:pg){
-            try{
+        for (logica.Personaggio personaggio : pg) {
+            try {
                 System.out.println(personaggio);
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 System.out.println("NullPointerException in sout di pg righe 13/19");
             }
         }
         System.out.println("inserire \"true\" se si vuole terminare ora il programma senza salvare\t(in caso alternativo eseguiro la procedura di salvataggio e poi terminerò l'esecuzione)");
-        if(new java.util.Scanner(System.in).nextBoolean()) return;
+        if (new java.util.Scanner(System.in).nextBoolean()) return;
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione");
         Scrittore_csv writer = new Scrittore_csv("csv\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
-        for(logica.Personaggio personaggio:pg){
-            try{
-                writer.addCsv(personaggio.toCsv());
-            }catch (NullPointerException ignored){
-
+        try {
+            for (logica.Personaggio personaggio : pg) {
+                try {
+                    writer.addCsv(personaggio.toCsv());
+                } catch (NullPointerException ignored){}
             }
+        } catch (Error | Exception e) {
+            e.printStackTrace();
+        } finally {
+            writer.close();
         }
-        writer.close();
     }
     public static int inputTiroSalvezza(logica.Personaggio p){
         String car = "";

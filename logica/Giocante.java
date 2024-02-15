@@ -8,7 +8,7 @@ public class Giocante extends Personaggio{
     public Giocante(){
         super();
         this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
-        this.bonusSalvezza = getInt("qual'è il bonus salvezza di " + nome);
+        this.bonusSalvezza = competenza;
         this.tiriControMorte = new boolean[2][3];
         int successi = getInt("quanti successi nei tiri contro morte ha " + nome);
         int fallimenti = getInt("quanti fallimenti nei tiri contro morte ha " + nome);
@@ -112,6 +112,6 @@ public class Giocante extends Personaggio{
         info += ", " + ispirazione;
         info += ", " + bonusSalvezza;
         info += getTiriControMorteCsv();
-        return info;
+        return info + "\n";
     }
 }
