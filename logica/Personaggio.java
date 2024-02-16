@@ -58,10 +58,8 @@ public class Personaggio {
         puntiEsperienza = Integer.parseInt(row[6]);
         livello = Integer.parseInt(row[7]);
         dannoIniziale = Integer.parseInt(row[8]);
-        this.amico = row[9] == "true";
-        if(!amico && row[9] != "false") throw new IncompatibleCsvException();
-        this.morto = row[10] == "true";
-        if(!morto && row[10] != "false") throw new IncompatibleCsvException();
+        this.amico = parseBoolean(row[9]);
+        this.morto = parseBoolean(row[10]);
 
         String[] subStringForza = new String[2];
         for(int sub=0, originale=11;sub<subStringForza.length;sub++, originale++) subStringForza[sub] = row[originale];
@@ -86,6 +84,11 @@ public class Personaggio {
         String[] subStringCarisma = new String[2];
         for(int sub=0, originale=21;sub<subStringCarisma.length;sub++, originale++) subStringCarisma[sub] = row[originale];
         carisma = new Statistica(subStringCarisma);
+    }
+    public static boolean parseBoolean(String stringa){
+        boolean ritorno = stringa == "true";
+        if(!ritorno && stringa != "false") throw new IncompatibleCsvException();
+        return ritorno;
     }
 
     public int tiro(int origin, int bound){

@@ -22,22 +22,15 @@ public class Giocante extends Personaggio{
     }
     public Giocante(String[] row){
         super(row);
-        this.ispirazione = row[23] == "true";
-        if(!ispirazione && row[23] != "false") throw new IncompatibleCsvException();
+        this.ispirazione = parseBoolean(row[23]);
         bonusSalvezza = Integer.parseInt(row[24]);
         tiriControMorte = new boolean[2][3];
-        this.tiriControMorte[0][0] = row[25] == "true";
-        if(!tiriControMorte[0][0] && row[25] != "false") throw new IncompatibleCsvException();
-        this.tiriControMorte[0][1] = row[26] == "true";
-        if(!tiriControMorte[0][1] && row[26] != "false") throw new IncompatibleCsvException();
-        this.tiriControMorte[0][2] = row[27] == "true";
-        if(!tiriControMorte[0][2] && row[27] != "false") throw new IncompatibleCsvException();
-        this.tiriControMorte[1][0] = row[28] == "true";
-        if(!tiriControMorte[1][0] && row[28] != "false") throw new IncompatibleCsvException();
-        this.tiriControMorte[1][1] = row[29] == "true";
-        if(!tiriControMorte[1][1] && row[29] != "false") throw new IncompatibleCsvException();
-        this.tiriControMorte[1][2] = row[30] == "true";
-        if(!tiriControMorte[1][2] && row[30] != "false") throw new IncompatibleCsvException();
+        this.tiriControMorte[0][0] = parseBoolean(row[25]);
+        this.tiriControMorte[0][1] = parseBoolean(row[26]);
+        this.tiriControMorte[0][2] = parseBoolean(row[27]);
+        this.tiriControMorte[1][0] = parseBoolean(row[28]);
+        this.tiriControMorte[1][1] = parseBoolean(row[29]);
+        this.tiriControMorte[1][2] = parseBoolean(row[30]);
         morto = tiriControMorte[1][2];
     }
 
