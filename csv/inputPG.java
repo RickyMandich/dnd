@@ -2,7 +2,7 @@ package csv;
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
-        reader.getCsv("csv\\2024_02_05_21-07_Test5_Personaggi.csv");
+        reader.getCsv("csv\\file_dati\\2024_02_15_12-00_test7_Personaggi.csv");
         System.out.println("stai eseguendo un test?\t\t\t(insert \"true\" or \"false\")");
         logica.Giocante.test = new java.util.Scanner(System.in).nextBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
@@ -59,7 +59,7 @@ public class inputPG{
             String[] row = reader.tabel[new java.util.Scanner(System.in).nextInt()].split(", ");
             if(row.length == 29) return new logica.Personaggio(row);
             else if(row.length == 37) return new logica.Giocante(row);
-            else throw new csv.exception.IncompatibleCsvException();
+            else throw new csv.exception.IncompatibileRowLengthInCsvException();
         }else {
             System.out.println("vuoi creare un personaggio giocante?\t\t\t(insert \"true\" or \"false\")");
             if (new java.util.Scanner(System.in).nextBoolean()) {

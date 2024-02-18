@@ -81,21 +81,6 @@ public class Personaggio {
         for(int sub=0, originale=21;sub<subStringCarisma.length;sub++, originale++) subStringCarisma[sub] = row[originale];
         carisma = new Statistica(subStringCarisma);
     }
-    public static boolean parseBoolean(String stringa){
-        boolean ritorno = stringa == "true";
-        if(!ritorno && stringa != "false") throw new csv.exception.IncompatibleCsvException();
-        return ritorno;
-    }
-
-    public int tiro(int origin, int bound){
-        int num = new java.util.Random().nextInt(origin, bound);
-        System.out.println("il risultato del tiro è :" + num);
-        return num;
-    }
-
-    public int tiro(int origin, int bound, int bonus){
-        return tiro(origin, bound) + bonus;
-    }
 
     public String getString(String stringa){
         System.out.println(stringa);
@@ -115,6 +100,29 @@ public class Personaggio {
 
     public boolean getBoolean(String stringa){
         return getInt(stringa + "\n(0 per falso e tutto il resto per vero)") != 0;
+    }
+    public static boolean parseBoolean(String stringa){
+        stringa = stringa.toLowerCase();
+        boolean ritorno;
+        String True = "true";
+        if(stringa == "true"){
+            ritorno = true;
+        }else if(stringa == "false"){
+            ritorno = false;
+        }else{
+            throw new csv.exception.UnexpectedTypeOnCsvException();
+        }
+        return ritorno;
+    }
+
+    public int tiro(int origin, int bound){
+        int num = new java.util.Random().nextInt(origin, bound);
+        System.out.println("il risultato del tiro è :" + num);
+        return num;
+    }
+
+    public int tiro(int origin, int bound, int bonus){
+        return tiro(origin, bound) + bonus;
     }
 
     public int tiroForza(){

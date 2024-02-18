@@ -1,5 +1,4 @@
 package logica;
-import csv.IncompatibleCsvException;
 public class Giocante extends Personaggio{
     protected boolean ispirazione;
     protected int bonusSalvezza;
