@@ -20,7 +20,7 @@ public class inputPG{
         System.out.println("inserire \"true\" se si vuole terminare ora il programma senza salvare\t(in caso alternativo eseguiro la procedura di salvataggio e poi terminerò l'esecuzione)");
         if (new java.util.Scanner(System.in).nextBoolean()) return;
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione");
-        Scrittore_csv writer = new Scrittore_csv("csv\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
+        Scrittore_csv writer = new Scrittore_csv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         try {
             for (logica.Personaggio personaggio : pg) {
                 try {
@@ -46,7 +46,7 @@ public class inputPG{
     public static logica.Personaggio creaPgSicuro(Lettore_csv reader){
         try{
             return creaPg(reader);
-        }catch(IncompatibleCsvException e){
+        }catch(csv.exception.IncompatibleCsvException e){
             System.out.println("questa serie di dati non è compatibile, potrebbe essere una vecchia versione di un personaggio o una serie sbagliata");
             return creaPgSicuro(reader);
         }
@@ -59,7 +59,7 @@ public class inputPG{
             String[] row = reader.tabel[new java.util.Scanner(System.in).nextInt()].split(", ");
             if(row.length == 29) return new logica.Personaggio(row);
             else if(row.length == 37) return new logica.Giocante(row);
-            else throw new IncompatibleCsvException();
+            else throw new csv.exception.IncompatibleCsvException();
         }else {
             System.out.println("vuoi creare un personaggio giocante?\t\t\t(insert \"true\" or \"false\")");
             if (new java.util.Scanner(System.in).nextBoolean()) {

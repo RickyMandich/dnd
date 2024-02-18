@@ -1,8 +1,4 @@
 package logica;
-
-import csv.IncompatibleCsvException;
-
-import java.util.InputMismatchException;
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
@@ -87,7 +83,7 @@ public class Personaggio {
     }
     public static boolean parseBoolean(String stringa){
         boolean ritorno = stringa == "true";
-        if(!ritorno && stringa != "false") throw new IncompatibleCsvException();
+        if(!ritorno && stringa != "false") throw new csv.exception.IncompatibleCsvException();
         return ritorno;
     }
 
@@ -111,7 +107,7 @@ public class Personaggio {
         System.out.println(stringa);
         try{
             return scan.nextInt();
-        }catch (InputMismatchException e){
+        }catch (java.util.InputMismatchException e){
             System.out.println("ERRORE:\tdevi inserire un numero intero");
             return getInt(stringa);
         }
@@ -192,8 +188,7 @@ public class Personaggio {
             if(bonus<0)
                 bonus--;
             bonus /= 2;
-            this.salvezza = row[1] == "true";
-            if(!salvezza && row[1] != "false") throw new IncompatibleCsvException();
+            this.salvezza = parseBoolean(row[1]);
         }
 
         @Override
