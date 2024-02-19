@@ -2,7 +2,8 @@ package csv;
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
-        reader.getCsv("csv\\file_dati\\2024_02_15_12-00_test7_Personaggi.csv");
+        System.out.println("inserisci il nome del file sorgente\t(solo data, ora e numero di test");
+        reader.getCsv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         System.out.println("stai eseguendo un test?\t\t\t(insert \"true\" or \"false\")");
         logica.Giocante.test = new java.util.Scanner(System.in).nextBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
@@ -23,9 +24,7 @@ public class inputPG{
         Scrittore_csv writer = new Scrittore_csv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         try {
             for (logica.Personaggio personaggio : pg) {
-                try {
-                    writer.addCsv(personaggio.toCsv());
-                } catch (NullPointerException ignored){}
+                writer.addCsv(personaggio.toCsv() + "\n");
             }
         } catch (Error | Exception e) {
             e.printStackTrace();

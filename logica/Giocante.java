@@ -104,6 +104,6 @@ public class Giocante extends Personaggio{
         info += ", " + ispirazione;
         info += ", " + bonusSalvezza;
         info += tiriControMorteToCsv();
-        return info + "\n";
+        return info;
     }
 }
