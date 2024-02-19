@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="csv.TestParseBoolean" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="csv.TestParseBoolean" />
+  <configuration default="false" name="logica.TestPgFromRow" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="logica.TestPgFromRow" />
     <module name="dnd" />
     <extension name="coverage">
       <pattern>

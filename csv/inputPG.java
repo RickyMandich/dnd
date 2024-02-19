@@ -6,7 +6,7 @@ public class inputPG{
         System.out.println("stai eseguendo un test?\t\t\t(insert \"true\" or \"false\")");
         logica.Giocante.test = new java.util.Scanner(System.in).nextBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
-        logica.Personaggio[] pg = new logica.Personaggio[new java.util.Scanner(System.in).nextInt()];
+        logica.Personaggio[] pg = new logica.Personaggio[getInt()];
         for (int i = 0; i < pg.length; i++) {
             pg[i] = creaPgSicuro(reader);
         }
@@ -56,9 +56,9 @@ public class inputPG{
         if(new java.util.Scanner(System.in).nextBoolean()){
             reader.outElencoCsv();
             System.out.println("inserisci il numero relativo al personaggio da prelevare");
-            String[] row = reader.tabel[new java.util.Scanner(System.in).nextInt()].split(", ");
-            if(row.length == 29) return new logica.Personaggio(row);
-            else if(row.length == 37) return new logica.Giocante(row);
+            String[] row = reader.tabel[getInt()].split(", ");
+            if(row.length == 23) return new logica.Personaggio(row);
+            else if(row.length == 31) return new logica.Giocante(row);
             else throw new csv.exception.IncompatibileRowLengthInCsvException();
         }else {
             System.out.println("vuoi creare un personaggio giocante?\t\t\t(insert \"true\" or \"false\")");
@@ -67,6 +67,14 @@ public class inputPG{
             } else {
                 return new logica.Personaggio();
             }
+        }
+    }
+
+    private static int getInt() {
+        try{
+            return new java.util.Scanner(System.in).nextInt();
+        }catch (java.util.InputMismatchException e){
+            return getInt();
         }
     }
 }
