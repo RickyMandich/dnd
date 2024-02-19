@@ -104,10 +104,9 @@ public class Personaggio {
     public static boolean parseBoolean(String s){
         s = s.toLowerCase();
         boolean ritorno;
-        String True = "true";
-        if(s == "true"){
+        if(s.equals("true")){
             ritorno = true;
-        }else if(s == "false"){
+        }else if(s.equals("false")){
             ritorno = false;
         }else{
             throw new csv.exception.UnexpectedTypeOnCsvException();
