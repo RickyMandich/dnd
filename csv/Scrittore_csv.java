@@ -10,61 +10,73 @@ public class Scrittore_csv {
         try {
             writer = new FileWriter(file);
 
-            String descrizione = "";
-            descrizione += "nome";
-            descrizione += ", " + "iniziativa";
-            descrizione += ", " + "punti ferita attuali";
-            descrizione += ", " + "punti ferita totali";
-            descrizione += ", " + "classe armatura";
-            descrizione += ", " + "competenza";
-            descrizione += ", " + "punti esperienza";
-            descrizione += ", " + "livello";
-            descrizione += ", " + "danno iniziale";
-            descrizione += ", " + "amico";
-            descrizione += ", " + "morto";
+            String info = "";
+            info += "nome";
+            info += ", " + "iniziativa";
+            info += puntiFeritaToCsv();
+            info += ", " + "classeArmatura";
+            info += ", " + "competenza";
+            info += ", " + "puntiEsperienza";
+            info += ", " + "livello";
+            info += ", " + "dannoIniziale";
+            info += ", " + "amico";
+            info += ", " + "morto";
+            info += forzaToCsv();
+            info += destrezzaToCsv();
+            info += costituzioneToCsv();
+            info += intelligenzaToCsv();
+            info += saggezzaToCsv();
+            info += carismaToCsv();
 
-
-            descrizione += ", " + "punteggio forza";
-            descrizione += ", " + "bonus forza";
-            descrizione += ", " + "bonus salvezza forza";
-
-            descrizione += ", " + "punteggio destrezza";
-            descrizione += ", " + "bonus destrezza";
-            descrizione += ", " + "bonus salvezza destrezza";
-
-            descrizione += ", " + "punteggio costituzione";
-            descrizione += ", " + "bonus costituzione";
-            descrizione += ", " + "bonus salvezza costituzione";
-
-            descrizione += ", " + "punteggio intelligenza";
-            descrizione += ", " + "bonus intelligenza";
-            descrizione += ", " + "bonus salvezza intelligenza";
-
-            descrizione += ", " + "punteggio saggezza";
-            descrizione += ", " + "bonus saggezza";
-            descrizione += ", " + "bonus salvezza saggezza";
-
-            descrizione += ", " + "punteggio carisma";
-            descrizione += ", " + "bonus carisma";
-            descrizione += ", " + "bonus salvezza carisma";
-
-
-            descrizione += ", " + "ispirazione";
-            descrizione += ", " + "bonus salvezza";
-
-
-            descrizione += ", " + "primo successo tiri contro morte";
-            descrizione += ", " + "secondo successo tiri contro morte";
-            descrizione += ", " + "terzo successo tiri contro morte";
-
-            descrizione += ", " + "primo fallimento tiri contro morte";
-            descrizione += ", " + "secondo fallimento tiri contro morte";
-            descrizione += ", " + "terzo fallimento tiri contro morte";
-
-            writer.write(descrizione + "\n");
+            info += ", " + "ispirazione";
+            info += ", " + "bonusSalvezza";
+            info += tiriControMorteToCsv();
+            writer.write(info + "\n");
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public String puntiFeritaToCsv(){
+        String info = "";
+        info += ", punti ferita attuali";
+        info += ", punti ferita totali";
+        return info;
+    }
+    public String caratteristicaToCsv(String caratteristica){
+        String info = "";
+        info += ", punteggio " + caratteristica;
+        info += ", bonus salvezza " + caratteristica;
+        return info;
+    }
+    public String forzaToCsv(){
+        return caratteristicaToCsv("forza");
+    }
+    public String destrezzaToCsv(){
+        return caratteristicaToCsv("destrezza");
+    }
+    public String costituzioneToCsv(){
+        return caratteristicaToCsv("costituzione");
+    }
+    public String intelligenzaToCsv(){
+        return caratteristicaToCsv("intelligenza");
+    }
+    public String saggezzaToCsv(){
+        return caratteristicaToCsv("saggezza");
+    }
+    public String carismaToCsv(){
+        return caratteristicaToCsv("carisma");
+    }
+    public String tiriControMorteToCsv(){
+        String info = "";
+        for(int i=0;i<2;i++){
+            for(int j=0;j<3;j++){
+                info = info.concat(", " + tiroControMorteToCsv(i, j));
+            }
+        }
+        return info;
+    }
+    public String tiroControMorteToCsv(int i, int j){
+        return ", " + (j+1) + ((i==0) ? " successo" : " fallimento") + " tiri contro morte";
     }
     public void addCsv(String stringa) {
         try {

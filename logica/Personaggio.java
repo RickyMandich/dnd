@@ -101,13 +101,13 @@ public class Personaggio {
     public boolean getBoolean(String stringa){
         return getInt(stringa + "\n(0 per falso e tutto il resto per vero)") != 0;
     }
-    public static boolean parseBoolean(String stringa){
-        stringa = stringa.toLowerCase();
+    public static boolean parseBoolean(String s){
+        s = s.toLowerCase();
         boolean ritorno;
         String True = "true";
-        if(stringa == "true"){
+        if(s == "true"){
             ritorno = true;
-        }else if(stringa == "false"){
+        }else if(s == "false"){
             ritorno = false;
         }else{
             throw new csv.exception.UnexpectedTypeOnCsvException();
@@ -211,7 +211,6 @@ public class Personaggio {
         public String toCsv(){
             String info = "";
             info += ", " + punteggio;
-            info += ", " + bonus;
             info += ", " + salvezza;
             return info;
         }

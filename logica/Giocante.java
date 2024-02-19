@@ -70,7 +70,7 @@ public class Giocante extends Personaggio{
         throw new NoSuchStatistic("la statistica inserita non è stata trovata");
     }
 
-    public String getTiriControMorteString() {
+    public String tiriControMorteToString() {
         String info = "";
         info += "\tsuccessi:\t\t\t";
         for (int i = 0; i < 3; i++) info = info.concat(tiriControMorte[0][i] + "\t");
@@ -78,7 +78,7 @@ public class Giocante extends Personaggio{
         for (int i = 0; i < 3; i++) info = info.concat(tiriControMorte[1][i] + "\t");
         return info + "\n";
     }
-    public String getTiriControMorteCsv() {
+    public String tiriControMorteToCsv() {
         String info = "";
         info = info.concat(", " + tiriControMorte[0][0]);
         info = info.concat(", " + tiriControMorte[0][1]);
@@ -94,7 +94,7 @@ public class Giocante extends Personaggio{
         String info = super.toString();
         info += "ispirazione:\t\t\t" + ispirazione + "\n";
         info += "bonus salvezza:\t\t\t" + bonusSalvezza + "\n";
-        info += getTiriControMorteString();
+        info += tiriControMorteToString();
         return info;
     }
 
@@ -103,7 +103,7 @@ public class Giocante extends Personaggio{
         String info = super.toCsv();
         info += ", " + ispirazione;
         info += ", " + bonusSalvezza;
-        info += getTiriControMorteCsv();
+        info += tiriControMorteToCsv();
         return info + "\n";
     }
 }
