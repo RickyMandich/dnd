@@ -1,25 +1,25 @@
 package csv;
+
+import logica.Personaggio;
+
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
-        System.out.println("inserisci il nome del file sorgente\t(solo data, ora e numero di test");
+        System.out.println("inserisci il nome del file sorgente\t(solo data, ora e numero di test)");
         reader.getCsv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         System.out.println("stai eseguendo un test?\t\t\t(insert \"true\" or \"false\")");
-        logica.Giocante.test = new java.util.Scanner(System.in).nextBoolean();
+        logica.Giocante.test = getBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
         logica.Personaggio[] pg = new logica.Personaggio[getInt()];
         for (int i = 0; i < pg.length; i++) {
             pg[i] = creaPgSicuro(reader);
+            if(i+1==pg.length) pg = creaUltimoPg(pg);
         }
-        for (logica.Personaggio personaggio : pg) {
-            try {
-                System.out.println(personaggio);
-            } catch (NullPointerException e) {
-                System.out.println("NullPointerException in sout di pg righe 13/19");
-            }
-        }
+        elencoNomiPg(pg);
+        System.out.println("vuoi i dettagli dei personaggi?\t\t\t(insert \"true\" or \"false\")");
+        if(getBoolean()) elencoPg(pg);
         System.out.println("inserire \"true\" se si vuole terminare ora il programma senza salvare\t(in caso alternativo eseguiro la procedura di salvataggio e poi terminerò l'esecuzione)");
-        if (new java.util.Scanner(System.in).nextBoolean()) return;
+        if (getBoolean()) return;
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione");
         Scrittore_csv writer = new Scrittore_csv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         try {
@@ -32,6 +32,27 @@ public class inputPG{
             writer.close();
         }
     }
+
+    private static boolean getBoolean() {
+        return new java.util.Scanner(System.in).nextBoolean();
+    }
+
+    private static void elencoNomiPg(Personaggio[] pg) {
+        for(int i = 0; i< pg.length; i++){
+            System.out.println((i+1) + ")\t" + pg[i].getNome());
+        }
+    }
+
+    private static void elencoPg(Personaggio[] pg) {
+        for (Personaggio personaggio : pg) {
+            try {
+                System.out.println(personaggio);
+            } catch (NullPointerException e) {
+                System.out.println("NullPointerException in sout di pg righe 13/19");
+            }
+        }
+    }
+
     public static int inputTiroSalvezza(logica.Personaggio p){
         String car = "";
         System.out.println("inserisci le prime tre lettere della statistica che vuoi usare");
@@ -42,6 +63,18 @@ public class inputPG{
             return inputTiroSalvezza(p);
         }
     }
+    public static logica.Personaggio[] creaUltimoPg(logica.Personaggio[] pg){
+        System.out.println("vuoi aggiungere un'altro pg\t\t\t(insert \"true\" or \"false\")");
+        if(getBoolean()) return aggiungiPg(pg);
+        else return pg;
+    }
+
+    private static Personaggio[] aggiungiPg(Personaggio[] oldPg) {
+        logica.Personaggio[] newPg = new logica.Personaggio[oldPg.length+1];
+        for(int i=0;i<oldPg.length;i++) newPg[i] = oldPg[i];
+        return newPg;
+    }
+
     public static logica.Personaggio creaPgSicuro(Lettore_csv reader){
         try{
             return creaPg(reader);
@@ -52,7 +85,7 @@ public class inputPG{
     }
     public static logica.Personaggio creaPg(Lettore_csv reader){
         System.out.println("vuoi prendere un personaggio che esiste già nel file?\t\t\t(insert \"true\" or \"false\")");
-        if(new java.util.Scanner(System.in).nextBoolean()){
+        if(getBoolean()){
             reader.outElencoCsv();
             System.out.println("inserisci il numero relativo al personaggio da prelevare");
             String[] row = reader.tabel[getInt()].split(", ");
@@ -61,7 +94,7 @@ public class inputPG{
             else throw new csv.exception.IncompatibileRowLengthInCsvException();
         }else {
             System.out.println("vuoi creare un personaggio giocante?\t\t\t(insert \"true\" or \"false\")");
-            if (new java.util.Scanner(System.in).nextBoolean()) {
+            if (getBoolean()) {
                 return new logica.Giocante();
             } else {
                 return new logica.Personaggio();

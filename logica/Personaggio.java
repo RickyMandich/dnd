@@ -114,6 +114,10 @@ public class Personaggio {
         return ritorno;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public int tiro(int origin, int bound){
         int num = new java.util.Random().nextInt(origin, bound);
         System.out.println("il risultato del tiro è :" + num);
