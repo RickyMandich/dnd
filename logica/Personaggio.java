@@ -242,8 +242,8 @@ public class Personaggio {
         }
         public String toCsv(){
             String info = "";
-            info += ", " + attuale;
-            info += ", " + totale;
+            info += "," + attuale;
+            info += "," + totale;
             return info;
         }
     }
@@ -281,8 +281,8 @@ public class Personaggio {
 
         public String toCsv(){
             String info = "";
-            info += ", " + punteggio;
-            info += ", " + salvezza;
+            info += "," + punteggio;
+            info += "," + salvezza;
             return info;
         }
     }
@@ -311,15 +311,15 @@ public class Personaggio {
     public String toCsv(){
         String info = "";
         info += nome;
-        info += ", " + iniziativa;
+        info += "," + iniziativa;
         info += puntiFerita.toCsv();
-        info += ", " + classeArmatura;
-        info += ", " + competenza;
-        info += ", " + puntiEsperienza;
-        info += ", " + livello;
-        info += ", " + dannoIniziale;
-        info += ", " + amico;
-        info += ", " + morto;
+        info += "," + classeArmatura;
+        info += "," + competenza;
+        info += "," + puntiEsperienza;
+        info += "," + livello;
+        info += "," + dannoIniziale;
+        info += "," + amico;
+        info += "," + morto;
         info += forza.toCsv();
         info += destrezza.toCsv();
         info += costituzione.toCsv();

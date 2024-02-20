@@ -21,7 +21,7 @@ public class inputPG{
         if(getBoolean()) elencoPg(pg);
         System.out.println("vuoi salvare i dati dei personaggi?");
         if (!getBoolean()) return;
-        System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione");
+        System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
         Scrittore_csv writer = new Scrittore_csv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         try {
             for (logica.Personaggio personaggio : pg) {
@@ -32,13 +32,14 @@ public class inputPG{
         } finally {
             writer.close();
         }
+        System.out.print("fine programma");
     }
 
     private static boolean getBoolean() {
+        System.out.println("(insert \"true\" or \"false\")");
         try{
             return new java.util.Scanner(System.in).nextBoolean();
         }catch (java.util.InputMismatchException e){
-            System.out.println("(insert \"true\" or \"false\")");
             return getBoolean();
         }
     }
@@ -102,7 +103,7 @@ public class inputPG{
         if(getBoolean()){
             reader.outElencoCsv();
             System.out.println("inserisci il numero relativo al personaggio da prelevare");
-            String[] row = reader.tabel[getInt()].split(", ");
+            String[] row = reader.tabel[getInt()].split(",");
             if(row.length == 23) return new logica.Personaggio(row);
             else if(row.length == 31) return new logica.Giocante(row);
             else throw new csv.exception.IncompatibileRowLengthInCsvException();

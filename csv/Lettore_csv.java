@@ -37,7 +37,7 @@ public class Lettore_csv {
     public void outElencoCsv(){
         for(int i=0;i<tabel.length;i++){
             System.out.print(i + ")\t");
-            String[] row = tabel[i].split(", ");
+            String[] row = tabel[i].split(",");
             for(int j=0;j<row.length;j++){
                 System.out.printf("%-35s", row[j]);
             }

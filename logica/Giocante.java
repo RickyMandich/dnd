@@ -129,12 +129,12 @@ public class Giocante extends Personaggio{
     }
     public String tiriControMorteToCsv() {
         String info = "";
-        info = info.concat(", " + tiriControMorte[0][0]);
-        info = info.concat(", " + tiriControMorte[0][1]);
-        info = info.concat(", " + tiriControMorte[0][2]);
-        info = info.concat(", " + tiriControMorte[1][0]);
-        info = info.concat(", " + tiriControMorte[1][1]);
-        info = info.concat(", " + tiriControMorte[1][2]);
+        info = info.concat("," + tiriControMorte[0][0]);
+        info = info.concat("," + tiriControMorte[0][1]);
+        info = info.concat("," + tiriControMorte[0][2]);
+        info = info.concat("," + tiriControMorte[1][0]);
+        info = info.concat("," + tiriControMorte[1][1]);
+        info = info.concat("," + tiriControMorte[1][2]);
         return info;
     }
 
@@ -150,8 +150,8 @@ public class Giocante extends Personaggio{
     @Override
     public String toCsv() {
         String info = super.toCsv();
-        info += ", " + ispirazione;
-        info += ", " + bonusSalvezza;
+        info += "," + ispirazione;
+        info += "," + bonusSalvezza;
         info += tiriControMorteToCsv();
         return info;
     }

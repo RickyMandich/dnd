@@ -12,15 +12,15 @@ public class Scrittore_csv {
 
             String info = "";
             info += "nome";
-            info += ", " + "iniziativa";
+            info += "," + "iniziativa";
             info += puntiFeritaToCsv();
-            info += ", " + "classeArmatura";
-            info += ", " + "competenza";
-            info += ", " + "puntiEsperienza";
-            info += ", " + "livello";
-            info += ", " + "dannoIniziale";
-            info += ", " + "amico";
-            info += ", " + "morto";
+            info += "," + "classeArmatura";
+            info += "," + "competenza";
+            info += "," + "puntiEsperienza";
+            info += "," + "livello";
+            info += "," + "dannoIniziale";
+            info += "," + "amico";
+            info += "," + "morto";
             info += forzaToCsv();
             info += destrezzaToCsv();
             info += costituzioneToCsv();
@@ -28,8 +28,8 @@ public class Scrittore_csv {
             info += saggezzaToCsv();
             info += carismaToCsv();
 
-            info += ", " + "ispirazione";
-            info += ", " + "bonusSalvezza";
+            info += "," + "ispirazione";
+            info += "," + "bonusSalvezza";
             info += tiriControMorteToCsv();
             writer.write(info + "\n");
         } catch (IOException e) {
@@ -38,14 +38,14 @@ public class Scrittore_csv {
     }
     public String puntiFeritaToCsv(){
         String info = "";
-        info += ", punti ferita attuali";
-        info += ", punti ferita totali";
+        info += ",punti ferita attuali";
+        info += ",punti ferita totali";
         return info;
     }
     public String caratteristicaToCsv(String caratteristica){
         String info = "";
-        info += ", punteggio " + caratteristica;
-        info += ", bonus salvezza " + caratteristica;
+        info += ",punteggio " + caratteristica;
+        info += ",bonus salvezza " + caratteristica;
         return info;
     }
     public String forzaToCsv(){
@@ -76,7 +76,7 @@ public class Scrittore_csv {
         return info;
     }
     public String tiroControMorteToCsv(int i, int j){
-        return ", " + (j+1) + ((i==0) ? " successo" : " fallimento") + " tiri contro morte";
+        return "," + (j+1) + ((i==0) ? " successo" : " fallimento") + " tiri contro morte";
     }
     public void addCsv(String stringa) {
         try {
