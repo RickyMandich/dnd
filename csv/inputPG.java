@@ -1,7 +1,4 @@
 package csv;
-
-import logica.Personaggio;
-
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
@@ -12,7 +9,7 @@ public class inputPG{
         System.out.println("inserisci il numero di personaggi che vuoi creare");
         logica.Personaggio[] pg = new logica.Personaggio[getInt()];
         for (int i = 0; i < pg.length; i++) {
-            pg[i] = creaPgSicuro(reader);
+            pg[i] = creaPgSicuro(reader, pg);
             if(i+1==pg.length) pg = creaUltimoPg(pg);
         }
         elencoNomiPg(pg);
@@ -37,14 +34,14 @@ public class inputPG{
         return new java.util.Scanner(System.in).nextBoolean();
     }
 
-    private static void elencoNomiPg(Personaggio[] pg) {
+    private static void elencoNomiPg(logica.Personaggio[] pg) {
         for(int i = 0; i< pg.length; i++){
             System.out.println((i+1) + ")\t" + pg[i].getNome());
         }
     }
 
-    private static void elencoPg(Personaggio[] pg) {
-        for (Personaggio personaggio : pg) {
+    private static void elencoPg(logica.Personaggio[] pg) {
+        for (logica.Personaggio personaggio : pg) {
             try {
                 System.out.println(personaggio);
             } catch (NullPointerException e) {
@@ -69,18 +66,20 @@ public class inputPG{
         else return pg;
     }
 
-    private static Personaggio[] aggiungiPg(Personaggio[] oldPg) {
+    private static logica.Personaggio[] aggiungiPg(logica.Personaggio[] oldPg) {
         logica.Personaggio[] newPg = new logica.Personaggio[oldPg.length+1];
         for(int i=0;i<oldPg.length;i++) newPg[i] = oldPg[i];
         return newPg;
     }
 
-    public static logica.Personaggio creaPgSicuro(Lettore_csv reader){
+    public static logica.Personaggio creaPgSicuro(Lettore_csv reader, logica.Personaggio[] pg){
+        System.out.println("personaggi attualmente creati:");
+        elencoPg(pg);
         try{
             return creaPg(reader);
         }catch(csv.exception.IncompatibleCsvException e){
             System.out.println("questa serie di dati non è compatibile, potrebbe essere una vecchia versione di un personaggio o una serie sbagliata");
-            return creaPgSicuro(reader);
+            return creaPgSicuro(reader, pg);
         }
     }
     public static logica.Personaggio creaPg(Lettore_csv reader){

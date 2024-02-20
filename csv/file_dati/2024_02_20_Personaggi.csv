@@ -1,0 +1,7 @@
+nome, iniziativa, punti ferita attuali, punti ferita totali, classeArmatura, competenza, puntiEsperienza, livello, dannoIniziale, amico, morto, punteggio forza, bonus salvezza forza, punteggio destrezza, bonus salvezza destrezza, punteggio costituzione, bonus salvezza costituzione, punteggio intelligenza, bonus salvezza intelligenza, punteggio saggezza, bonus salvezza saggezza, punteggio carisma, bonus salvezza carisma, ispirazione, bonusSalvezza, 1 successo tiri contro morte, 2 successo tiri contro morte, 3 successo tiri contro morte, 1 fallimento tiri contro morte, 2 fallimento tiri contro morte, 3 fallimento tiri contro morte
+Mat al'Aybara, 12, 52, 52, 12, 3, 6500, 5, 0, true, false, 12, false, 12, false, 14, false, 12, false, 12, true, 16, true, true, 3, false, false, false, false, false, false
+Kenny "Kennuccio" Zaraki , 16, 16, 16, 16, 2, 0, 1, 0, true, false, 16, true, 16, false, 16, true, 8, false, 12, false, 10, false, false, 2, false, false, false, false, false, false
+Sana Marijuana, 12, 9, 9, 13, 2, 0, 1, 0, true, false, 18, true, 12, true, 12, false, 10, false, 14, false, 15, false, false, 2, false, false, false, false, false, false
+Paesano, 10, 5, 5, 10, 0, 0, 1, 0, true, false, 10, false, 10, false, 10, false, 10, false, 10, false, 10, false
+Aarakocra, 14, 13, 13, 12, 2, 50, 1, 0, false, false, 10, false, 14, false, 10, false, 11, false, 12, false, 11, false
+Bugbear, 14, 27, 27, 16, 2, 200, 1, 0, false, false, 15, false, 14, false, 13, false, 8, false, 11, false, 9, false
