@@ -15,8 +15,8 @@ public class inputPG{
         elencoNomiPg(pg);
         System.out.println("vuoi i dettagli dei personaggi?\t\t\t(insert \"true\" or \"false\")");
         if(getBoolean()) elencoPg(pg);
-        System.out.println("inserire \"true\" se si vuole terminare ora il programma senza salvare\t(in caso alternativo eseguiro la procedura di salvataggio e poi terminerò l'esecuzione)");
-        if (getBoolean()) return;
+        System.out.println("vuoi salvare i dati dei personaggi?\t\t\t(insert \"true\" or \"false\")");
+        if (!getBoolean()) return;
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione");
         Scrittore_csv writer = new Scrittore_csv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         try {
