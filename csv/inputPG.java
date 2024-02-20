@@ -31,12 +31,23 @@ public class inputPG{
     }
 
     private static boolean getBoolean() {
-        return new java.util.Scanner(System.in).nextBoolean();
+        try{
+            return new java.util.Scanner(System.in).nextBoolean();
+        }catch (java.util.InputMismatchException e){
+            System.out.println("devi inserire \"true\" o \"false\"");
+            return getBoolean();
+        }
     }
 
     private static void elencoNomiPg(logica.Personaggio[] pg) {
         for(int i = 0; i< pg.length; i++){
-            System.out.println((i+1) + ")\t" + pg[i].getNome());
+            String pgI;
+            try {
+                pgI = pg[i].getNome();
+            }catch (NullPointerException e){
+                pgI = "null";
+            }
+            System.out.println((i+1) + ")\t" + pgI);
         }
     }
 
@@ -74,7 +85,7 @@ public class inputPG{
 
     public static logica.Personaggio creaPgSicuro(Lettore_csv reader, logica.Personaggio[] pg){
         System.out.println("personaggi attualmente creati:");
-        elencoPg(pg);
+        elencoNomiPg(pg);
         try{
             return creaPg(reader);
         }catch(csv.exception.IncompatibleCsvException e){
@@ -105,6 +116,7 @@ public class inputPG{
         try{
             return new java.util.Scanner(System.in).nextInt();
         }catch (java.util.InputMismatchException e){
+            System.out.println("devi inserire un numero intero");
             return getInt();
         }
     }
