@@ -32,7 +32,56 @@ public class Giocante extends Personaggio{
         this.tiriControMorte[1][2] = parseBoolean(row[30]);
         morto = tiriControMorte[1][2];
     }
-
+    public void modifica(){
+        String richiestaAttributoDaModificare = """
+                cosa vuoi fare?
+                    0)\tterminare la modifica
+                    1)\tcambiare il nome
+                    2)\tcambiare la vita
+                    3)\tcambiare la classe armatura
+                    4)\tcambiare il bonus competenza
+                    5)\tcambiare i punti esperienza
+                    6)\tcambiare il livello
+                    7)\tcambiare il danno iniziale
+                    8)\tcambiare una statistica
+                    9)\tcambiare la fazione
+                    10)\tcambiare l'ispirazione
+                    11)\tcambiare i tiri contro morte
+                    """;
+        switch (getInt(richiestaAttributoDaModificare)){
+            default -> {
+                return;
+            }
+            case 1 -> this.nome = getString("inserisci il nome del personaggio");
+            case 2 -> this.puntiFerita = new Vita(
+                    getInt("Inserisci i punti ferita di " + this.nome),
+                    getInt("Inserisci i punti ferita totali di " + this.nome));
+            case 3 -> this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome);
+            case 4 -> {
+                this.competenza = getInt("Inserisci la competenza di " + this.nome);
+                this.bonusSalvezza = competenza;
+            }
+            case 5 -> this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
+            case 6 -> this.livello = getInt("Inserisci il livello di " + this.nome);
+            case 7 -> this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
+            case 8 -> modificaStatistica();
+            case 9 -> this.amico = getBoolean(this.nome + " è un amico?");
+            case 10 -> this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
+            case 11 -> {
+                this.tiriControMorte = new boolean[2][3];
+                int successi = getInt("quanti successi nei tiri contro morte ha " + nome);
+                int fallimenti = getInt("quanti fallimenti nei tiri contro morte ha " + nome);
+                for (int i = 0; i < successi; i++) {
+                    tiriControMorte[0][i] = true;
+                }
+                for (int i = 0; i < fallimenti; i++) {
+                    tiriControMorte[1][i] = true;
+                }
+                this.morto = this.tiriControMorte[1][2];
+            }
+        }
+        modifica();
+    }
     @Override
     public int tiro(int origin, int bound){
         if(test) return super.tiro(origin, bound);

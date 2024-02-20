@@ -4,18 +4,22 @@ public class inputPG{
         Lettore_csv reader = new Lettore_csv();
         System.out.println("inserisci il nome del file sorgente\t(solo data, ora e numero di test)");
         reader.getCsv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
-        System.out.println("stai eseguendo un test?\t\t\t(insert \"true\" or \"false\")");
+        System.out.println("stai eseguendo un test?");
         logica.Giocante.test = getBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
         logica.Personaggio[] pg = new logica.Personaggio[getInt()];
         for (int i = 0; i < pg.length; i++) {
             pg[i] = creaPgSicuro(reader, pg);
+            System.out.println("hai sbagliato a inserire i dati o devi modificare qualcosa del personaggio già salvato?");
+            if(getBoolean()){
+                pg[i].modifica();
+            }
             if(i+1==pg.length) pg = creaUltimoPg(pg);
         }
         elencoNomiPg(pg);
-        System.out.println("vuoi i dettagli dei personaggi?\t\t\t(insert \"true\" or \"false\")");
+        System.out.println("vuoi i dettagli dei personaggi?");
         if(getBoolean()) elencoPg(pg);
-        System.out.println("vuoi salvare i dati dei personaggi?\t\t\t(insert \"true\" or \"false\")");
+        System.out.println("vuoi salvare i dati dei personaggi?");
         if (!getBoolean()) return;
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione");
         Scrittore_csv writer = new Scrittore_csv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
@@ -34,7 +38,7 @@ public class inputPG{
         try{
             return new java.util.Scanner(System.in).nextBoolean();
         }catch (java.util.InputMismatchException e){
-            System.out.println("devi inserire \"true\" o \"false\"");
+            System.out.println("(insert \"true\" or \"false\")");
             return getBoolean();
         }
     }
@@ -72,7 +76,7 @@ public class inputPG{
         }
     }
     public static logica.Personaggio[] creaUltimoPg(logica.Personaggio[] pg){
-        System.out.println("vuoi aggiungere un'altro pg\t\t\t(insert \"true\" or \"false\")");
+        System.out.println("vuoi aggiungere un'altro pg");
         if(getBoolean()) return aggiungiPg(pg);
         else return pg;
     }
@@ -94,7 +98,7 @@ public class inputPG{
         }
     }
     public static logica.Personaggio creaPg(Lettore_csv reader){
-        System.out.println("vuoi prendere un personaggio che esiste già nel file?\t\t\t(insert \"true\" or \"false\")");
+        System.out.println("vuoi prendere un personaggio che esiste già nel file?");
         if(getBoolean()){
             reader.outElencoCsv();
             System.out.println("inserisci il numero relativo al personaggio da prelevare");
@@ -103,7 +107,7 @@ public class inputPG{
             else if(row.length == 31) return new logica.Giocante(row);
             else throw new csv.exception.IncompatibileRowLengthInCsvException();
         }else {
-            System.out.println("vuoi creare un personaggio giocante?\t\t\t(insert \"true\" or \"false\")");
+            System.out.println("vuoi creare un personaggio giocante?");
             if (getBoolean()) {
                 return new logica.Giocante();
             } else {

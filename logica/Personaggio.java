@@ -114,6 +114,74 @@ public class Personaggio {
         return ritorno;
     }
 
+    public void modifica(){
+        String richiestaAttributoDaModificare = """
+                cosa vuoi fare?
+                    0)\tterminare la modifica
+                    1)\tcambiare il nome
+                    2)\tcambiare la vita
+                    3)\tcambiare la classe armatura
+                    4)\tcambiare il bonus competenza
+                    5)\tcambiare i punti esperienza
+                    6)\tcambiare il livello
+                    7)\tcambiare il danno iniziale
+                    8)\tcambiare una statistica
+                    9)\tcambiare la fazione
+                    """;
+        switch (getInt(richiestaAttributoDaModificare)){
+            default -> {
+                return;
+            }
+            case 1 -> this.nome = getString("inserisci il nome del personaggio");
+            case 2 -> this.puntiFerita = new Vita(
+                    getInt("Inserisci i punti ferita di " + this.nome),
+                    getInt("Inserisci i punti ferita totali di " + this.nome));
+            case 3 -> this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome);
+            case 4 -> this.competenza = getInt("Inserisci la competenza di " + this.nome);
+            case 5 -> this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
+            case 6 -> this.livello = getInt("Inserisci il livello di " + this.nome);
+            case 7 -> this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
+            case 8 -> modificaStatistica();
+            case 9 -> this.amico = getBoolean(this.nome + " è un amico?");
+        }
+        modifica();
+    }
+
+    protected void modificaStatistica() {
+        String richiestaStatisticaDaModificare = """
+                quale statistica vuoi modificare?
+                    1)\tforza
+                    2)\tdestrezza
+                    3)\tcostituzione
+                    4)\tintelligenza
+                    5)\tsaggezza
+                    6)\tcarisma
+                    """;
+        switch (getInt(richiestaStatisticaDaModificare)) {
+            case 1 -> this.forza = new Statistica(
+                    getInt("Inserisci il punteggio di forza di " + this.nome),
+                    getBoolean(nome + " ha bonus salvezza in forza?"));
+            case 2 -> {
+                this.destrezza = new Statistica(
+                        getInt("Inserisci il punteggio di destrezza di " + this.nome),
+                        getBoolean(nome + " ha bonus salvezza in destrezza?"));
+                this.iniziativa = this.destrezza.punteggio;
+            }
+            case 3 -> this.costituzione = new Statistica(
+                    getInt("Inserisci il punteggio di costituzione di " + this.nome),
+                    getBoolean(nome + " ha bonus salvezza in costituzione?"));
+            case 4 -> this.intelligenza = new Statistica(
+                    getInt("Inserisci il punteggio di intelligenza di " + this.nome),
+                    getBoolean(nome + " ha bonus salvezza in intelligenza?"));
+            case 5 -> this.saggezza = new Statistica(
+                    getInt("Inserisci il punteggio di saggezza di " + this.nome),
+                    getBoolean(nome + " ha bonus salvezza in saggezza?"));
+            case 6 -> this.carisma = new Statistica(
+                    getInt("Inserisci il punteggio di carisma di " + this.nome),
+                    getBoolean(nome + " ha bonus salvezza in carisma?"));
+        }
+    }
+
     public String getNome() {
         return nome;
     }
