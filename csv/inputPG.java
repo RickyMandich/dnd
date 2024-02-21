@@ -20,17 +20,18 @@ public class inputPG{
         System.out.println("vuoi i dettagli dei personaggi?");
         if(getBoolean()) elencoPg(pg);
         System.out.println("vuoi salvare i dati dei personaggi?");
-        if (!getBoolean()) return;
-        System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
-        Scrittore_csv writer = new Scrittore_csv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
-        try {
-            for (logica.Personaggio personaggio : pg) {
-                writer.addCsv(personaggio.toCsv() + "\n");
+        if (getBoolean()) {
+            System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
+            Scrittore_csv writer = new Scrittore_csv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
+            try {
+                for (logica.Personaggio personaggio : pg) {
+                    writer.addCsv(personaggio.toCsv() + "\n");
+                }
+            } catch (Error | Exception e) {
+                e.printStackTrace();
+            } finally {
+                writer.close();
             }
-        } catch (Error | Exception e) {
-            e.printStackTrace();
-        } finally {
-            writer.close();
         }
         System.out.print("fine programma");
     }
