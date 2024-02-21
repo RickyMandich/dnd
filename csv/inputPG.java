@@ -2,7 +2,7 @@ package csv;
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
-        System.out.println("inserisci il nome del file sorgente\t(solo data, ora e numero di test)");
+        System.out.println("inserisci il nome del file sorgente\t(la cartella in cui salvarlo è già inserite e la parte finale del nome \"_Personaggi.csv\" pure)");
         reader.getCsv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         System.out.println("stai eseguendo un test?");
         logica.Giocante.test = getBoolean();

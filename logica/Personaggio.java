@@ -18,10 +18,7 @@ public class Personaggio {
     protected Statistica saggezza;
     protected Statistica carisma;
 
-    protected java.util.Scanner scan;
-
     public Personaggio() {
-        this.scan = new java.util.Scanner(System.in);
         this.nome = getString("inserisci il nome del personaggio");
         this.puntiFerita = new Vita(
                 getInt("Inserisci i punti ferita di " + this.nome),
@@ -43,7 +40,6 @@ public class Personaggio {
     }
 
     public Personaggio(String[] row){
-        this.scan = new java.util.Scanner(System.in);
         nome = row[0];
         iniziativa = Integer.parseInt(row[1]);
         String[] subStringVita = new String[2];
@@ -84,14 +80,13 @@ public class Personaggio {
 
     public String getString(String stringa){
         System.out.println(stringa);
-        stringa = scan.nextLine();
-        return stringa;
+        return new java.util.Scanner(System.in).nextLine();
     }
 
     public int getInt(String stringa){
         System.out.println(stringa);
         try{
-            return scan.nextInt();
+            return new java.util.Scanner(System.in).nextInt();
         }catch (java.util.InputMismatchException e){
             System.out.println("ERRORE:\tdevi inserire un numero intero");
             return getInt(stringa);
