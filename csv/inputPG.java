@@ -36,7 +36,7 @@ public class inputPG{
         System.out.print("fine programma");
     }
 
-    private static boolean getBoolean() {
+    protected static boolean getBoolean() {
         System.out.println("(insert \"true\" or \"false\")");
         try{
             return new java.util.Scanner(System.in).nextBoolean();

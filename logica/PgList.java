@@ -1,9 +1,5 @@
 package logica;
-
-import java.util.Collection;
-import java.util.List;
-
-public class PgList<T extends Personaggio>/* implements List<T> */{
+public class PgList <T extends Personaggio>/* implements List<T> */{
     protected Object[] pg;
     protected int size;
 
@@ -42,10 +38,10 @@ public class PgList<T extends Personaggio>/* implements List<T> */{
         return !contains(o);
     }
     /*
-        //@Override
-        public Iterator<T> iterator() {
-            return null;
-        }
+    //@Override
+    public Iterator<T> iterator() {
+        return null;
+    }
     */
     //@Override
     public Object[] toArray() {
@@ -56,16 +52,16 @@ public class PgList<T extends Personaggio>/* implements List<T> */{
         return newPg;
     }
     /*
-        //@Override
-        public <T1> T1[] toArray(T1[] a) {
-            if(a.length>=pg.length){
-                for(T1 t:a){
-                    t = null;
-                }
-                for(int i=0;i<pg.length;i++) a[i] = pg[i];
-            }else a = toArray();
-            return a;
-        }
+    //@Override
+    public <T1> T1[] toArray(T1[] a) {
+        if(a.length>=pg.length){
+            for(T1 t:a){
+                t = null;
+            }
+            for(int i=0;i<pg.length;i++) a[i] = pg[i];
+        }else a = toArray();
+        return a;
+    }
     */
     //@Override
     public boolean add(T element) {
@@ -104,7 +100,7 @@ public class PgList<T extends Personaggio>/* implements List<T> */{
     }
 
     //@Override
-    public boolean containsAll(Collection<?> c) {
+    public boolean containsAll(java.util.Collection<?> c) {
         for(Object o:c){
             if(notContains(o)) return false;
         }
@@ -112,7 +108,7 @@ public class PgList<T extends Personaggio>/* implements List<T> */{
     }
 
     //@Override
-    public boolean addAll(Collection<? extends T> c) {
+    public boolean addAll(java.util.Collection<? extends T> c) {
         boolean modificato = false;
         for(T t:c){
             if(add(t)) modificato = true;
@@ -121,13 +117,13 @@ public class PgList<T extends Personaggio>/* implements List<T> */{
     }
 
     //@Override
-    public boolean addAll(int index, Collection<? extends T> c) {
+    public boolean addAll(int index, java.util.Collection<? extends T> c) {
         for(T t:c) add(index++, t);
         return true;
     }
 
     //@Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(java.util.Collection<?> c) {
         boolean modificato = false;
         for(Object o:c){
             if(remove(o)) modificato = true;
@@ -136,7 +132,7 @@ public class PgList<T extends Personaggio>/* implements List<T> */{
     }
 
     //@Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(java.util.Collection<?> c) {
         boolean modificato = false;
         for(Object o:pg){
             if(!c.contains(o)){
