@@ -2,13 +2,15 @@ package csv;
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
-        System.out.println("inserisci il nome del file sorgente\t(la cartella in cui salvarlo è già inserite e la parte finale del nome \"_Personaggi.csv\" pure)");
-        reader.getCsv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
+        readFile(reader);
         System.out.println("stai eseguendo un test?");
         logica.Giocante.test = getBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
         logica.Personaggio[] pg = new logica.Personaggio[getInt()];
+        System.out.println("vuoi importare tutti i personaggi presenti nel file?");
+        if(getBoolean()) importAll(pg, reader);
         for (int i = 0; i < pg.length; i++) {
+            while(pg[i] != null) i++;
             pg[i] = creaPgSicuro(reader, pg);
             System.out.println("hai sbagliato a inserire i dati o devi modificare qualcosa del personaggio già salvato?");
             if(getBoolean()){
@@ -36,6 +38,16 @@ public class inputPG{
         System.out.print("fine programma");
     }
 
+    protected static void readFile(Lettore_csv reader) {
+        try{
+            System.out.println("inserisci il nome del file sorgente\t(la cartella in cui salvarlo è già inserite e la parte finale del nome \"_Personaggi.csv\" pure)");
+            reader.getCsv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
+        }catch (java.io.FileNotFoundException e){
+            System.out.println("questo file non esiste");
+            readFile(reader);
+        }
+    }
+
     protected static boolean getBoolean() {
         System.out.println("(insert \"true\" or \"false\")");
         try{
@@ -45,7 +57,7 @@ public class inputPG{
         }
     }
 
-    private static void elencoNomiPg(logica.Personaggio[] pg) {
+    protected static void elencoNomiPg(logica.Personaggio[] pg) {
         for(int i = 0; i< pg.length; i++){
             String pgI;
             try {
@@ -57,7 +69,7 @@ public class inputPG{
         }
     }
 
-    private static void elencoPg(logica.Personaggio[] pg) {
+    protected static void elencoPg(logica.Personaggio[] pg) {
         for (logica.Personaggio personaggio : pg) {
             try {
                 System.out.println(personaggio);
@@ -83,7 +95,7 @@ public class inputPG{
         else return pg;
     }
 
-    private static logica.Personaggio[] aggiungiPg(logica.Personaggio[] oldPg) {
+    protected static logica.Personaggio[] aggiungiPg(logica.Personaggio[] oldPg) {
         logica.Personaggio[] newPg = new logica.Personaggio[oldPg.length+1];
         for(int i=0;i<oldPg.length;i++) newPg[i] = oldPg[i];
         return newPg;
@@ -118,7 +130,25 @@ public class inputPG{
         }
     }
 
-    private static int getInt() {
+    protected static void importAll(logica.Personaggio[] pg, Lettore_csv reader){
+        for (int i = 0, j = 1; i < pg.length; i++, j++) {
+            if(pg[i] == null) pg[i] = importaPgSicuro(reader, j);
+            if(i+1==pg.length) pg = creaUltimoPg(pg);
+        }
+    }
+    public static logica.Personaggio importaPgSicuro(Lettore_csv reader, int i){
+        try{
+            String[] row = reader.tabel[i].split(",");
+            if(row.length == 23) return new logica.Personaggio(row);
+            else if(row.length == 31) return new logica.Giocante(row);
+            else throw new csv.exception.IncompatibileRowLengthInCsvException();
+        }catch (csv.exception.IncompatibileRowLengthInCsvException e){
+            System.out.println("questa serie di dati non è compatibile, potrebbe essere una vecchia versione di un personaggio o una serie sbagliata per cui la ignoro e inserisco la successiva");
+            return importaPgSicuro(reader, i+1);
+        }
+    }
+
+    protected static int getInt() {
         try{
             return new java.util.Scanner(System.in).nextInt();
         }catch (java.util.InputMismatchException e){

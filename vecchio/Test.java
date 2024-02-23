@@ -2,8 +2,10 @@ package vecchio;
 
 import csv.Lettore_csv;
 
+import java.io.FileNotFoundException;
+
 public class Test {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         eseguiProgramma();
         Interazione.close();
     }
@@ -15,7 +17,7 @@ public class Test {
         }
         w.close();
     }
-    public static void eseguiProgramma() {
+    public static void eseguiProgramma() throws FileNotFoundException {
         int tot = Interazione.input("quanti personaggi stanno combattendo?");
         Personaggio[] pg = new Personaggio[tot];
         try {
@@ -34,7 +36,7 @@ public class Test {
         if(Interazione.boolput("vuoi salvare i personaggi allo stato attuale?")) writePgCsv(pg);
     }
 
-    public static Personaggio[] creaPg(Personaggio[] pg){
+    public static Personaggio[] creaPg(Personaggio[] pg) throws FileNotFoundException {
         int i=0;
         while(i<pg.length){
             if(pg[i] != null){

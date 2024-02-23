@@ -1,8 +1,10 @@
 package csv;
 
+import java.io.FileNotFoundException;
+
 public class Lettore_csv {
     public String[] tabel;
-    public void getCsv(String file) {
+    public void getCsv(String file) throws FileNotFoundException {
         java.io.BufferedReader reader = null;
         String line;
         tabel = new String[0];
@@ -13,14 +15,17 @@ public class Lettore_csv {
                 aggiungiRiga(line);
             }
         }
+        catch (java.io.FileNotFoundException e){
+            throw new FileNotFoundException();
+        }
         catch (Exception e){
             e.printStackTrace();
         }
         finally {
             try {
                 reader.close();
-            } catch (java.io.IOException e) {
-                e.printStackTrace();
+            } catch (java.io.IOException | NullPointerException e) {
+                //e.printStackTrace();
             }
         }
     }

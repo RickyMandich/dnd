@@ -1,16 +1,6 @@
 package logica;
 public class Test{
     public static void main(String[] args) {
-        csv.Lettore_csv reader = new csv.Lettore_csv();
-        reader.getCsv("csv\\Personaggi.csv");
-        reader.outElencoCsv();
-        System.out.println("stai eseguendo un test?");
-        Giocante.test = new java.util.Scanner(System.in).nextBoolean();
-        System.out.println("inserisci il numero di personaggi che vuoi creare");
-        Personaggio[] pg = new Personaggio[new java.util.Scanner(System.in).nextInt()];
-        for(Personaggio personaggio:pg){
-            personaggio = creaPg();
-        }
 
     }
     public static int inputTiroSalvezza(Personaggio p){
