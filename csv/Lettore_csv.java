@@ -29,6 +29,34 @@ public class Lettore_csv {
             }
         }
     }
+    /*
+    public String[] getFile(String file) throws FileNotFoundException {
+        java.io.BufferedReader reader = null;
+        String line;
+        tabel = new String[0];
+        boolean exist = false;
+        try{
+            reader = new java.io.BufferedReader(new java.io.FileReader(file));
+            while((line = reader.readLine()) != null){
+                aggiungiRiga(line);
+            }
+        }
+        catch (java.io.FileNotFoundException e){
+            throw new FileNotFoundException();
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        finally {
+            try {
+                reader.close();
+            } catch (java.io.IOException | NullPointerException e) {
+                //e.printStackTrace();
+            }
+        }
+        return tabel;
+    }
+    */
     public void aggiungiRiga(String row){
         String[] newTabel;
         newTabel = new String[tabel.length+1];
@@ -40,6 +68,7 @@ public class Lettore_csv {
     }
 
     public void outElencoCsv(){
+        System.out.println("personaggi presenti nel file:");
         for(int i=0;i<tabel.length;i++){
             System.out.print(i + ")\t");
             String[] row = tabel[i].split(",");

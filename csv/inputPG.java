@@ -2,19 +2,23 @@ package csv;
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv reader = new Lettore_csv();
+        //getFile("elencoFileDati");
+        Lettore_csv readFileName = new Lettore_csv();
         readFile(reader);
         System.out.println("stai eseguendo un test?");
         logica.Giocante.test = getBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
         logica.Personaggio[] pg = new logica.Personaggio[getInt()];
+        reader.outElencoCsv();
         System.out.println("vuoi importare tutti i personaggi presenti nel file?");
-        if(getBoolean()) importAll(pg, reader);
+        if(getBoolean()) pg = importAll(pg, reader);
         for (int i = 0; i < pg.length; i++) {
-            while(pg[i] != null) i++;
-            pg[i] = creaPgSicuro(reader, pg);
-            System.out.println("hai sbagliato a inserire i dati o devi modificare qualcosa del personaggio già salvato?");
-            if(getBoolean()){
-                pg[i].modifica();
+            if(pg[i] == null) {
+                pg[i] = creaPgSicuro(reader, pg);
+                System.out.println("hai sbagliato a inserire i dati o devi modificare qualcosa del personaggio già salvato?");
+                if (getBoolean()) {
+                    pg[i].modifica();
+                }
             }
             if(i+1==pg.length) pg = creaUltimoPg(pg);
         }
@@ -24,7 +28,10 @@ public class inputPG{
         System.out.println("vuoi salvare i dati dei personaggi?");
         if (getBoolean()) {
             System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
-            Scrittore_csv writer = new Scrittore_csv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
+            String nomeFile = "csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + ".csv";
+//            Scrittore_csv saveNewFileName = new Scrittore_csv("csv\\elencoFileDati");
+//            addFileName(saveNewFileName);
+            Scrittore_csv writer = new Scrittore_csv(nomeFile);
             try {
                 for (logica.Personaggio personaggio : pg) {
                     writer.addCsv(personaggio.toCsv() + "\n");
@@ -130,11 +137,14 @@ public class inputPG{
         }
     }
 
-    protected static void importAll(logica.Personaggio[] pg, Lettore_csv reader){
+    protected static logica.Personaggio[] importAll(logica.Personaggio[] pg, Lettore_csv reader){
         for (int i = 0, j = 1; i < pg.length; i++, j++) {
             if(pg[i] == null) pg[i] = importaPgSicuro(reader, j);
-            if(i+1==pg.length) pg = creaUltimoPg(pg);
+            if(importaPgSicuro(reader, j+1) != null && i+1==pg.length) pg = aggiungiPg(pg);
         }
+        System.out.println("personaggi creati finora:");
+        elencoNomiPg(pg);
+        return pg;
     }
     public static logica.Personaggio importaPgSicuro(Lettore_csv reader, int i){
         try{
@@ -145,6 +155,8 @@ public class inputPG{
         }catch (csv.exception.IncompatibileRowLengthInCsvException e){
             System.out.println("questa serie di dati non è compatibile, potrebbe essere una vecchia versione di un personaggio o una serie sbagliata per cui la ignoro e inserisco la successiva");
             return importaPgSicuro(reader, i+1);
+        }catch (java.lang.ArrayIndexOutOfBoundsException e){
+            return null;
         }
     }
 
@@ -155,5 +167,9 @@ public class inputPG{
             System.out.println("devi inserire un numero intero");
             return getInt();
         }
+    }
+
+    protected static void addFileName(Scrittore_csv writer){
+
     }
 }
