@@ -53,6 +53,15 @@ public class inputPG{
             readFile(reader);
         }
     }
+    protected static void readFile(Lettore_csv reader, Lettore_csv readerFileName) {
+        try{
+            System.out.println("inserisci il numero relativo al file sorgente scelto");
+            reader.getFile(readerFileName.tabel[getInt()]);
+        }catch (java.io.FileNotFoundException e){
+            System.out.println("questo file non esiste");
+            readFile(reader, readerFileName);
+        }
+    }
 
     protected static boolean getBoolean() {
         System.out.println("(insert \"true\" or \"false\")");

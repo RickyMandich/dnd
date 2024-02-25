@@ -7,13 +7,13 @@ public class TestElencoFileDati {
         }catch (java.io.FileNotFoundException e){
             e.printStackTrace();
         }
-        readerFileName.outElencoNomiFile();
         Lettore_csv reader = new Lettore_csv();
-        inputPG.readFile(reader);
+        readerFileName.outElencoNomiFile();
+        inputPG.readFile(reader, readerFileName);
         logica.Personaggio[] pg = inputPG.importAll(new logica.Personaggio[1], reader);
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
-        String nomeFile = "csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + ".csv";
-        Scrittore_csv saveNewFileName = new Scrittore_csv(readerFileName.tabel, "csv\\elencoFileDati_test");
+        String nomeFile = "csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv";
+        Scrittore_csv saveNewFileName = new Scrittore_csv(readerFileName.tabel, "csv\\elencoFileDati");
         try{
             saveNewFileName.addFileName(nomeFile);
         }finally {
