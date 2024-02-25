@@ -1,15 +1,14 @@
 package csv;
 public class inputPG{
     public static void main(String[] args) {
+        Lettore_csv readerFileName = new Lettore_csv();
         Lettore_csv reader = new Lettore_csv();
-        //getFile("elencoFileDati");
-        Lettore_csv readFileName = new Lettore_csv();
         readFile(reader);
         System.out.println("stai eseguendo un test?");
         logica.Giocante.test = getBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
         logica.Personaggio[] pg = new logica.Personaggio[getInt()];
-        reader.outElencoCsv();
+        reader.outElencoPersonaggi();
         System.out.println("vuoi importare tutti i personaggi presenti nel file?");
         if(getBoolean()) pg = importAll(pg, reader);
         for (int i = 0; i < pg.length; i++) {
@@ -48,7 +47,7 @@ public class inputPG{
     protected static void readFile(Lettore_csv reader) {
         try{
             System.out.println("inserisci il nome del file sorgente\t(la cartella in cui salvarlo è già inserite e la parte finale del nome \"_Personaggi.csv\" pure)");
-            reader.getCsv("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
+            reader.getFile("csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv");
         }catch (java.io.FileNotFoundException e){
             System.out.println("questo file non esiste");
             readFile(reader);
@@ -121,7 +120,7 @@ public class inputPG{
     public static logica.Personaggio creaPg(Lettore_csv reader){
         System.out.println("vuoi prendere un personaggio che esiste già nel file?");
         if(getBoolean()){
-            reader.outElencoCsv();
+            reader.outElencoPersonaggi();
             System.out.println("inserisci il numero relativo al personaggio da prelevare");
             String[] row = reader.tabel[getInt()].split(",");
             if(row.length == 23) return new logica.Personaggio(row);
@@ -167,9 +166,5 @@ public class inputPG{
             System.out.println("devi inserire un numero intero");
             return getInt();
         }
-    }
-
-    protected static void addFileName(Scrittore_csv writer){
-
     }
 }

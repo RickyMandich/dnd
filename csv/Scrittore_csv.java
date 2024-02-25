@@ -6,7 +6,20 @@ import java.io.IOException;
 public class Scrittore_csv {
     FileWriter writer;
 
-    public Scrittore_csv(String file) {
+    public Scrittore_csv(String[] tabel, String file) {
+        try {
+            writer = new FileWriter(file);
+
+            String info = "";
+            for (int i = 0; i < tabel.length; i++) {
+                info = info.concat(tabel[i] + "\n");
+            }
+            writer.write(info);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public Scrittore_csv(String file){
         try {
             writer = new FileWriter(file);
 
@@ -82,6 +95,13 @@ public class Scrittore_csv {
         try {
             writer.append(stringa);
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void addFileName(String file){
+        try {
+            writer.write(file);
+        }catch (IOException e){
             e.printStackTrace();
         }
     }

@@ -47,8 +47,8 @@ public class Test {
                 i++;
             }else if(Interazione.boolput("vuoi prendere il " + (i+1) +"° personaggio dal file dati?")){
                 Lettore_csv r = new Lettore_csv();
-                r.getCsv("csv/Personaggi.csv");
-                r.outElencoCsv();
+                r.getFile("csv/Personaggi.csv");
+                r.outElencoPersonaggi();
                 pg[i] = new Personaggio(r.tabel[Interazione.input("\ninserisci il valore corrispondente al personaggio che vuoi inserire\t(poi sarà possibile modificare il personaggio")].split(", "));
             }else{
                 pg[i] = new Personaggio();
