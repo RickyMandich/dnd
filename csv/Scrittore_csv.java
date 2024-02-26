@@ -6,13 +6,14 @@ import java.io.IOException;
 public class Scrittore_csv {
     FileWriter writer;
 
-    public Scrittore_csv(String[] tabel, String file) {
+    public Scrittore_csv(Lettore_csv reader, String file) {
         try {
             writer = new FileWriter(file);
+            reader.orderAndCompact();
 
             String info = "";
-            for (int i = 0; i < tabel.length; i++) {
-                info = info.concat(tabel[i] + "\n");
+            for (int i = 0; i < reader.tabel.length; i++) {
+                info = info.concat(reader.tabel[i] + "\n");
             }
             writer.write(info);
         } catch (IOException e) {

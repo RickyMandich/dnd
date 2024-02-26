@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="csv.TestElencoFileDati" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="csv.TestElencoFileDati" />
+  <configuration default="false" name="csv.TestVari" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="csv.TestVari" />
     <module name="dnd" />
     <extension name="coverage">
       <pattern>

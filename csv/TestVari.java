@@ -1,6 +1,7 @@
 package csv;
-public class TestElencoFileDati {
-    public static void main(String[] args) {
+public class TestVari {
+    public static void main(String[] args){
+        /*
         Lettore_csv readerFileName = new Lettore_csv();
         try{
             readerFileName.getFile("csv\\elencoFileDati");
@@ -13,7 +14,7 @@ public class TestElencoFileDati {
         logica.Personaggio[] pg = inputPG.importAll(new logica.Personaggio[1], reader);
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
         String nomeFile = "csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv";
-        Scrittore_csv saveNewFileName = new Scrittore_csv(readerFileName.tabel, "csv\\elencoFileDati");
+        Scrittore_csv saveNewFileName = new Scrittore_csv(readerFileName, "csv\\elencoFileDati");
         try{
             saveNewFileName.addFileName(nomeFile);
         }finally {
@@ -24,10 +25,18 @@ public class TestElencoFileDati {
             for (logica.Personaggio personaggio : pg) {
                 writer.addCsv(personaggio.toCsv() + "\n");
             }
-        } catch (Error | Exception e) {
-            e.printStackTrace();
-        } finally {
+        }finally {
             writer.close();
+        }
+        /**/
+
+        Lettore_csv reader = new Lettore_csv();
+        try {
+            reader.getFile("csv\\elencoFileDati");
+            reader.orderAndCompact();
+            reader.outElencoNomiFile();
+        }catch (java.io.FileNotFoundException e){
+            e.printStackTrace();
         }
     }
 }
