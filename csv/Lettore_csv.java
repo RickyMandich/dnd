@@ -1,10 +1,7 @@
 package csv;
-
-import java.io.FileNotFoundException;
-
 public class Lettore_csv {
     public String[] tabel;
-    public void getFile(String file) throws FileNotFoundException {
+    public void getFile(String file) throws java.io.FileNotFoundException {
         java.io.BufferedReader reader = null;
         String line;
         tabel = new String[0];
@@ -15,7 +12,7 @@ public class Lettore_csv {
             }
         }
         catch (java.io.FileNotFoundException e){
-            throw new FileNotFoundException();
+            throw new java.io.FileNotFoundException();
         }
         catch (Exception e){
             e.printStackTrace();
