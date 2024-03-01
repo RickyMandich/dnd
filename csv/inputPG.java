@@ -2,12 +2,17 @@ package csv;
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv readerFileName = new Lettore_csv();
+        try{
+            readerFileName.getFile("csv\\elencoFileDati");
+        }catch (java.io.FileNotFoundException e){
+            e.printStackTrace();
+        }
         Lettore_csv reader = new Lettore_csv();
-        readFile(reader);
+        readFile(reader, readerFileName);
         System.out.println("stai eseguendo un test?");
         logica.Giocante.test = getBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
-        logica.Personaggio[] pg = new logica.Personaggio[getInt()];
+        logica.Personaggio[] pg = new logica.Personaggio[getInt(1)];
         reader.outElencoPersonaggi();
         System.out.println("vuoi importare tutti i personaggi presenti nel file?");
         if(getBoolean()) pg = importAll(pg, reader);
@@ -28,8 +33,8 @@ public class inputPG{
         if (getBoolean()) {
             System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
             String nomeFile = "csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + ".csv";
-//            Scrittore_csv saveNewFileName = new Scrittore_csv("csv\\elencoFileDati");
-//            addFileName(saveNewFileName);
+            Scrittore_csv saveNameFile = new Scrittore_csv(readerFileName, nomeFile);
+            saveNameFile.close();
             Scrittore_csv writer = new Scrittore_csv(nomeFile);
             try {
                 for (logica.Personaggio personaggio : pg) {
@@ -55,6 +60,7 @@ public class inputPG{
     }
     protected static void readFile(Lettore_csv reader, Lettore_csv readerFileName) {
         try{
+            readerFileName.outElencoNomiFile();
             System.out.println("inserisci il numero relativo al file sorgente scelto");
             reader.getFile(readerFileName.tabel[getInt()]);
         }catch (java.io.FileNotFoundException e){
@@ -175,5 +181,19 @@ public class inputPG{
             System.out.println("devi inserire un numero intero");
             return getInt();
         }
+    }
+
+    protected static int getInt(int min){
+        int ret = getInt();
+        if (ret >= min) return ret;
+        System.out.println("devi inserire un numero maggiore o uguale a " + min);
+        return getInt(min);
+    }
+    protected static int getInt(int min, int max){
+        if(min>max) throw new RuntimeException("il numero minimo non può essere maggiore del massimo");
+        int ret = getInt(min);
+        if (ret <= max) return ret;
+        System.out.println("devi inserire un numero minore o uguale a " + max);
+        return getInt(min, max);
     }
 }

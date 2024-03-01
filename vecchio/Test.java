@@ -1,9 +1,5 @@
 package vecchio;
 
-import csv.Lettore_csv;
-
-import java.io.FileNotFoundException;
-
 public class Test {
     public static void main(String[] args) throws FileNotFoundException {
         eseguiProgramma();

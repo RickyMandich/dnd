@@ -1,14 +1,11 @@
 package csv;
-
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class Scrittore_csv {
-    FileWriter writer;
+    java.io.FileWriter writer;
 
     public Scrittore_csv(Lettore_csv reader, String file) {
         try {
-            writer = new FileWriter(file);
+            writer = new java.io.FileWriter("csv\\elencoFileDati");
+            reader.aggiungiRiga(file);
             reader.orderAndCompact();
 
             String info = "";
@@ -16,13 +13,13 @@ public class Scrittore_csv {
                 info = info.concat(reader.tabel[i] + "\n");
             }
             writer.write(info);
-        } catch (IOException e) {
+        } catch (java.io.IOException e) {
             e.printStackTrace();
         }
     }
     public Scrittore_csv(String file){
         try {
-            writer = new FileWriter(file);
+            writer = new java.io.FileWriter(file);
 
             String info = "";
             info += "nome";
@@ -46,7 +43,7 @@ public class Scrittore_csv {
             info += "," + "bonusSalvezza";
             info += tiriControMorteToCsv();
             writer.write(info + "\n");
-        } catch (IOException e) {
+        } catch (java.io.IOException e) {
             e.printStackTrace();
         }
     }
@@ -95,21 +92,21 @@ public class Scrittore_csv {
     public void addCsv(String stringa) {
         try {
             writer.append(stringa);
-        } catch (IOException e) {
+        } catch (java.io.IOException e) {
             e.printStackTrace();
         }
     }
     public void addFileName(String file){
         try {
             writer.write(file);
-        }catch (IOException e){
+        }catch (java.io.IOException e){
             e.printStackTrace();
         }
     }
     public void close(){
         try {
             writer.close();
-        } catch (IOException e) {
+        } catch (java.io.IOException e) {
             e.printStackTrace();
         }
     }

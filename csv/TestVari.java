@@ -1,7 +1,7 @@
 package csv;
 public class TestVari {
     public static void main(String[] args){
-        /*
+
         Lettore_csv readerFileName = new Lettore_csv();
         try{
             readerFileName.getFile("csv\\elencoFileDati");
@@ -28,7 +28,7 @@ public class TestVari {
         }finally {
             writer.close();
         }
-        /**/
+        /*
 
         Lettore_csv reader = new Lettore_csv();
         try {
@@ -38,5 +38,6 @@ public class TestVari {
         }catch (java.io.FileNotFoundException e){
             e.printStackTrace();
         }
+        /**/
     }
 }

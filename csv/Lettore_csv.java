@@ -31,7 +31,7 @@ public class Lettore_csv {
         while (scambio){
             scambio = false;
             for(int i=0;i<tabel.length-1;i++){
-                if(tabel[i].compareTo(tabel[i+1])<0){
+                if(tabel[i].compareTo(tabel[i+1])>0){
                     scambio = true;
                     String temp = tabel[i];
                     tabel[i] = tabel[i+1];
@@ -41,7 +41,7 @@ public class Lettore_csv {
         }
         for(int i=1;i<tabel.length;i++){
             if(tabel[i].compareTo(tabel[i-1]) == 0){
-                delete(i);
+                delete(i--);
             }
         }
     }
