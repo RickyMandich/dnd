@@ -94,7 +94,13 @@ public class Personaggio {
     }
 
     public boolean getBoolean(String stringa){
-        return getInt(stringa + "\n(0 per falso e tutto il resto per vero)") != 0;
+        if(stringa!=null) System.out.println(stringa);
+        try{
+            System.out.println("(insert \"true\" or \"false\")");
+            return new java.util.Scanner(System.in).nextBoolean();
+        }catch (java.util.InputMismatchException e){
+            return getBoolean(null);
+        }
     }
     public static boolean parseBoolean(String s){
         s = s.toLowerCase();
