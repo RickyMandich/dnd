@@ -1,30 +1,39 @@
 package logica;
-public class PgList <T extends Personaggio>/* implements List<T> */{
-    protected Object[] pg;
-    protected int size;
 
-    protected void aggiungiCella(){
-        Object[] newArray = new Object[pg.length+1];
-        System.arraycopy(pg, 0, newArray, 0, newArray.length);
-        pg = newArray;
-    }
-    protected void aggiungiCelle(int quante){
-        for (int i=0;i<quante;i++) {
-            aggiungiCella();
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
+public class PgList <Personaggio> implements java.util.List<Personaggio>{
+    protected Personaggio[] pg;
+    protected int size;
+    public PgList(Personaggio[] pg) {
+        this.pg = pg;
+        size = 0;
+        int i=0;
+        while (i<pg.length && pg[i] != null) {
+            size++;
+            i++;
         }
     }
 
-    //@Override
+    protected void aggiungiCella(){
+        Personaggio[] newArray = (Personaggio[]) new Object[pg.length + 1];
+        System.arraycopy(pg, 0, newArray, 0, newArray.length);
+        pg = newArray;
+    }
+
+    @Override
     public int size() {
         return size;
     }
 
-    //@Override
+    @Override
     public boolean isEmpty() {
         return pg[0] == null;
     }
 
-    //@Override
+    @Override
     public boolean contains(Object o) {
         int i=0;
         while(i<pg.length){
@@ -34,38 +43,37 @@ public class PgList <T extends Personaggio>/* implements List<T> */{
         return false;
     }
 
-    public boolean notContains(Object o){
-        return !contains(o);
-    }
-    /*
-    //@Override
-    public Iterator<T> iterator() {
+    @Override
+    public Iterator<Personaggio> iterator() {
         return null;
     }
-    */
-    //@Override
-    public Object[] toArray() {
-        Object[] newPg = new Object[pg.length];
+
+    @Override
+    public Personaggio[] toArray() {
+        Personaggio[] newPg = (Personaggio[]) new Object[pg.length];
         for (int j = 0; j < newPg.length; j++) {
             newPg[j] = pg[j];
         }
         return newPg;
     }
-    /*
-    //@Override
-    public <T1> T1[] toArray(T1[] a) {
-        if(a.length>=pg.length){
-            for(T1 t:a){
-                t = null;
-            }
-            for(int i=0;i<pg.length;i++) a[i] = pg[i];
-        }else a = toArray();
-        return a;
+
+    @Override
+    public <T> T[] toArray(T[] a) {
+        if(a == null) throw new NullPointerException();
+        Class<?> personaggioType = pg.getClass().getComponentType();
+        Class<?> supposedSuperType = a.getClass().getComponentType();
+        if(!supposedSuperType.isAssignableFrom(personaggioType)) throw new ArrayStoreException();
+        else {
+
+        }
+
+
+        return null;
     }
-    */
-    //@Override
-    public boolean add(T element) {
-        if(element==null) return false;
+
+    @Override
+    public boolean add(Personaggio element) {
+        if(element==null) throw new NullPointerException();
         else{
             int i=0;
             while(pg[i]!=null){
@@ -78,8 +86,8 @@ public class PgList <T extends Personaggio>/* implements List<T> */{
         }
     }
 
-    //@Override
-    public void add(int index, T element) {
+    @Override
+    public void add(int index, Personaggio element) {
         if(pg[pg.length-1] != null){
             aggiungiCella();
         }
@@ -88,41 +96,47 @@ public class PgList <T extends Personaggio>/* implements List<T> */{
         size++;
     }
 
-    //@Override
+    @Override
     public boolean remove(Object o) {
         int i=0;
         while(pg[i]!=null && pg[i] != o){
             if(i+1 == pg.length) return false;
             i++;
         }
-        pg[i] = o;
-        return true;
-    }
-
-    //@Override
-    public boolean containsAll(java.util.Collection<?> c) {
-        for(Object o:c){
-            if(notContains(o)) return false;
+        if(pg[i] == o){
+            while (i<pg.length-1) {
+                pg[i] = pg[i+1];
+                i++;
+            }
+            pg[i]= null;
         }
         return true;
     }
 
-    //@Override
-    public boolean addAll(java.util.Collection<? extends T> c) {
+    @Override
+    public boolean containsAll(java.util.Collection<?> c) {
+        for(Object o:c){
+            if(!contains(o)) return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean addAll(java.util.Collection<? extends Personaggio> c) {
         boolean modificato = false;
-        for(T t:c){
+        for(Personaggio t:c){
             if(add(t)) modificato = true;
         }
         return modificato;
     }
 
-    //@Override
-    public boolean addAll(int index, java.util.Collection<? extends T> c) {
-        for(T t:c) add(index++, t);
+    @Override
+    public boolean addAll(int index, java.util.Collection<? extends Personaggio> c) {
+        for(Personaggio t:c) add(index++, t);
         return true;
     }
 
-    //@Override
+    @Override
     public boolean removeAll(java.util.Collection<?> c) {
         boolean modificato = false;
         for(Object o:c){
@@ -131,10 +145,10 @@ public class PgList <T extends Personaggio>/* implements List<T> */{
         return modificato;
     }
 
-    //@Override
+    @Override
     public boolean retainAll(java.util.Collection<?> c) {
         boolean modificato = false;
-        for(Object o:pg){
+        for(Personaggio o:pg){
             if(!c.contains(o)){
                 modificato = remove(o);
             }
@@ -142,33 +156,33 @@ public class PgList <T extends Personaggio>/* implements List<T> */{
         return modificato;
     }
 
-    //@Override
+    @Override
     public void clear() {
-        for(Object o:pg) o = null;
+        for(Personaggio o:pg) o = null;
     }
-    /*
-        //@Override
-        public T get(int index){
-            return pg[index];
+
+    @Override
+    public Personaggio get(int index){
+        return pg[index];
+    }
+
+    @Override
+    public Personaggio set(int index, Personaggio element) {
+        Personaggio temp = pg[index];
+        pg[index] = element;
+        return temp;
+    }
+
+    @Override
+    public Personaggio remove(int index){
+        Personaggio temp = pg[index];
+        for(int i=index;i<pg.length-1;i++){
+            pg[i] = pg[i+1];
         }
-    /*
-        //@Override
-        public T set(int index, T element) {
-            T temp = pg[index];
-            pg[index] = element;
-            return temp;
-        }
-    /*
-        //@Override
-        public T remove(int index){
-            T temp = pg[index];
-            for(int i=index;i<pg.length-1;i++){
-                pg[i] = pg[i+1];
-            }
-            return temp;
-        }
-    */
-    //@Override
+        return temp;
+    }
+
+    @Override
     public int indexOf(Object o) {
         if(!contains(o)) return -1;
         int i=0;
@@ -178,7 +192,7 @@ public class PgList <T extends Personaggio>/* implements List<T> */{
         return i;
     }
 
-    //@Override
+    @Override
     public int lastIndexOf(Object o) {
         if(!contains(o)) return -1;
         int i=pg.length;
@@ -187,21 +201,20 @@ public class PgList <T extends Personaggio>/* implements List<T> */{
         }
         return i;
     }
-/*
-    //@Override
-    public ListIterator<T> listIterator() {
-        return null;
-    }
-/*
-    //@Override
-    public ListIterator<T> listIterator(int index) {
-        return null;
-    }
-/*
-    //@Override
-    public List<T> subList(int fromIndex, int toIndex) {
+
+    @Override
+    public ListIterator<Personaggio> listIterator() {
         return null;
     }
 
-*/
+    @Override
+    public ListIterator<Personaggio> listIterator(int index) {
+        return null;
+    }
+
+    @Override
+    public List<Personaggio> subList(int fromIndex, int toIndex) {
+        return null;
+    }
+
 }
