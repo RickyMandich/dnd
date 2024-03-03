@@ -1,4 +1,8 @@
 package csv;
+
+import logica.Personaggio;
+import logica.PgList;
+
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv readerFileName = new Lettore_csv();
