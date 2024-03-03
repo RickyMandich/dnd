@@ -1,7 +1,8 @@
 package logica;
 public class Test{
     public static void main(String[] args) {
-
+        int a = Integer.parseInt("ciao");
+        System.out.println("ciao:\t" + a);
     }
     public static int inputTiroSalvezza(Personaggio p){
         String car = "";

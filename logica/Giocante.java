@@ -89,6 +89,7 @@ public class Giocante extends Personaggio{
         else return getInt("inserisci il risultado dei dadi");
     }
 
+    @Override
     public int tiroSalvezza(String statistica) throws NoSuchStatistic {
         statistica = statistica.toLowerCase();
         switch (statistica) {

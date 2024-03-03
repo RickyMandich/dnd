@@ -242,6 +242,31 @@ public class Personaggio {
         return tiro(0,20, this.carisma.bonus);
     }
 
+    public int tiroSalvezza(String statistica) throws NoSuchStatistic {
+        statistica = statistica.toLowerCase();
+        switch (statistica) {
+            case "for" -> {
+                return tiroForza();
+            }
+            case "des" -> {
+                return tiroDestrezza();
+            }
+            case "cos" -> {
+                return tiroCostituzione();
+            }
+            case "int" -> {
+                return tiroIntelligenza();
+            }
+            case "sag" -> {
+                return tiroSaggezza();
+            }
+            case "car" -> {
+                return tiroCarisma();
+            }
+        }
+        throw new NoSuchStatistic("la statistica inserita non è stata trovata");
+    }
+
     protected class Vita{
         public int attuale;
         public int totale;
