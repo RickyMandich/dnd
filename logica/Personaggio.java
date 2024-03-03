@@ -29,6 +29,27 @@ public class Personaggio {
         this.livello = getInt("Inserisci il livello di " + this.nome);
         this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
         this.morto = !(puntiFerita.attuale>0);
+        this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome), false);
+        this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome), false);
+        this.iniziativa = this.destrezza.punteggio;
+        this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome), false);
+        this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome), false);
+        this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome), false);
+        this.carisma = new Statistica(getInt("Inserisci il punteggio di carisma di " + this.nome), false);
+        this.amico = getBoolean(this.nome + " è un amico?");
+    }
+
+    public Personaggio(Object a) {
+        this.nome = getString("inserisci il nome del personaggio");
+        this.puntiFerita = new Vita(
+                getInt("Inserisci i punti ferita di " + this.nome),
+                getInt("Inserisci i punti ferita totali di " + this.nome));
+        this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome);
+        this.competenza = getInt("Inserisci la competenza di " + this.nome);
+        this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
+        this.livello = getInt("Inserisci il livello di " + this.nome);
+        this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
+        this.morto = !(puntiFerita.attuale>0);
         this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome), getBoolean(nome + " ha bonus salvezza in forza?"));
         this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome), getBoolean(nome + " ha bonus salvezza in destrezza?"));
         this.iniziativa = this.destrezza.punteggio;

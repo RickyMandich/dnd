@@ -4,8 +4,9 @@ public class Giocante extends Personaggio{
     protected int bonusSalvezza;
     public static boolean test;
     protected boolean[][] tiriControMorte;
+
     public Giocante(){
-        super();
+        super(new Object());
         this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
         this.bonusSalvezza = competenza;
         this.tiriControMorte = new boolean[2][3];
