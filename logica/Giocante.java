@@ -121,6 +121,42 @@ public class Giocante extends Personaggio{
         throw new NoSuchStatistic("la statistica inserita non è stata trovata");
     }
 
+    public void tiroControMorte() {
+        int tiro = tiro(20, 0);
+        if (verificaTiro(tiro, 10)) {
+            incrementaSuccessiControMorte(tiro);
+        } else {
+            decrementaSuccessiControMorte(tiro);
+        }
+        verificaTiriControMorte();
+    }
+
+    public void incrementaSuccessiControMorte(int tiro){
+        int i=0;
+        while (tiriControMorte[0][i]) i++;
+        tiriControMorte[0][i] = true;
+        if(i<2 && tiro == 20) tiriControMorte[0][i+1] = true;
+    }
+
+    public void decrementaSuccessiControMorte(int tiro){
+        int i=0;
+        while (tiriControMorte[1][i]) i++;
+        tiriControMorte[1][i] = true;
+        if(i<2 && tiro == 20) tiriControMorte[1][i+1] = true;
+    }
+
+    public void verificaTiriControMorte(){
+        if(tiriControMorte[0][2]) puntiFerita.attuale = 1;
+        else if(tiriControMorte[1][2]) morto = true;
+    }
+
+    @Override
+    public void controllaMorto() {
+        if(puntiFerita.attuale<=-(puntiFerita.totale/2)){
+            morto = true;
+        }else tiroControMorte();
+    }
+
     public String tiriControMorteToString() {
         String info = "";
         info += "\tsuccessi:\t\t\t";

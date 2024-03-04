@@ -218,6 +218,10 @@ public class Personaggio {
         return tiro(origin, bound) + bonus;
     }
 
+    public boolean verificaTiro(int tiro, int classeDifficolta){
+        return tiro>=classeDifficolta;
+    }
+
     public int tiroForza(){
         return tiro(0, 20, this.forza.bonus);
     }
@@ -265,6 +269,10 @@ public class Personaggio {
             }
         }
         throw new NoSuchStatistic("la statistica inserita non è stata trovata");
+    }
+
+    public void controllaMorto(){
+        if(puntiFerita.attuale<=0) morto = true;
     }
 
     protected class Vita{
