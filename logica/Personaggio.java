@@ -1,7 +1,4 @@
 package logica;
-
-import org.w3c.dom.ls.LSOutput;
-
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
@@ -102,8 +99,8 @@ public class Personaggio {
         puntiEsperienza = Integer.parseInt(row[6]);
         livello = Integer.parseInt(row[7]);
         dannoIniziale = Integer.parseInt(row[8]);
-        this.amico = parseBoolean(row[9]);
-        this.morto = parseBoolean(row[10]);
+        this.amico = Boolean.parseBoolean(row[9]);
+        this.morto = Boolean.parseBoolean(row[10]);
 
         String[] subStringForza = new String[2];
         for(int sub=0, originale=11;sub<subStringForza.length;sub++, originale++) subStringForza[sub] = row[originale];
@@ -130,11 +127,11 @@ public class Personaggio {
         carisma = new Statistica(subStringCarisma);
     }
 
-    public String getString(){
+    public static String getString(){
         return new java.util.Scanner(System.in).nextLine();
     }
 
-    public int getInt(){
+    public static int getInt(){
         try{
             return new java.util.Scanner(System.in).nextInt();
         }catch (java.util.InputMismatchException e){
@@ -142,26 +139,27 @@ public class Personaggio {
             return getInt();
         }
     }
+    protected static int getInt(int min){
+        int ret = getInt();
+        if (ret >= min) return ret;
+        System.out.println("devi inserire un numero maggiore o uguale a " + min);
+        return getInt(min);
+    }
+    protected static int getInt(int min, int max){
+        if(min>max) throw new RuntimeException("il numero minimo non può essere maggiore del massimo");
+        int ret = getInt(min);
+        if (ret <= max) return ret;
+        System.out.println("devi inserire un numero minore o uguale a " + max);
+        return getInt(min, max);
+    }
 
-    public boolean getBoolean(){
+    public static boolean getBoolean(){
         try{
             System.out.println("(insert \"true\" or \"false\")");
             return new java.util.Scanner(System.in).nextBoolean();
         }catch (java.util.InputMismatchException e){
             return getBoolean();
         }
-    }
-    public static boolean parseBoolean(String s){
-        s = s.toLowerCase();
-        boolean ritorno;
-        if(s.equals("true")){
-            ritorno = true;
-        }else if(s.equals("false")){
-            ritorno = false;
-        }else{
-            throw new csv.exception.UnexpectedTypeOnCsvException();
-        }
-        return ritorno;
     }
 
     public void modifica(){
@@ -434,7 +432,7 @@ public class Personaggio {
             if(bonus<0)
                 bonus--;
             bonus /= 2;
-            this.salvezza = parseBoolean(row[1]);
+            this.salvezza = Boolean.parseBoolean(row[1]);
         }
 
         @Override

@@ -7,11 +7,14 @@ public class Giocante extends Personaggio{
 
     public Giocante(){
         super(new Object());
-        this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
+        System.out.println(this.nome + " ha ispirazione?");
+        this.ispirazione = getBoolean();
         this.bonusSalvezza = competenza;
         this.tiriControMorte = new boolean[2][3];
-        int successi = getInt("quanti successi nei tiri contro morte ha " + nome);
-        int fallimenti = getInt("quanti fallimenti nei tiri contro morte ha " + nome);
+        System.out.println("quanti successi nei tiri contro morte ha " + nome);
+        int successi = getInt();
+        System.out.println("quanti fallimenti nei tiri contro morte ha " + nome);
+        int fallimenti = getInt();
         for(int i=0;i<successi;i++){
             tiriControMorte[0][i] = true;
         }
@@ -22,15 +25,15 @@ public class Giocante extends Personaggio{
     }
     public Giocante(String[] row){
         super(row);
-        this.ispirazione = parseBoolean(row[23]);
+        this.ispirazione = Boolean.parseBoolean(row[23]);
         bonusSalvezza = Integer.parseInt(row[24]);
         tiriControMorte = new boolean[2][3];
-        this.tiriControMorte[0][0] = parseBoolean(row[25]);
-        this.tiriControMorte[0][1] = parseBoolean(row[26]);
-        this.tiriControMorte[0][2] = parseBoolean(row[27]);
-        this.tiriControMorte[1][0] = parseBoolean(row[28]);
-        this.tiriControMorte[1][1] = parseBoolean(row[29]);
-        this.tiriControMorte[1][2] = parseBoolean(row[30]);
+        this.tiriControMorte[0][0] = Boolean.parseBoolean(row[25]);
+        this.tiriControMorte[0][1] = Boolean.parseBoolean(row[26]);
+        this.tiriControMorte[0][2] = Boolean.parseBoolean(row[27]);
+        this.tiriControMorte[1][0] = Boolean.parseBoolean(row[28]);
+        this.tiriControMorte[1][1] = Boolean.parseBoolean(row[29]);
+        this.tiriControMorte[1][2] = Boolean.parseBoolean(row[30]);
         morto = tiriControMorte[1][2];
     }
     public void modifica(){
@@ -49,29 +52,57 @@ public class Giocante extends Personaggio{
                     10)\tcambiare l'ispirazione
                     11)\tcambiare i tiri contro morte
                     """;
-        switch (getInt(richiestaAttributoDaModificare)){
+        System.out.println(richiestaAttributoDaModificare);
+        switch (getInt()){
             default -> {
                 return;
             }
-            case 1 -> this.nome = getString("inserisci il nome del personaggio");
-            case 2 -> this.puntiFerita = new Vita(
-                    getInt("Inserisci i punti ferita di " + this.nome),
-                    getInt("Inserisci i punti ferita totali di " + this.nome));
-            case 3 -> this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome);
+            case 1 -> {
+                System.out.println("inserisci il nome del personaggio");
+                this.nome = getString();
+            }
+            case 2 -> {
+                System.out.println("Inserisci i punti ferita di " + this.nome + " poi inserisci i punti ferita totali di " + this.nome);
+                this.puntiFerita = new Vita(
+                        getInt(),
+                        getInt());
+            }
+            case 3 -> {
+                System.out.println("Inserisci la classe armatura di " + this.nome);
+                this.classeArmatura = getInt();
+            }
             case 4 -> {
-                this.competenza = getInt("Inserisci la competenza di " + this.nome);
+                System.out.println("Inserisci la competenza di " + this.nome);
+                this.competenza = getInt();
                 this.bonusSalvezza = competenza;
             }
-            case 5 -> this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
-            case 6 -> this.livello = getInt("Inserisci il livello di " + this.nome);
-            case 7 -> this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
+            case 5 -> {
+                System.out.println("Inserisci i punti esperienza di " + this.nome);
+                this.puntiEsperienza = getInt();
+            }
+            case 6 -> {
+                System.out.println("Inserisci il livello di " + this.nome);
+                this.livello = getInt();
+            }
+            case 7 -> {
+                System.out.println("Inserisci il danno iniziale di " + this.nome);
+                this.dannoIniziale = getInt();
+            }
             case 8 -> modificaStatistica();
-            case 9 -> this.amico = getBoolean(this.nome + " è un amico?");
-            case 10 -> this.ispirazione = getBoolean(this.nome + " ha ispirazione?");
+            case 9 -> {
+                System.out.println(this.nome + " è un amico?");
+                this.amico = getBoolean();
+            }
+            case 10 -> {
+                System.out.println(this.nome + " ha ispirazione?");
+                this.ispirazione = getBoolean();
+            }
             case 11 -> {
                 this.tiriControMorte = new boolean[2][3];
-                int successi = getInt("quanti successi nei tiri contro morte ha " + nome);
-                int fallimenti = getInt("quanti fallimenti nei tiri contro morte ha " + nome);
+                System.out.println("quanti successi nei tiri contro morte ha " + nome);
+                int successi = getInt();
+                System.out.println("quanti fallimenti nei tiri contro morte ha " + nome);
+                int fallimenti = getInt();
                 for (int i = 0; i < successi; i++) {
                     tiriControMorte[0][i] = true;
                 }
@@ -86,7 +117,10 @@ public class Giocante extends Personaggio{
     @Override
     public int tiro(int origin, int bound){
         if(test) return super.tiro(origin, bound);
-        else return getInt("inserisci il risultado dei dadi");
+        else {
+            System.out.println("inserisci il risultado dei dadi");
+            return getInt();
+        }
     }
 
     @Override
