@@ -1,8 +1,4 @@
 package logica;
-
-import csv.Lettore_csv;
-import csv.Scrittore_csv;
-
 public class Esecuzione{
     protected Personaggio[] pg;
 
@@ -20,7 +16,7 @@ public class Esecuzione{
         return fazione[0] && fazione[1];
     }
 
-    public void setPg(Lettore_csv reader){
+    public void setPg(csv.Lettore_csv reader){
         for (int i = 0; i < pg.length; i++) {
             if(pg[i] == null) {
                 pg[i] = creaPgSicuro(reader, pg);
@@ -37,7 +33,7 @@ public class Esecuzione{
         if(Personaggio.getBoolean()) aggiungiPg();
     }
 
-    public logica.Personaggio creaPgSicuro(Lettore_csv reader, logica.Personaggio[] pg){
+    public logica.Personaggio creaPgSicuro(csv.Lettore_csv reader, logica.Personaggio[] pg){
         System.out.println("personaggi attualmente creati:");
         elencoNomiPg();
         try{
@@ -47,7 +43,7 @@ public class Esecuzione{
             return creaPgSicuro(reader, pg);
         }
     }
-    public logica.Personaggio creaPg(Lettore_csv reader){
+    public logica.Personaggio creaPg(csv.Lettore_csv reader){
         System.out.println("vuoi prendere un personaggio che esiste già nel file?");
         if(Personaggio.getBoolean()){
             reader.outElencoPersonaggi();
@@ -66,7 +62,7 @@ public class Esecuzione{
         }
     }
 
-    protected void readFile(Lettore_csv reader, Lettore_csv readerFileName) {
+    protected void readFile(csv.Lettore_csv reader, csv.Lettore_csv readerFileName) {
         try{
             readerFileName.outElencoNomiFile();
             System.out.println("inserisci il numero relativo al file sorgente scelto");
@@ -77,7 +73,7 @@ public class Esecuzione{
         }
     }
 
-    protected void importAll(Lettore_csv reader){
+    protected void importAll(csv.Lettore_csv reader){
         for (int i = 0, j = 1; i < pg.length; i++, j++) {
             if(pg[i] == null) pg[i] = importaPgSicuro(reader, j);
             if(importaPgSicuro(reader, j+1) != null && i+1==pg.length) aggiungiPg();
@@ -85,7 +81,7 @@ public class Esecuzione{
         System.out.println("personaggi creati finora:");
         elencoNomiPg();
     }
-    public logica.Personaggio importaPgSicuro(Lettore_csv reader, int i){
+    public logica.Personaggio importaPgSicuro(csv.Lettore_csv reader, int i){
         try{
             String[] row = reader.tabel[i].split(",");
             if(row.length == 23) return new logica.Personaggio(row);
@@ -124,7 +120,7 @@ public class Esecuzione{
         }
     }
     public void saveInFile(String nomeFile) {
-        Scrittore_csv writer = new Scrittore_csv(nomeFile);
+        csv.Scrittore_csv writer = new csv.Scrittore_csv(nomeFile);
         try {
             for (Personaggio personaggio : pg) {
                 writer.addCsv(personaggio.toCsv() + "\n");

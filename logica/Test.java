@@ -1,15 +1,13 @@
 package logica;
-import csv.Lettore_csv;
-import csv.Scrittore_csv;
 public class Test{
     public static void main(String[] args) {
-        Lettore_csv readerFileName = new Lettore_csv();
+        csv.Lettore_csv readerFileName = new csv.Lettore_csv();
         try{
             readerFileName.getFile("csv\\elencoFileDati");
         }catch (java.io.FileNotFoundException e){
             e.printStackTrace();
         }
-        Lettore_csv reader = new Lettore_csv();
+        csv.Lettore_csv reader = new csv.Lettore_csv();
         Esecuzione exec = new Esecuzione(new Personaggio[1]);
         exec.readFile(reader, readerFileName);
         System.out.println("stai eseguendo un test?");
@@ -27,7 +25,7 @@ public class Test{
         if (Personaggio.getBoolean()) {
             System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
             String nomeFile = "csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + ".csv";
-            Scrittore_csv saveNameFile = new Scrittore_csv(readerFileName, nomeFile);
+            csv.Scrittore_csv saveNameFile = new csv.Scrittore_csv(readerFileName, nomeFile);
             saveNameFile.close();
             exec.saveInFile(nomeFile);
         }
