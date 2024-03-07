@@ -120,6 +120,20 @@ public class Giocante extends Personaggio{
         }
         throw new NoSuchStatistic("la statistica inserita non è stata trovata");
     }
+    public int inputTiroSalvezza(){
+        String car = "";
+        System.out.println("inserisci le prime tre lettere della statistica che vuoi usare");
+        car = new java.util.Scanner(System.in).nextLine();
+        try {
+            return tiroSalvezza(car);
+        } catch (NoSuchStatistic e) {
+            System.out.println("caratteristica non riconosciuta");
+            return inputTiroSalvezza();
+        } catch (ClassCastException e){
+            System.out.println("questo personaggio non può eseguire il tiro salvezza");
+            return -1;
+        }
+    }
 
     public void tiroControMorte() {
         int tiro = tiro(20, 0);

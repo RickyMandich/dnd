@@ -1,4 +1,7 @@
 package logica;
+
+import org.w3c.dom.ls.LSOutput;
+
 public class Personaggio {
     protected String nome;
     protected int iniziativa;
@@ -19,45 +22,73 @@ public class Personaggio {
     protected Statistica carisma;
 
     public Personaggio() {
-        this.nome = getString("inserisci il nome del personaggio");
+        System.out.println("inserisci il nome del personaggio");
+        this.nome = getString();
+        System.out.println("Inserisci i punti ferita di " + this.nome + " poi inserisci i punti ferita totali di " + this.nome);
         this.puntiFerita = new Vita(
-                getInt("Inserisci i punti ferita di " + this.nome),
-                getInt("Inserisci i punti ferita totali di " + this.nome));
-        this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome);
-        this.competenza = getInt("Inserisci la competenza di " + this.nome);
-        this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
-        this.livello = getInt("Inserisci il livello di " + this.nome);
-        this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
+                getInt(),
+                getInt());
+        System.out.println("Inserisci la classe armatura di " + this.nome);
+        this.classeArmatura = getInt();
+        System.out.println("Inserisci la competenza di " + this.nome);
+        this.competenza = getInt();
+        System.out.println("Inserisci i punti esperienza di " + this.nome);
+        this.puntiEsperienza = getInt();
+        System.out.println("Inserisci il livello di " + this.nome);
+        this.livello = getInt();
+        System.out.println("Inserisci il danno iniziale di " + this.nome);
+        this.dannoIniziale = getInt();
         this.morto = !(puntiFerita.attuale>0);
-        this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome), false);
-        this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome), false);
+        System.out.println("Inserisci il punteggio di forza di " + this.nome);
+        this.forza = new Statistica(getInt(), false);
+        System.out.println("Inserisci il punteggio di destrezza di " + this.nome);
+        this.destrezza = new Statistica(getInt(), false);
         this.iniziativa = this.destrezza.punteggio;
-        this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome), false);
-        this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome), false);
-        this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome), false);
-        this.carisma = new Statistica(getInt("Inserisci il punteggio di carisma di " + this.nome), false);
-        this.amico = getBoolean(this.nome + " è un amico?");
+        System.out.println("Inserisci il punteggio di costituzione di " + this.nome);
+        this.costituzione = new Statistica(getInt(), false);
+        System.out.println("Inserisci il punteggio di intelligenza di " + this.nome);
+        this.intelligenza = new Statistica(getInt(), false);
+        System.out.println("Inserisci il punteggio di saggezza di " + this.nome);
+        this.saggezza = new Statistica(getInt(), false);
+        System.out.println("Inserisci il punteggio di carisma di " + this.nome);
+        this.carisma = new Statistica(getInt(), false);
+        System.out.println(this.nome + " è un amico?");
+        this.amico = getBoolean();
     }
 
     public Personaggio(Object a) {
-        this.nome = getString("inserisci il nome del personaggio");
+        System.out.println("inserisci il nome del personaggio");
+        this.nome = getString();
+        System.out.println("Inserisci i punti ferita di " + this.nome + " poi inserisci i punti ferita totali di " + this.nome);
         this.puntiFerita = new Vita(
-                getInt("Inserisci i punti ferita di " + this.nome),
-                getInt("Inserisci i punti ferita totali di " + this.nome));
-        this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome);
-        this.competenza = getInt("Inserisci la competenza di " + this.nome);
-        this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
-        this.livello = getInt("Inserisci il livello di " + this.nome);
-        this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
+                getInt(),
+                getInt());
+        System.out.println("Inserisci la classe armatura di " + this.nome);
+        this.classeArmatura = getInt();
+        System.out.println("Inserisci la competenza di " + this.nome);
+        this.competenza = getInt();
+        System.out.println("Inserisci i punti esperienza di " + this.nome);
+        this.puntiEsperienza = getInt();
+        System.out.println("Inserisci il livello di " + this.nome);
+        this.livello = getInt();
+        System.out.println("Inserisci il danno iniziale di " + this.nome);
+        this.dannoIniziale = getInt();
         this.morto = !(puntiFerita.attuale>0);
-        this.forza = new Statistica(getInt("Inserisci il punteggio di forza di " + this.nome), getBoolean(nome + " ha bonus salvezza in forza?"));
-        this.destrezza = new Statistica(getInt("Inserisci il punteggio di destrezza di " + this.nome), getBoolean(nome + " ha bonus salvezza in destrezza?"));
+        System.out.println("Inserisci il punteggio di forza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in forza?");
+        this.forza = new Statistica(getInt(), getBoolean());
+        System.out.println("Inserisci il punteggio di destrezza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in destrezza?");
+        this.destrezza = new Statistica(getInt(), getBoolean());
         this.iniziativa = this.destrezza.punteggio;
-        this.costituzione = new Statistica(getInt("Inserisci il punteggio di costituzione di " + this.nome), getBoolean(nome + " ha bonus salvezza in costituzione?"));
-        this.intelligenza = new Statistica(getInt("Inserisci il punteggio di intelligenza di " + this.nome), getBoolean(nome + " ha bonus salvezza in intelligenza?"));
-        this.saggezza = new Statistica(getInt("Inserisci il punteggio di saggezza di " + this.nome), getBoolean(nome + " ha bonus salvezza in saggezza?"));
-        this.carisma = new Statistica(getInt("Inserisci il punteggio di carisma di " + this.nome), getBoolean(nome + " ha bonus salvezza in carisma?"));
-        this.amico = getBoolean(this.nome + " è un amico?");
+        System.out.println("Inserisci il punteggio di costituzione di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in costituzione?");
+        this.costituzione = new Statistica(getInt(), getBoolean());
+        System.out.println("Inserisci il punteggio di intelligenza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in intelligenza?");
+        this.intelligenza = new Statistica(getInt(), getBoolean());
+        System.out.println("Inserisci il punteggio di saggezza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in saggezza?");
+        this.saggezza = new Statistica(getInt(), getBoolean());
+        System.out.println("Inserisci il punteggio di carisma di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in carisma?");
+        this.carisma = new Statistica(getInt(), getBoolean());
+        System.out.println(this.nome + " è un amico?");
+        this.amico = getBoolean();
     }
 
     public Personaggio(String[] row){
@@ -99,28 +130,25 @@ public class Personaggio {
         carisma = new Statistica(subStringCarisma);
     }
 
-    public String getString(String stringa){
-        System.out.println(stringa);
+    public String getString(){
         return new java.util.Scanner(System.in).nextLine();
     }
 
-    public int getInt(String stringa){
-        System.out.println(stringa);
+    public int getInt(){
         try{
             return new java.util.Scanner(System.in).nextInt();
         }catch (java.util.InputMismatchException e){
             System.out.println("ERRORE:\tdevi inserire un numero intero");
-            return getInt(stringa);
+            return getInt();
         }
     }
 
-    public boolean getBoolean(String stringa){
-        if(stringa!=null) System.out.println(stringa);
+    public boolean getBoolean(){
         try{
             System.out.println("(insert \"true\" or \"false\")");
             return new java.util.Scanner(System.in).nextBoolean();
         }catch (java.util.InputMismatchException e){
-            return getBoolean(null);
+            return getBoolean();
         }
     }
     public static boolean parseBoolean(String s){
@@ -150,21 +178,46 @@ public class Personaggio {
                     8)\tcambiare una statistica
                     9)\tcambiare la fazione
                     """;
-        switch (getInt(richiestaAttributoDaModificare)){
+        System.out.println(richiestaAttributoDaModificare);
+        switch (getInt()){
             default -> {
                 return;
             }
-            case 1 -> this.nome = getString("inserisci il nome del personaggio");
-            case 2 -> this.puntiFerita = new Vita(
-                    getInt("Inserisci i punti ferita di " + this.nome),
-                    getInt("Inserisci i punti ferita totali di " + this.nome));
-            case 3 -> this.classeArmatura = getInt("Inserisci la classe armatura di " + this.nome);
-            case 4 -> this.competenza = getInt("Inserisci la competenza di " + this.nome);
-            case 5 -> this.puntiEsperienza = getInt("Inserisci i punti esperienza di " + this.nome);
-            case 6 -> this.livello = getInt("Inserisci il livello di " + this.nome);
-            case 7 -> this.dannoIniziale = getInt("Inserisci il danno iniziale di " + this.nome);
+            case 1 -> {
+                System.out.println("inserisci il nome del personaggio");
+                this.nome = getString();
+            }
+            case 2 -> {
+                System.out.println("Inserisci i punti ferita di " + this.nome + " poi inserisci i punti ferita totali di " + this.nome);
+                this.puntiFerita = new Vita(
+                        getInt(),
+                        getInt());
+            }
+            case 3 -> {
+                System.out.println("Inserisci la classe armatura di " + this.nome);
+                this.classeArmatura = getInt();
+            }
+            case 4 -> {
+                System.out.println("Inserisci la competenza di " + this.nome);
+                this.competenza = getInt();
+            }
+            case 5 -> {
+                System.out.println("Inserisci i punti esperienza di " + this.nome);
+                this.puntiEsperienza = getInt();
+            }
+            case 6 -> {
+                System.out.println("Inserisci il livello di " + this.nome);
+                this.livello = getInt();
+            }
+            case 7 -> {
+                System.out.println("Inserisci il danno iniziale di " + this.nome);
+                this.dannoIniziale = getInt();
+            }
             case 8 -> modificaStatistica();
-            case 9 -> this.amico = getBoolean(this.nome + " è un amico?");
+            case 9 -> {
+                System.out.println(this.nome + " è un amico?");
+                this.amico = getBoolean();
+            }
         }
         modifica();
     }
@@ -179,28 +232,87 @@ public class Personaggio {
                     5)\tsaggezza
                     6)\tcarisma
                     """;
-        switch (getInt(richiestaStatisticaDaModificare)) {
-            case 1 -> this.forza = new Statistica(
-                    getInt("Inserisci il punteggio di forza di " + this.nome),
-                    getBoolean(nome + " ha bonus salvezza in forza?"));
-            case 2 -> {
-                this.destrezza = new Statistica(
-                        getInt("Inserisci il punteggio di destrezza di " + this.nome),
-                        getBoolean(nome + " ha bonus salvezza in destrezza?"));
-                this.iniziativa = this.destrezza.punteggio;
+        System.out.println(richiestaStatisticaDaModificare);
+        if(this instanceof Giocante) {
+            switch (getInt()) {
+                case 1 -> {
+                    System.out.println("Inserisci il punteggio di forza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in forza?");
+                    this.forza = new Statistica(
+                            getInt(),
+                            getBoolean());
+                }
+                case 2 -> {
+                    System.out.println("Inserisci il punteggio di destrezza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in destrezza?");
+                    this.destrezza = new Statistica(
+                            getInt(),
+                            getBoolean());
+                    this.iniziativa = this.destrezza.punteggio;
+                }
+                case 3 -> {
+                    System.out.println("Inserisci il punteggio di costituzione di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in costituzione?");
+                    this.costituzione = new Statistica(
+                            getInt(),
+                            getBoolean());
+                }
+                case 4 -> {
+                    System.out.println("Inserisci il punteggio di intelligenza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in intelligenza?");
+                    this.intelligenza = new Statistica(
+                            getInt(),
+                            getBoolean());
+                }
+                case 5 -> {
+                    System.out.println("Inserisci il punteggio di saggezza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in saggezza?");
+                    this.saggezza = new Statistica(
+                            getInt(),
+                            getBoolean());
+                }
+                case 6 -> {
+                    System.out.println("Inserisci il punteggio di carisma di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in carisma?");
+                    this.carisma = new Statistica(
+                            getInt(),
+                            getBoolean());
+                }
             }
-            case 3 -> this.costituzione = new Statistica(
-                    getInt("Inserisci il punteggio di costituzione di " + this.nome),
-                    getBoolean(nome + " ha bonus salvezza in costituzione?"));
-            case 4 -> this.intelligenza = new Statistica(
-                    getInt("Inserisci il punteggio di intelligenza di " + this.nome),
-                    getBoolean(nome + " ha bonus salvezza in intelligenza?"));
-            case 5 -> this.saggezza = new Statistica(
-                    getInt("Inserisci il punteggio di saggezza di " + this.nome),
-                    getBoolean(nome + " ha bonus salvezza in saggezza?"));
-            case 6 -> this.carisma = new Statistica(
-                    getInt("Inserisci il punteggio di carisma di " + this.nome),
-                    getBoolean(nome + " ha bonus salvezza in carisma?"));
+        }else{
+            switch (getInt()) {
+                case 1 -> {
+                    System.out.println("Inserisci il punteggio di forza di " + this.nome);
+                    this.forza = new Statistica(
+                            getInt(),
+                            false);
+                }
+                case 2 -> {
+                    System.out.println("Inserisci il punteggio di destrezza di " + this.nome);
+                    this.destrezza = new Statistica(
+                            getInt(),
+                            false);
+                    this.iniziativa = this.destrezza.punteggio;
+                }
+                case 3 -> {
+                    System.out.println("Inserisci il punteggio di costituzione di " + this.nome);
+                    this.costituzione = new Statistica(
+                            getInt(),
+                            false);
+                }
+                case 4 -> {
+                    System.out.println("Inserisci il punteggio di intelligenza di " + this.nome);
+                    this.intelligenza = new Statistica(
+                            getInt(),
+                            false);
+                }
+                case 5 -> {
+                    System.out.println("Inserisci il punteggio di saggezza di " + this.nome);
+                    this.saggezza = new Statistica(
+                            getInt(),
+                            false);
+                }
+                case 6 -> {
+                    System.out.println("Inserisci il punteggio di carisma di " + this.nome);
+                    this.carisma = new Statistica(
+                            getInt(),
+                            false);
+                }
+            }
         }
     }
 
