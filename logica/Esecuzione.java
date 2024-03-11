@@ -111,18 +111,20 @@ public class Esecuzione{
         }
     }
     protected void elencoPg() {
-        //String simulazioneFile
-
-
-
-
-
-        for (logica.Personaggio personaggio : pg) {
-            try {
-                System.out.println(personaggio);
-            } catch (NullPointerException e) {
-                System.out.println("NullPointerException in sout di pg righe 13/19");
+        String[] simulazioneFile = new String[pg.length+1];
+        simulazioneFile[0] = csv.Scrittore_csv.getDescrizioneCampi();
+        int i=1;
+        for(Personaggio personaggio:pg){
+            simulazioneFile[i] = personaggio.toCsv();
+            i++;
+        }
+        for(i=0;i<simulazioneFile.length;i++){
+            System.out.print(i + ")\t");
+            String[] row = simulazioneFile[i].split(",");
+            for(int j=0;j<row.length;j++){
+                System.out.printf("%-35s", row[j]);
             }
+            System.out.println();
         }
     }
     public void saveInFile(String nomeFile) {
