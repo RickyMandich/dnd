@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="logica.TestPgFromRow" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="logica.TestPgFromRow" />
+  <configuration default="false" name="logica.TestVari" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="logica.TestVari" />
     <module name="dnd" />
     <extension name="coverage">
       <pattern>

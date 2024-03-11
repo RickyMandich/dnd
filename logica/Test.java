@@ -8,12 +8,11 @@ public class Test{
             e.printStackTrace();
         }
         csv.Lettore_csv reader = new csv.Lettore_csv();
-        Esecuzione exec = new Esecuzione(new Personaggio[1]);
-        exec.readFile(reader, readerFileName);
         System.out.println("stai eseguendo un test?");
         Giocante.test = Personaggio.getBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
-        exec.pg = new logica.Personaggio[Personaggio.getInt(1)];
+        Esecuzione exec = new Esecuzione(new Personaggio[Personaggio.getInt(1)]);
+        exec.readFile(reader, readerFileName);
         reader.outElencoPersonaggi();
         System.out.println("vuoi importare tutti i personaggi presenti nel file?");
         if(Personaggio.getBoolean()) exec.importAll(reader);

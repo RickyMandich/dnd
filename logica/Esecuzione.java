@@ -111,6 +111,12 @@ public class Esecuzione{
         }
     }
     protected void elencoPg() {
+        //String simulazioneFile
+
+
+
+
+
         for (logica.Personaggio personaggio : pg) {
             try {
                 System.out.println(personaggio);
