@@ -6,7 +6,7 @@ public class Giocante extends Personaggio{
     protected boolean[][] tiriControMorte;
 
     public Giocante(){
-        super(new Object());
+        super();
         System.out.println(this.nome + " ha ispirazione?");
         this.ispirazione = getBoolean();
         this.bonusSalvezza = competenza;
