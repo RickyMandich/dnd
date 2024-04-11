@@ -41,7 +41,7 @@ public class Personaggio {
             this.forza = new Statistica(getInt(), getBoolean());
             System.out.println("Inserisci il punteggio di destrezza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in destrezza");
             this.destrezza = new Statistica(getInt(), getBoolean());
-            this.iniziativa = this.destrezza.punteggio;
+            this.iniziativa = this.destrezza.bonus;
             System.out.println("Inserisci il punteggio di costituzione di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in costituzione");
             this.costituzione = new Statistica(getInt(), getBoolean());
             System.out.println("Inserisci il punteggio di intelligenza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in intelligenza");
@@ -55,7 +55,7 @@ public class Personaggio {
             this.forza = new Statistica(getInt(), false);
             System.out.println("Inserisci il punteggio di destrezza di " + this.nome);
             this.destrezza = new Statistica(getInt(), false);
-            this.iniziativa = this.destrezza.punteggio;
+            this.iniziativa = this.destrezza.bonus;
             System.out.println("Inserisci il punteggio di costituzione di " + this.nome);
             this.costituzione = new Statistica(getInt(), false);
             System.out.println("Inserisci il punteggio di intelligenza di " + this.nome);
@@ -301,7 +301,7 @@ public class Personaggio {
 
     public int tiro(int origin, int bound){
         int num = new java.util.Random().nextInt(origin, bound);
-        System.out.println("il risultato del tiro è :" + num);
+        System.out.println("il risultato del tiro di " + nome + " è :" + num);
         return num;
     }
 

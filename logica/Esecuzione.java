@@ -139,4 +139,26 @@ public class Esecuzione{
             writer.close();
         }
     }
+
+    public void order(){
+        boolean scambia;
+        do {
+            scambia = false;
+            for(int i=0;i<pg.length-1;i++){
+                if(pg[i].iniziativa<pg[i+1].iniziativa){
+                    Personaggio temp = pg[i];
+                    pg[i] = pg[i+1];
+                    pg[i+1] = temp;
+                    scambia = true;
+                }
+            }
+        }while (scambia);
+    }
+
+    public void preparazione(){
+        for(Personaggio Pg:pg){
+            Pg.iniziativa = Pg.tiro(1, 20, Pg.destrezza.bonus);
+        }
+        order();
+    }
 }

@@ -20,6 +20,9 @@ public class Test{
         exec.elencoNomiPg();
         System.out.println("vuoi i dettagli dei personaggi?");
         if(Personaggio.getBoolean()) exec.elencoPg();
+
+        exec.preparazione();
+
         System.out.println("vuoi salvare i dati dei personaggi?");
         if (Personaggio.getBoolean()) {
             System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");

@@ -118,8 +118,8 @@ public class Giocante extends Personaggio{
     public int tiro(int origin, int bound){
         if(test) return super.tiro(origin, bound);
         else {
-            System.out.println("inserisci il risultado dei dadi");
-            return getInt();
+            System.out.println("inserisci il risultado del tiro dei dadi di " + nome);
+            return getInt(origin, bound);
         }
     }
 
