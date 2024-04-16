@@ -20,9 +20,7 @@ public class Lettore_csv {
         finally {
             try {
                 reader.close();
-            } catch (java.io.IOException | NullPointerException e) {
-                //e.printStackTrace();
-            }
+            } catch (java.io.IOException | NullPointerException ignored) {}
         }
     }
 
