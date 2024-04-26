@@ -70,42 +70,53 @@ public class Personaggio {
     }
 
     public Personaggio(String[] row){
-        nome = row[0];
-        iniziativa = Integer.parseInt(row[1]);
-        String[] subStringVita = new String[2];
-        for(int sub=0, originale=2;sub<subStringVita.length;sub++, originale++) subStringVita[sub] = row[originale];
-        puntiFerita = new Vita(subStringVita);
-        classeArmatura = Integer.parseInt(row[4]);
-        competenza = Integer.parseInt(row[5]);
-        puntiEsperienza = Integer.parseInt(row[6]);
-        livello = Integer.parseInt(row[7]);
-        dannoIniziale = Integer.parseInt(row[8]);
-        this.amico = Boolean.parseBoolean(row[9]);
-        this.morto = Boolean.parseBoolean(row[10]);
+        try {
+            nome = row[0];
+            iniziativa = Integer.parseInt(row[1]);
+            String[] subStringVita = new String[2];
+            for (int sub = 0, originale = 2; sub < subStringVita.length; sub++, originale++)
+                subStringVita[sub] = row[originale];
+            puntiFerita = new Vita(subStringVita);
+            classeArmatura = Integer.parseInt(row[4]);
+            competenza = Integer.parseInt(row[5]);
+            puntiEsperienza = Integer.parseInt(row[6]);
+            livello = Integer.parseInt(row[7]);
+            dannoIniziale = Integer.parseInt(row[8]);
+            this.amico = Boolean.parseBoolean(row[9]);
+            this.morto = Boolean.parseBoolean(row[10]);
 
-        String[] subStringForza = new String[2];
-        for(int sub=0, originale=11;sub<subStringForza.length;sub++, originale++) subStringForza[sub] = row[originale];
-        forza = new Statistica(subStringForza);
+            String[] subStringForza = new String[2];
+            for (int sub = 0, originale = 11; sub < subStringForza.length; sub++, originale++)
+                subStringForza[sub] = row[originale];
+            forza = new Statistica(subStringForza);
 
-        String[] subStringDestrezza = new String[2];
-        for(int sub=0, originale=13;sub<subStringDestrezza.length;sub++, originale++) subStringDestrezza[sub] = row[originale];
-        destrezza = new Statistica(subStringDestrezza);
+            String[] subStringDestrezza = new String[2];
+            for (int sub = 0, originale = 13; sub < subStringDestrezza.length; sub++, originale++)
+                subStringDestrezza[sub] = row[originale];
+            destrezza = new Statistica(subStringDestrezza);
 
-        String[] subStringCostituzione = new String[2];
-        for(int sub=0, originale=15;sub<subStringCostituzione.length;sub++, originale++) subStringCostituzione[sub] = row[originale];
-        costituzione = new Statistica(subStringCostituzione);
+            String[] subStringCostituzione = new String[2];
+            for (int sub = 0, originale = 15; sub < subStringCostituzione.length; sub++, originale++)
+                subStringCostituzione[sub] = row[originale];
+            costituzione = new Statistica(subStringCostituzione);
 
-        String[] subStringIntelligenza = new String[2];
-        for(int sub=0, originale=17;sub<subStringIntelligenza.length;sub++, originale++) subStringIntelligenza[sub] = row[originale];
-        intelligenza = new Statistica(subStringIntelligenza);
+            String[] subStringIntelligenza = new String[2];
+            for (int sub = 0, originale = 17; sub < subStringIntelligenza.length; sub++, originale++)
+                subStringIntelligenza[sub] = row[originale];
+            intelligenza = new Statistica(subStringIntelligenza);
 
-        String[] subStringSaggezza = new String[2];
-        for(int sub=0, originale=19;sub<subStringSaggezza.length;sub++, originale++) subStringSaggezza[sub] = row[originale];
-        saggezza = new Statistica(subStringSaggezza);
+            String[] subStringSaggezza = new String[2];
+            for (int sub = 0, originale = 19; sub < subStringSaggezza.length; sub++, originale++)
+                subStringSaggezza[sub] = row[originale];
+            saggezza = new Statistica(subStringSaggezza);
 
-        String[] subStringCarisma = new String[2];
-        for(int sub=0, originale=21;sub<subStringCarisma.length;sub++, originale++) subStringCarisma[sub] = row[originale];
-        carisma = new Statistica(subStringCarisma);
+            String[] subStringCarisma = new String[2];
+            for (int sub = 0, originale = 21; sub < subStringCarisma.length; sub++, originale++)
+                subStringCarisma[sub] = row[originale];
+            carisma = new Statistica(subStringCarisma);
+        }catch (java.lang.NumberFormatException e){
+            throw new csv.exception.UnexpectedTypeOnCsvException();
+        }
     }
 
     public static String getString(){
@@ -301,7 +312,7 @@ public class Personaggio {
 
     public int tiro(int origin, int bound){
         int num = new java.util.Random().nextInt(origin, bound);
-        System.out.println("il risultato del tiro di " + nome + " è :" + num);
+        System.out.println("il risultato del tiro di " + nome + " è:\t" + num);
         return num;
     }
 

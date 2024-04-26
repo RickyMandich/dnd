@@ -25,16 +25,20 @@ public class Giocante extends Personaggio{
     }
     public Giocante(String[] row){
         super(row);
-        this.ispirazione = Boolean.parseBoolean(row[23]);
-        bonusSalvezza = Integer.parseInt(row[24]);
-        tiriControMorte = new boolean[2][3];
-        this.tiriControMorte[0][0] = Boolean.parseBoolean(row[25]);
-        this.tiriControMorte[0][1] = Boolean.parseBoolean(row[26]);
-        this.tiriControMorte[0][2] = Boolean.parseBoolean(row[27]);
-        this.tiriControMorte[1][0] = Boolean.parseBoolean(row[28]);
-        this.tiriControMorte[1][1] = Boolean.parseBoolean(row[29]);
-        this.tiriControMorte[1][2] = Boolean.parseBoolean(row[30]);
-        morto = tiriControMorte[1][2];
+        try {
+            this.ispirazione = Boolean.parseBoolean(row[23]);
+            bonusSalvezza = Integer.parseInt(row[24]);
+            tiriControMorte = new boolean[2][3];
+            this.tiriControMorte[0][0] = Boolean.parseBoolean(row[25]);
+            this.tiriControMorte[0][1] = Boolean.parseBoolean(row[26]);
+            this.tiriControMorte[0][2] = Boolean.parseBoolean(row[27]);
+            this.tiriControMorte[1][0] = Boolean.parseBoolean(row[28]);
+            this.tiriControMorte[1][1] = Boolean.parseBoolean(row[29]);
+            this.tiriControMorte[1][2] = Boolean.parseBoolean(row[30]);
+            morto = tiriControMorte[1][2];
+        }catch (java.lang.NumberFormatException e){
+            throw new csv.exception.UnexpectedTypeOnCsvException();
+        }
     }
     public void modifica(){
         String richiestaAttributoDaModificare = """
