@@ -1,8 +1,8 @@
 package logica;
-public class Esecuzione{
+public class PgListWithArray {
     protected Personaggio[] pg;
 
-    public Esecuzione(Personaggio[] pg) {
+    public PgListWithArray(Personaggio[] pg) {
         this.pg = pg;
     }
 

@@ -4,10 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class PgList <Personaggio> implements java.util.List<Personaggio>{
+public class PgListWithInterface<Personaggio> implements java.util.List<Personaggio>{
     protected Personaggio[] pg;
     protected int size;
-    public PgList(Personaggio[] pg) {
+    public PgListWithInterface(Personaggio[] pg) {
         this.pg = pg;
         size = 0;
         int i=0;

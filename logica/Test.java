@@ -11,7 +11,7 @@ public class Test{
         System.out.println("stai eseguendo un test?");
         Giocante.test = Personaggio.getBoolean();
         System.out.println("inserisci il numero di personaggi che vuoi creare");
-        Esecuzione exec = new Esecuzione(new Personaggio[Personaggio.getInt(1)]);
+        PgListWithArray exec = new PgListWithArray(new Personaggio[Personaggio.getInt(1)]);
         exec.readFile(reader, readerFileName);
         reader.outElencoPersonaggi();
         System.out.println("vuoi importare tutti i personaggi presenti nel file?");

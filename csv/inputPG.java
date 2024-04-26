@@ -1,8 +1,5 @@
 package csv;
 
-import logica.Personaggio;
-import logica.PgList;
-
 public class inputPG{
     public static void main(String[] args) {
         Lettore_csv readerFileName = new Lettore_csv();
@@ -109,7 +106,7 @@ public class inputPG{
         System.out.println("inserisci le prime tre lettere della statistica che vuoi usare");
         car = new java.util.Scanner(System.in).nextLine();
         try {
-            return ((logica.Giocante) p).tiroSalvezza(car);
+            return p.tiroSalvezza(car);
         } catch (logica.NoSuchStatistic e) {
             return inputTiroSalvezza(p);
         }

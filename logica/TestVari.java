@@ -8,7 +8,7 @@ public class TestVari {
         pg[1] = new Personaggio(paesanoString.split(","));
         String banditoString = "Malvivente dei marchi rossi,14,16,16,14,2,100,1,0,true,false,11,false,14,false,12,false,9,false,9,false,11,false";
         pg[2] = new Personaggio(banditoString.split(","));
-        Esecuzione exec = new Esecuzione(pg);
+        PgListWithArray exec = new PgListWithArray(pg);
         exec.elencoPg();
         System.out.println("Controllo morte:\t" + exec.controlloMorte());
     }
