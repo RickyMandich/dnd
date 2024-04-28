@@ -1,5 +1,5 @@
 package logica;
-public class NoSuchStatistic extends Exception{
+public class NoSuchStatistic extends RuntimeException{
     public NoSuchStatistic(String message) {
         super(message);
     }

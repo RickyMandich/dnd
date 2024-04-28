@@ -159,10 +159,15 @@ public class PgListWithArray {
         }while (scambia);
     }
 
-    public void preparazione(){
+    public boolean preparazione(){
+        for(Personaggio Pg:pg){
+            Pg.controllaMorto();
+        }
+        if(!controlloMorte()) return false;
         for(Personaggio Pg:pg){
             Pg.iniziativa = Pg.tiro(1, 20, Pg.destrezza.bonus);
         }
         order();
+        return true;
     }
 }

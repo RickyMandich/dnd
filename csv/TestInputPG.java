@@ -1,6 +1,6 @@
 package csv;
 
-public class inputPG{
+public class TestInputPG {
     public static void main(String[] args) {
         Lettore_csv readerFileName = new Lettore_csv();
         try{

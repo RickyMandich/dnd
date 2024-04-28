@@ -7,6 +7,7 @@ public class Giocante extends Personaggio{
 
     public Giocante(){
         super();
+        // chiedo in input all'utente tutte le sue statistiche
         System.out.println(this.nome + " ha ispirazione?");
         this.ispirazione = getBoolean();
         this.bonusSalvezza = competenza;
@@ -21,11 +22,13 @@ public class Giocante extends Personaggio{
         for(int i=0;i<fallimenti;i++){
             tiriControMorte[1][i] = true;
         }
+            // dato che se un personaggio ha 3 fallimenti nel tiro salvezza contro morte posso assumere che sia morto nel momento in cui fallisce il 3° tiro
         this.morto = this.tiriControMorte[1][2];
     }
     public Giocante(String[] row){
         super(row);
         try {
+            //vado a inserire ogni elemento di questo personaggio presente nel file nel relativo attributo
             this.ispirazione = Boolean.parseBoolean(row[23]);
             bonusSalvezza = Integer.parseInt(row[24]);
             tiriControMorte = new boolean[2][3];
@@ -37,6 +40,8 @@ public class Giocante extends Personaggio{
             this.tiriControMorte[1][2] = Boolean.parseBoolean(row[30]);
             morto = tiriControMorte[1][2];
         }catch (java.lang.NumberFormatException e){
+            // nel caso le operazione di parsing trovino un tipo che non si aspettano nelle stringhe vado a lanciare
+            // un errore che indica a chi lo lancia che questa riga non è valida per creare un personaggio
             throw new csv.exception.UnexpectedTypeOnCsvException();
         }
     }
@@ -56,12 +61,15 @@ public class Giocante extends Personaggio{
                     10)\tcambiare l'ispirazione
                     11)\tcambiare i tiri contro morte
                     """;
+        // chiedo all'utente che attributo vuole modificare di questo personaggio
         System.out.println(richiestaAttributoDaModificare);
         switch (getInt()){
             default -> {
+                // nel caso lui inserisca un valore non considerato termino esco dalla modifica
                 return;
             }
             case 1 -> {
+                // nel caso l'udente inserisca 1 chiedo il nuovo valore per l'attributo nome
                 System.out.println("inserisci il nome del personaggio");
                 this.nome = getString();
             }

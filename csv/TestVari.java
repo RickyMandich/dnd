@@ -10,8 +10,8 @@ public class TestVari {
         }
         Lettore_csv reader = new Lettore_csv();
         readerFileName.outElencoNomiFile();
-        inputPG.readFile(reader, readerFileName);
-        logica.Personaggio[] pg = inputPG.importAll(new logica.Personaggio[1], reader);
+        TestInputPG.readFile(reader, readerFileName);
+        logica.Personaggio[] pg = TestInputPG.importAll(new logica.Personaggio[1], reader);
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
         String nomeFile = "csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv";
         Scrittore_csv saveNewFileName = new Scrittore_csv(readerFileName, "csv\\elencoFileDati");
