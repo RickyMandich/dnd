@@ -3,8 +3,8 @@ package logica;
 /*todo:
     commentare il file Test.java                    fatto
     commentare il file Lettore_csv.java             fatto
-    commentare il file Giocante.java                in corso    (metodo:    incrementaSuccessiCOntroMorte(int):null)
-    commentare il file Personaggio.java             da fare
+    commentare il file Giocante.java                fatto
+    commentare il file Personaggio.java             in corso        (metodo     getBoolean():boolean)
     commentare il file PgListWithArray.java         da fare
     commentare il file Scrittore_csv.java           da fare
  */

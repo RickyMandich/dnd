@@ -18,6 +18,9 @@ public class Personaggio {
     protected Statistica saggezza;
     protected Statistica carisma;
 
+    /**
+     * costruttore di Personaggio per input dell'utente
+     */
     public Personaggio() {
         System.out.println("inserisci il nome del personaggio");
         this.nome = getString();
@@ -69,6 +72,11 @@ public class Personaggio {
         this.amico = getBoolean();
     }
 
+    /**
+     * costruttore di Personaggio da file csv, prende come parametro un array di stringhe già diviso sulle virgole che immagazzina l'intera riga
+     * @throws csv.exception.UnexpectedTypeOnCsvException se nella riga trovo dei tipi che non corrispondono a ciò che mi aspetto di trovare in quel punto
+     * @param row un array di stringhe che rappresenta la riga del file
+     */
     public Personaggio(String[] row){
         try {
             nome = row[0];
@@ -119,10 +127,18 @@ public class Personaggio {
         }
     }
 
+    /**
+     * metodo che prende in input una stringa
+     * @return la string inserita dall'utente
+     */
     public static String getString(){
         return new java.util.Scanner(System.in).nextLine();
     }
 
+    /**
+     * metodo che prende in input un intero. <p>nel caso in cui l'utente non vada ad inserire un intero verrà segnalato l'errore e atteso un nuovo input</p>
+     * @return l'intero inserito dall'utente
+     */
     public static int getInt(){
         try{
             return new java.util.Scanner(System.in).nextInt();
@@ -131,12 +147,25 @@ public class Personaggio {
             return getInt();
         }
     }
+
+    /**
+     * metodo che va a prendere un input intero che sia maggiore del parametro inserito
+     * @param min numero minimo da prenmdere in input
+     * @return l'intero inserito dall'utente
+     */
     protected static int getInt(int min){
         int ret = getInt();
         if (ret >= min) return ret;
         System.out.println("devi inserire un numero maggiore o uguale a " + min);
         return getInt(min);
     }
+
+    /**
+     * metodo che va a prendere un input intero che sia compreso tra i parametri inseriti
+     * @param min numero minimo da prendere in input
+     * @param max numero massimo da prendere in input
+     * @return l'intero inserito dall'utente
+     */
     protected static int getInt(int min, int max){
         if(min>max) throw new RuntimeException("il numero minimo non può essere maggiore del massimo");
         int ret = getInt(min);

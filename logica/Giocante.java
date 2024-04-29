@@ -5,6 +5,9 @@ public class Giocante extends Personaggio{
     public static boolean test;
     protected boolean[][] tiriControMorte;
 
+    /**
+     * costruttore di Personaggio giocante per input dell'utente
+     */
     public Giocante(){
         super();
         // chiedo in input all'utente tutte le sue statistiche
@@ -25,6 +28,12 @@ public class Giocante extends Personaggio{
             // dato che se un personaggio ha 3 fallimenti nel tiro salvezza contro morte posso assumere che sia morto nel momento in cui fallisce il 3° tiro
         this.morto = this.tiriControMorte[1][2];
     }
+
+    /**
+     * costruttore di Personaggio Giocante da file csv, prende come parametro un array di stringhe già diviso sulle virgole che immagazzina l'intera riga
+     * @throws csv.exception.UnexpectedTypeOnCsvException se nella riga trovo dei tipi che non corrispondono a ciò che mi aspetto di trovare in quel punto
+     * @param row un array di stringhe che rappresenta la riga del file
+     */
     public Giocante(String[] row){
         super(row);
         try {
@@ -45,6 +54,10 @@ public class Giocante extends Personaggio{
             throw new csv.exception.UnexpectedTypeOnCsvException();
         }
     }
+
+    /**
+     * metodo che serva a modificare un Personaggio Giocante
+     */
     public void modifica(){
         String richiestaAttributoDaModificare = """
                 cosa vuoi fare?
@@ -255,18 +268,27 @@ public class Giocante extends Personaggio{
         tiriControMorte[1][i] = true;
     }
 
+    /**
+     * metodo che, nel caso siano terminati i tiri contro morte, fa riprendere il personaggio o lo uccide definitivamente
+     */
     public void verificaTiriControMorte(){
         if(tiriControMorte[0][2]) puntiFerita.attuale = 1;
         else if(tiriControMorte[1][2]) morto = true;
     }
 
+    /**
+     * metodo che controlla se il personaggio è morto definitivamente in alternativa lancia il tiro contro morte quando necessario
+     */
     @Override
     public void controllaMorto() {
-        if(puntiFerita.attuale<=-(puntiFerita.totale/2)){
-            morto = true;
-        }else tiroControMorte();
+        if(puntiFerita.attuale<=-(puntiFerita.totale/2)) morto = true;
+        else if(puntiFerita.attuale<1) tiroControMorte();
     }
 
+    /**
+     * il toString() dei tiri contro morte
+     * @return toString
+     */
     public String tiriControMorteToString() {
         String info = "";
         info += "\tsuccessi:\t\t\t";
@@ -275,7 +297,15 @@ public class Giocante extends Personaggio{
         for (int i = 0; i < 3; i++) info = info.concat(tiriControMorte[1][i] + "\t");
         return info + "\n";
     }
-    public String tiriControMorteToCsv() {
+
+    /**
+     * metodo che crea una stringa in un formato adatto a essere inserito in un file dati di tipo CommaSeparatedValue
+     * <p>
+     *     da chiamare solo all'interno del metodo toCsv()
+     * </p>
+     * @return una stringa che può essere concatenata agli altri dati per inserire l'oggetto in un file csv
+     */
+    private String tiriControMorteToCsv() {
         String info = "";
         info = info.concat("," + tiriControMorte[0][0]);
         info = info.concat("," + tiriControMorte[0][1]);
@@ -295,6 +325,10 @@ public class Giocante extends Personaggio{
         return info;
     }
 
+    /**
+     * metodo che converte il personaggio in una stringa che può essere inserita in un file csv per salvare lo stato attuale di questo personaggio
+     * @return una stringa che rappresenta il personaggio
+     */
     @Override
     public String toCsv() {
         String info = super.toCsv();
