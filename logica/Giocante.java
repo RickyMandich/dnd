@@ -60,56 +60,66 @@ public class Giocante extends Personaggio{
                     9)\tcambiare la fazione
                     10)\tcambiare l'ispirazione
                     11)\tcambiare i tiri contro morte
-                    """;
+                """;
         // chiedo all'utente che attributo vuole modificare di questo personaggio
         System.out.println(richiestaAttributoDaModificare);
         switch (getInt()){
             default -> {
-                // nel caso lui inserisca un valore non considerato termino esco dalla modifica
+                // nel caso lui inserisca un valore non considerato termino e esco dalla modifica
                 return;
             }
             case 1 -> {
-                // nel caso l'udente inserisca 1 chiedo il nuovo valore per l'attributo nome
+                // nel caso l'utente inserisca 1 chiedo il nuovo valore per l'attributo nome
                 System.out.println("inserisci il nome del personaggio");
                 this.nome = getString();
             }
             case 2 -> {
+                // nel caso l'utente inserisca 2 chiedo il nuovo valore per l'attributo punti ferita
                 System.out.println("Inserisci i punti ferita di " + this.nome + " poi inserisci i punti ferita totali di " + this.nome);
                 this.puntiFerita = new Vita(
                         getInt(),
                         getInt());
             }
             case 3 -> {
+                // nel caso l'utente inserisca 3 chiedo il nuovo valore per l'attributo classe armatura
                 System.out.println("Inserisci la classe armatura di " + this.nome);
                 this.classeArmatura = getInt();
             }
             case 4 -> {
+                // nel caso l'utente inserisca 4 chiedo il nuovo valore per l'attributo competenza
                 System.out.println("Inserisci la competenza di " + this.nome);
                 this.competenza = getInt();
                 this.bonusSalvezza = competenza;
             }
             case 5 -> {
+                // nel caso l'utente inserisca 5 chiedo il nuovo valore per l'attributo punti esperienza
                 System.out.println("Inserisci i punti esperienza di " + this.nome);
                 this.puntiEsperienza = getInt();
             }
             case 6 -> {
+                // nel caso l'utente inserisca 6 chiedo il nuovo valore per l'attributo livello
                 System.out.println("Inserisci il livello di " + this.nome);
                 this.livello = getInt();
             }
             case 7 -> {
+                // nel caso l'utente inserisca 7 chiedo il nuovo valore per l'attributo danno iniziale
                 System.out.println("Inserisci il danno iniziale di " + this.nome);
                 this.dannoIniziale = getInt();
             }
+                // nel caso l'utente inserisca 8 chiedo il nuovo valore per gli attributi statistica
             case 8 -> modificaStatistica();
             case 9 -> {
+                // nel caso l'utente inserisca 9 chiedo il nuovo valore per l'attributo amico
                 System.out.println(this.nome + " è un amico?");
                 this.amico = getBoolean();
             }
             case 10 -> {
+                // nel caso l'utente inserisca 10 chiedo il nuovo valore per l'attributo ispirazione
                 System.out.println(this.nome + " ha ispirazione?");
                 this.ispirazione = getBoolean();
             }
             case 11 -> {
+                // nel caso l'utente inserisca 11 chiedo il nuovo valore per l'attributo tiri contro morte
                 this.tiriControMorte = new boolean[2][3];
                 System.out.println("quanti successi nei tiri contro morte ha " + nome);
                 int successi = getInt();
@@ -124,10 +134,15 @@ public class Giocante extends Personaggio{
                 this.morto = this.tiriControMorte[1][2];
             }
         }
+        // richiamo la stessa funzione in modo tale da continuare con le modifiche
         modifica();
     }
+
     @Override
     public int tiro(int origin, int bound){
+        // creo un override nella funzione tiro di personaggio che, nel caso in cui io stia eseguendo un test,
+        // genera in automatico il risulatato come per i personaggi non giocanti,
+        // altrimenti lo chiede in input controllando che sia un valore accettabile
         if(test) return super.tiro(origin, bound);
         else {
             System.out.println("inserisci il risultado del tiro dei dadi di " + nome);
