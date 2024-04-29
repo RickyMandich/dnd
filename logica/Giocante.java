@@ -151,11 +151,70 @@ public class Giocante extends Personaggio{
         modifica();
     }
 
+    /**
+     * metodo che serve a modificare le caratteristiche di un Personaggio Giocante
+     */
+    @Override
+    protected void modificaStatistica() {
+        String richiestaStatisticaDaModificare = """
+                quale statistica vuoi modificare?
+                    1)\tforza
+                    2)\tdestrezza
+                    3)\tcostituzione
+                    4)\tintelligenza
+                    5)\tsaggezza
+                    6)\tcarisma
+                    """;
+        System.out.println(richiestaStatisticaDaModificare);
+        switch (getInt()) {
+            case 1 -> {
+                System.out.println("Inserisci il punteggio di forza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in forza?");
+                this.forza = new Statistica(
+                        getInt(),
+                        getBoolean());
+            }
+            case 2 -> {
+                System.out.println("Inserisci il punteggio di destrezza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in destrezza?");
+                this.destrezza = new Statistica(
+                        getInt(),
+                        getBoolean());
+                this.iniziativa = this.destrezza.punteggio;
+            }
+            case 3 -> {
+                System.out.println("Inserisci il punteggio di costituzione di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in costituzione?");
+                this.costituzione = new Statistica(
+                        getInt(),
+                        getBoolean());
+            }
+            case 4 -> {
+                System.out.println("Inserisci il punteggio di intelligenza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in intelligenza?");
+                this.intelligenza = new Statistica(
+                        getInt(),
+                        getBoolean());
+            }
+            case 5 -> {
+                System.out.println("Inserisci il punteggio di saggezza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in saggezza?");
+                this.saggezza = new Statistica(
+                        getInt(),
+                        getBoolean());
+            }
+            case 6 -> {
+                System.out.println("Inserisci il punteggio di carisma di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in carisma?");
+                this.carisma = new Statistica(
+                        getInt(),
+                        getBoolean());
+            }
+        }
+    }
+
+    /**
+     * metodo che tira un dado per questo personaggio se sto eseguendo un test verrà generato randomicamente un valore compreso tra minimo e massimo, altrimenti verrà chiesto in input all'utente
+     * @param origin il risultato minimo di questo tiro di dado
+     * @param bound il risultato massimo di questo tiro di dado
+     * @return il risultato di questo tiro del dado
+     */
     @Override
     public int tiro(int origin, int bound){
-        // creo un override nella funzione tiro di personaggio che, nel caso in cui io stia eseguendo un test,
-        // genera in automatico il risulatato come per i personaggi non giocanti,
-        // altrimenti lo chiede in input controllando che sia un valore accettabile
         if(test) return super.tiro(origin, bound);
         else {
             System.out.println("inserisci il risultado del tiro dei dadi di " + nome);

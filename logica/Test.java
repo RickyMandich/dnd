@@ -4,8 +4,8 @@ package logica;
     commentare il file Test.java                    fatto
     commentare il file Lettore_csv.java             fatto
     commentare il file Giocante.java                fatto
-    commentare il file Personaggio.java             in corso        (metodo     getBoolean():boolean)
-    commentare il file PgListWithArray.java         da fare
+    commentare il file Personaggio.java             fatto
+    commentare il file PgListWithArray.java         in corso        (metodo     importAll(csv.Lettore_csv))
     commentare il file Scrittore_csv.java           da fare
  */
 

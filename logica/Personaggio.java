@@ -174,6 +174,10 @@ public class Personaggio {
         return getInt(min, max);
     }
 
+    /**
+     * metodo che prende in input un booleano. <p>nel caso in cui l'utente non vada ad inserire un booleano verrà segnalato l'errore e atteso un nuovo input</p>
+     * @return il booleano inserito dall'utente
+     */
     public static boolean getBoolean(){
         try{
             System.out.println("(insert \"true\" or \"false\")");
@@ -183,6 +187,9 @@ public class Personaggio {
         }
     }
 
+    /**
+     * metodo che serve a modificare un Personaggio
+     */
     public void modifica(){
         String richiestaAttributoDaModificare = """
                 cosa vuoi fare?
@@ -241,6 +248,9 @@ public class Personaggio {
         modifica();
     }
 
+    /**
+     * metodo che serve a modificare le caratteristiche di un Personaggio
+     */
     protected void modificaStatistica() {
         String richiestaStatisticaDaModificare = """
                 quale statistica vuoi modificare?
@@ -252,131 +262,142 @@ public class Personaggio {
                     6)\tcarisma
                     """;
         System.out.println(richiestaStatisticaDaModificare);
-        if(this instanceof Giocante) {
-            switch (getInt()) {
-                case 1 -> {
-                    System.out.println("Inserisci il punteggio di forza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in forza?");
-                    this.forza = new Statistica(
-                            getInt(),
-                            getBoolean());
-                }
-                case 2 -> {
-                    System.out.println("Inserisci il punteggio di destrezza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in destrezza?");
-                    this.destrezza = new Statistica(
-                            getInt(),
-                            getBoolean());
-                    this.iniziativa = this.destrezza.punteggio;
-                }
-                case 3 -> {
-                    System.out.println("Inserisci il punteggio di costituzione di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in costituzione?");
-                    this.costituzione = new Statistica(
-                            getInt(),
-                            getBoolean());
-                }
-                case 4 -> {
-                    System.out.println("Inserisci il punteggio di intelligenza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in intelligenza?");
-                    this.intelligenza = new Statistica(
-                            getInt(),
-                            getBoolean());
-                }
-                case 5 -> {
-                    System.out.println("Inserisci il punteggio di saggezza di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in saggezza?");
-                    this.saggezza = new Statistica(
-                            getInt(),
-                            getBoolean());
-                }
-                case 6 -> {
-                    System.out.println("Inserisci il punteggio di carisma di " + this.nome + " e poi inserisci se " + nome + " ha bonus salvezza in carisma?");
-                    this.carisma = new Statistica(
-                            getInt(),
-                            getBoolean());
-                }
+        switch (getInt()) {
+            case 1 -> {
+                System.out.println("Inserisci il punteggio di forza di " + this.nome);
+                this.forza = new Statistica(
+                        getInt(),
+                        false);
             }
-        }else{
-            switch (getInt()) {
-                case 1 -> {
-                    System.out.println("Inserisci il punteggio di forza di " + this.nome);
-                    this.forza = new Statistica(
-                            getInt(),
-                            false);
-                }
-                case 2 -> {
-                    System.out.println("Inserisci il punteggio di destrezza di " + this.nome);
-                    this.destrezza = new Statistica(
-                            getInt(),
-                            false);
-                    this.iniziativa = this.destrezza.punteggio;
-                }
-                case 3 -> {
-                    System.out.println("Inserisci il punteggio di costituzione di " + this.nome);
-                    this.costituzione = new Statistica(
-                            getInt(),
-                            false);
-                }
-                case 4 -> {
-                    System.out.println("Inserisci il punteggio di intelligenza di " + this.nome);
-                    this.intelligenza = new Statistica(
-                            getInt(),
-                            false);
-                }
-                case 5 -> {
-                    System.out.println("Inserisci il punteggio di saggezza di " + this.nome);
-                    this.saggezza = new Statistica(
-                            getInt(),
-                            false);
-                }
-                case 6 -> {
-                    System.out.println("Inserisci il punteggio di carisma di " + this.nome);
-                    this.carisma = new Statistica(
-                            getInt(),
-                            false);
-                }
+            case 2 -> {
+                System.out.println("Inserisci il punteggio di destrezza di " + this.nome);
+                this.destrezza = new Statistica(
+                        getInt(),
+                        false);
+                this.iniziativa = this.destrezza.punteggio;
+            }
+            case 3 -> {
+                System.out.println("Inserisci il punteggio di costituzione di " + this.nome);
+                this.costituzione = new Statistica(
+                        getInt(),
+                        false);
+            }
+            case 4 -> {
+                System.out.println("Inserisci il punteggio di intelligenza di " + this.nome);
+                this.intelligenza = new Statistica(
+                        getInt(),
+                        false);
+            }
+            case 5 -> {
+                System.out.println("Inserisci il punteggio di saggezza di " + this.nome);
+                this.saggezza = new Statistica(
+                        getInt(),
+                        false);
+            }
+            case 6 -> {
+                System.out.println("Inserisci il punteggio di carisma di " + this.nome);
+                this.carisma = new Statistica(
+                        getInt(),
+                        false);
             }
         }
     }
 
-    public String getNome() {
-        return nome;
-    }
-
+    /**
+     * metodo che serve a tirare un dado, il dado verò tirato in automatico e il risultato sarà compreso tra i due parametri che sono stati passati a questo metodo
+     * @param origin risultato minimo del tiro del dado
+     * @param bound risultato massimo del tiro del dado
+     * @return il risultato del tiro del dado
+     */
     public int tiro(int origin, int bound){
         int num = new java.util.Random().nextInt(origin, bound);
         System.out.println("il risultato del tiro di " + nome + " è:\t" + num);
         return num;
     }
 
+    /**
+     * metodo che serve a tirare un dado, il dado verò tirato in automatico e il risultato sarà compreso tra i primi due parametri che sono stati passati a questo metodo e varrà aggiunto il bonus passato come terzo parametro
+     * @param origin risultato minimo del tiro del dado
+     * @param bound risultato massimo del tiro del dado
+     * @param bonus il bonus che verrà aggiunto al risultato del dado
+     * @return il risultato del tiro del dado dopo aver aggiunto il bonus
+     */
     public int tiro(int origin, int bound, int bonus){
         return tiro(origin, bound) + bonus;
     }
 
+    /**
+     * metodo che serve a controllare se il tiro ha superato la sua classe difficoltà
+     * @param tiro il risultato del tiro del dado da verificare
+     * @param classeDifficolta il risultato minimo per superare questo tiro
+     * @return un booleano che indica la riuscita di questo tiro
+     */
     public boolean verificaTiro(int tiro, int classeDifficolta){
         return tiro>=classeDifficolta;
     }
 
+    /**
+     * esegue un tiro con la caratteristica forza
+     * @return il risultato del tiro
+     */
     public int tiroForza(){
         return tiro(0, 20, this.forza.bonus);
     }
 
+    /**
+     * esegue un tiro con la caratteristica destrezza
+     * @return il risultato del tiro
+     */
     public int tiroDestrezza(){
         return tiro(0,20, this.destrezza.bonus);
     }
 
+    /**
+     * esegue un tiro con la caratteristica costituzione
+     * @return il risultato del tiro
+     */
     public int tiroCostituzione(){
         return tiro(0,20, this.costituzione.bonus);
     }
 
+    /**
+     * esegue un tiro con la caratteristica intelligenza
+     * @return il risultato del tiro
+     */
     public int tiroIntelligenza(){
         return tiro(0,20, this.intelligenza.bonus);
     }
 
+    /**
+     * esegue un tiro con la caratteristica saggezza
+     * @return il risultato del tiro
+     */
     public int tiroSaggezza(){
         return tiro(0,20, this.saggezza.bonus);
     }
 
+    /**
+     * esegue un tiro con la caratteristica carisma
+     * @return il risultato del tiro
+     */
     public int tiroCarisma(){
         return tiro(0,20, this.carisma.bonus);
     }
 
+    /**
+     * metodo che esegue un tiro salvezza su una determinata caratteristica inserita come parametro.
+     * <p>
+     *     il parametro va inserito in questo modo:
+     *     <p>"for" per la forza</p>
+     *     <p>"des" per la destrezza</p>
+     *     <p>"cos" per la costituzione</p>
+     *     <p>"int" per l'intelligenza</p>
+     *     <p>"sag" per la saggezza</p>
+     *     <p>"car" per il carisma</p>
+     * </p>
+     * @return il risultato del tiro
+     * @throws NoSuchStatistic se il parametro non corrisponde a nessuna caratteristica
+     */
     public int tiroSalvezza(String statistica) throws NoSuchStatistic {
         statistica = statistica.toLowerCase();
         switch (statistica) {
@@ -402,7 +423,7 @@ public class Personaggio {
         throw new NoSuchStatistic("la statistica inserita non è stata trovata");
     }
 
-    public void controllaMorto(){
+    public void controllaMorto() {
         if(puntiFerita.attuale<=0) morto = true;
     }
 
@@ -472,6 +493,11 @@ public class Personaggio {
             return info;
         }
     }
+
+    /**
+     * metodo che genera una stringa che rappresenti il personaggio in un formato leggibile una volta mandato a schermo
+     * @return la stringa generata
+     */
     @Override
     public String toString(){
         String info = "";
@@ -494,6 +520,11 @@ public class Personaggio {
         info += "carisma:\n" + carisma;
         return info;
     }
+
+    /**
+     * genera una stringa che rappresenti il personaggio nel formato corretto per essere immagazzinato in un file csv
+     * @return la stringa generata
+     */
     public String toCsv(){
         String info = "";
         info += nome;

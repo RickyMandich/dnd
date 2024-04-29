@@ -6,6 +6,10 @@ public class PgListWithArray {
         this.pg = pg;
     }
 
+    /**
+     * metodo che controlla se c'è almeno un personaggio vivo in entrambe le fazioni per sapere se il combattimento deve continuare o se è finito
+     * @return booleano che indica se il combattimento deve continuare
+     */
     public boolean controlloMorte(){
         boolean[] fazione = new boolean[2];
         fazione[0] = false;
@@ -16,33 +20,55 @@ public class PgListWithArray {
         return fazione[0] && fazione[1];
     }
 
+    /**
+     * metodo che serve a popolare l'array di personaggi
+     * @param reader oggetto di tipo csv.Lettore_csv che contiene la copia del file letto per importare un personaggio dal file
+     */
     public void setPg(csv.Lettore_csv reader){
         for (int i = 0; i < pg.length; i++) {
             if(pg[i] == null) {
-                pg[i] = creaPgSicuro(reader, pg);
+                pg[i] = creaPgSicuro(reader);
                 System.out.println("hai sbagliato a inserire i dati o devi modificare qualcosa del personaggio già salvato?");
                 if (Personaggio.getBoolean()) {
                     pg[i].modifica();
                 }
             }
-            if(i+1==pg.length) creaUltimoPg(pg);
+            if(i+1==pg.length) creaUltimoPg();
         }
     }
-    public void creaUltimoPg(logica.Personaggio[] pg){
+
+    /**
+     * metodo che chiede all'utente se vuole aumentare la dimensione dell'array di Personaggi e in base alla risposta dell'utente lo ingrandisce
+     */
+    public void creaUltimoPg(){
         System.out.println("vuoi aggiungere un'altro pg");
         if(Personaggio.getBoolean()) aggiungiPg();
     }
 
-    public logica.Personaggio creaPgSicuro(csv.Lettore_csv reader, logica.Personaggio[] pg){
+    /**
+     * metodo che va a creare un singolo personaggio proponendo la scelta di crearlo da zero o importarlo dal file, in entrambi i casi fornisce l'opportunità di modificarlo. nel caso in cui venga selezionato un personaggio non compatibile dal file ricomincio
+     * @param reader oggetto di tipo csv.Lettore_csv che contiene la copia del file letto per importare un personaggio dal file
+     * @return il personaggio che è stato creato
+     */
+    public logica.Personaggio creaPgSicuro(csv.Lettore_csv reader){
         System.out.println("personaggi attualmente creati:");
         elencoNomiPg();
         try{
             return creaPg(reader);
         }catch(csv.exception.IncompatibleCsvException e){
             System.out.println("questa serie di dati non è compatibile, potrebbe essere una vecchia versione di un personaggio o una serie sbagliata");
-            return creaPgSicuro(reader, pg);
+            return creaPgSicuro(reader);
         }
     }
+
+    /**
+     * metodo che va a creare effettivamente il personaggio con i criteri di creaPgSicuro
+     * <p>
+     *     ATTENZIONE: usare questo metodo solo da creaPgSicuro()
+     * </p>
+     * @param reader oggetto di tipo csv.Lettore_csv che contiene la copia del file letto per importare un personaggio dal file
+     * @return il personaggio che viene creato
+     */
     public logica.Personaggio creaPg(csv.Lettore_csv reader){
         System.out.println("vuoi prendere un personaggio che esiste già nel file?");
         if(Personaggio.getBoolean() && reader.tabel.length != 0){
@@ -68,6 +94,11 @@ public class PgListWithArray {
         }
     }
 
+    /**
+     * metodo che serve per scegliere un file sorgente da cui prendere dei peronaggi salvati in precedenza
+     * @param reader  oggetto di tipo csv.Lettore_csv con cui leggere il file sorgente
+     * @param readerFileName  oggetto di tipo csv.Lettore_csv che contiene la copia del file contenente tutti i file sorgente disponibili
+     */
     protected void readFile(csv.Lettore_csv reader, csv.Lettore_csv readerFileName) {
         try{
             readerFileName.outElencoNomiFile();
@@ -107,7 +138,7 @@ public class PgListWithArray {
         for(int i = 0; i< pg.length; i++){
             String pgI;
             try {
-                pgI = pg[i].getNome();
+                pgI = pg[i].nome;
             }catch (NullPointerException e){
                 pgI = "null";
             }
