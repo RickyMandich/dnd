@@ -150,74 +150,109 @@ public class Giocante extends Personaggio{
         }
     }
 
+    /**
+     * metodo che esegue un tiro salvezza su una determinata caratteristica inserita come parametro.
+     * <p>
+     *     il parametro va inserito in questo modo:
+     *     <p>"for" per la forza</p>
+     *     <p>"des" per la destrezza</p>
+     *     <p>"cos" per la costituzione</p>
+     *     <p>"int" per l'intelligenza</p>
+     *     <p>"sag" per la saggezza</p>
+     *     <p>"car" per il carisma</p>
+     * </p>
+     * @return il risultato del tiro
+     * @throws NoSuchStatistic se il parametro non corrisponde a nessuna caratteristica
+     */
     @Override
     public int tiroSalvezza(String statistica) throws NoSuchStatistic {
+        // rendo il parametro in caratteri minuscoli così che io lo possa riconoscere anche se le maiuscole sono presenti
         statistica = statistica.toLowerCase();
         switch (statistica) {
+            // se trovo una caratteristica ritorno il relativo tiro di caratteristica
+            // e, se ne ha diritto, aggiungo il bonus salvezza
             case "for" -> {
-                if (forza.salvezza) return tiroForza() + bonusSalvezza;
-                else return tiroForza();
+                return tiroForza() + (forza.salvezza ? bonusSalvezza : 0);
             }
             case "des" -> {
-                if (destrezza.salvezza) return tiroDestrezza() + bonusSalvezza;
-                else return tiroDestrezza();
+                return tiroDestrezza() + (destrezza.salvezza ? bonusSalvezza : 0);
             }
             case "cos" -> {
-                if (costituzione.salvezza) return tiroCostituzione() + bonusSalvezza;
-                else return tiroCostituzione();
+                return tiroCostituzione() + (costituzione.salvezza ? bonusSalvezza : 0);
             }
             case "int" -> {
-                if (intelligenza.salvezza) return tiroIntelligenza() + bonusSalvezza;
-                else return tiroIntelligenza();
+                return tiroIntelligenza() + (intelligenza.salvezza ? bonusSalvezza : 0);
             }
             case "sag" -> {
-                if (saggezza.salvezza) return tiroSaggezza() + bonusSalvezza;
-                else return tiroSaggezza();
+                return tiroSaggezza() + (saggezza.salvezza ? bonusSalvezza : 0);
             }
             case "car" -> {
-                if (carisma.salvezza) return tiroCarisma() + bonusSalvezza;
-                else return tiroCarisma();
+                return tiroCarisma() + (carisma.salvezza ? bonusSalvezza : 0);
             }
         }
+        // nel caso in cui la stringa inserita non identifichi una caratteristica lancio un errore
         throw new NoSuchStatistic("la statistica inserita non è stata trovata");
     }
+
+    /**
+     * metodo che ritorna il tiro salvezza su di una carattaristica inserita dall'utente
+     * @return risultato di un tiro salvezza
+     */
     public int inputTiroSalvezza(){
-        String car = "";
+        // chiedo all'utente di inserire la caratteristica su cui lanciare il tiro salvezza
         System.out.println("inserisci le prime tre lettere della statistica che vuoi usare");
-        car = new java.util.Scanner(System.in).nextLine();
+        String car = new java.util.Scanner(System.in).nextLine();
         try {
+            // ritorno il risultato del tiro salvezza
             return tiroSalvezza(car);
         } catch (NoSuchStatistic e) {
+            // nel caso in cui l'utente ha inserito una stringa che non identifica una caratteristica lo avviso
+            // e ritorno questo stesso metodo
             System.out.println("caratteristica non riconosciuta");
             return inputTiroSalvezza();
-        } catch (ClassCastException e){
-            System.out.println("questo personaggio non può eseguire il tiro salvezza");
-            return -1;
         }
     }
 
+    /**
+     * eseguo un singolo tiro contro morte e poi vado a verificare se il personaggio si è ripreso o se è morto definitivamente
+     */
     public void tiroControMorte() {
+        // eseguo un tiro puro
         int tiro = tiro(20, 0);
+        // controllo se il tiro viene superato oppure no
         if (verificaTiro(tiro, 10)) {
+            // se supero il tiro aumento i successi
             incrementaSuccessiControMorte(tiro);
         } else {
-            decrementaSuccessiControMorte(tiro);
+            // se fallisco il tiro aumento i fallimenti
+            incrementaFallimentiControMorte();
         }
+        // controllo se il personaggio è morto definitivamente o se si è ripreso
         verificaTiriControMorte();
     }
 
+    /**
+     * metodo che incrementa i successi nei tiri contro morte, nel caso in cui si faccia un successo critico (20) i successi verranno aumentati di due mentre se faccio un successo critico al primo tiro contro morte mi riprendo immediatamente
+     */
     public void incrementaSuccessiControMorte(int tiro){
         int i=0;
         while (tiriControMorte[0][i]) i++;
         tiriControMorte[0][i] = true;
-        if(i<2 && tiro == 20) tiriControMorte[0][i+1] = true;
+        if(tiro == 20) {
+            if(i<2) tiriControMorte[0][i+1] = true;
+            else if(!tiriControMorte[1][0]){
+                for(boolean singoloTiro:tiriControMorte[0]) singoloTiro = true;
+            }
+        }
     }
 
-    public void decrementaSuccessiControMorte(int tiro){
+    /**
+     * metodo che incrementa i fallimenti nei tiri contro morte
+     */
+    public void incrementaFallimentiControMorte(){
         int i=0;
         while (tiriControMorte[1][i]) i++;
         tiriControMorte[1][i] = true;
-        if(i<2 && tiro == 20) tiriControMorte[1][i+1] = true;
     }
 
     public void verificaTiriControMorte(){
