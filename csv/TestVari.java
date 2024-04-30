@@ -16,7 +16,7 @@ public class TestVari {
         String nomeFile = "csv\\file_dati\\" + new java.util.Scanner(System.in).nextLine() + "_Personaggi.csv";
         Scrittore_csv saveNewFileName = new Scrittore_csv(readerFileName, "csv\\elencoFileDati");
         try{
-            saveNewFileName.addFileName(nomeFile);
+            saveNewFileName.addCsv(nomeFile);
         }finally {
             saveNewFileName.close();
         }

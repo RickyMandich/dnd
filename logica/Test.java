@@ -1,14 +1,5 @@
 package logica;
 
-/*todo:
-    commentare il file Test.java                    fatto
-    commentare il file Lettore_csv.java             fatto
-    commentare il file Giocante.java                fatto
-    commentare il file Personaggio.java             fatto
-    commentare il file PgListWithArray.java         fatto
-    commentare il file Scrittore_csv.java           da fare
- */
-
 public class Test{
     public static void main(String[] args) {
         //creazione di oggetti necessari sia durante la creazione che durante la chiusura del programma
@@ -43,9 +34,12 @@ public class Test{
             System.out.println("vuoi i dettagli dei personaggi?");
             if (Personaggio.getBoolean()) exec.elencoPg();
             // simulazione dello scontro
-            boolean running = exec.preparazione();
-
+            if(exec.preparazione()) {
+                System.out.println("ora inizia il combattimento");
+                exec.combattimento();
+            } else System.out.println("non posso iniziare il combattimente visto che le condizioni non sono soddisfatte (almeno una delle due fazioni non ha personaggi in vita");
         }finally {
+            // chiusura dei vari oggetti e salvataggio finale
             System.out.println("vuoi salvare i dati dei personaggi?");
             if (Personaggio.getBoolean()) {
                 // generazione di un file di output con le statistiche finali di tutti i personaggi

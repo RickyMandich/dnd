@@ -157,11 +157,11 @@ public class PgListWithArray {
         for(int i = 0; i< pg.length; i++){
             String pgI;
             try {
-                pgI = STR."\{pg[i].amico ? "a" : "ne"}mico\t\{pg[i].nome}";
+                pgI = (pg[i].amico ? "a" : "ne") + "mico\t" + pg[i].nome;
             }catch (NullPointerException e){
                 pgI = "null";
             }
-            System.out.println(STR."\{i + 1})\t\{pgI}");
+            System.out.println((i + 1) + "\t" + pgI);
         }
     }
 
@@ -177,7 +177,7 @@ public class PgListWithArray {
             i++;
         }
         for(i=0;i<simulazioneFile.length;i++){
-            System.out.print(STR."\{i})\t");
+            System.out.print(i + ")\t");
             String[] row = simulazioneFile[i].split(",");
             for(int j=0;j<row.length;j++){
                 System.out.printf("%-35s", row[j]);
@@ -235,5 +235,14 @@ public class PgListWithArray {
         }
         order();
         return true;
+    }
+
+    /**
+     * metodo che va a gestire il combattimento
+     */
+    public void combattimento(){
+        do{
+
+        }while (controlloMorte());
     }
 }
