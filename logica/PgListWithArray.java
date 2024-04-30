@@ -110,12 +110,23 @@ public class PgListWithArray {
         }
     }
 
+    /**
+     * metodo che importa tutti i personaggi presenti nel file nell'array presente come attributo deel'oggetto su cui viene chiamato
+     * @param reader  oggetto di tipo csv.Lettore_csv che contiene la copia del file letto per importare un personaggio dal file
+     */
     protected void importAll(csv.Lettore_csv reader){
         for (int i = 0, j = 1; i < pg.length; i++, j++) {
             if(pg[i] == null) pg[i] = importaPgSicuro(reader, j);
             if(importaPgSicuro(reader, j+1) != null && i+1==pg.length) aggiungiPg();
         }
     }
+
+    /**
+     * metodo che importa il personaggio presente nel file alla riga i passata come parametro e ritorna il personaggio creato
+     * @param reader  oggetto di tipo csv.Lettore_csv che contiene la copia del file letto per importare un personaggio dal file
+     * @param i riga alla quale si trova il personaggio da importare dal file
+     * @return il personaggio che viene creato
+     */
     public logica.Personaggio importaPgSicuro(csv.Lettore_csv reader, int i){
         try{
             String[] row = reader.tabel[i].split(",");
@@ -129,22 +140,34 @@ public class PgListWithArray {
             return null;
         }
     }
+
+    /**
+     * metodo che aumenta la dimensione dell'array di Personaggi di uno
+     */
     protected void aggiungiPg() {
         logica.Personaggio[] newPg = new logica.Personaggio[pg.length+1];
         for(int i=0;i<pg.length;i++) newPg[i] = pg[i];
         this.pg =  newPg;
     }
+
+    /**
+     * metodo che stampa un'elenco contenente il nome di tutti i personaggi e la loro fazione
+     */
     protected void elencoNomiPg() {
         for(int i = 0; i< pg.length; i++){
             String pgI;
             try {
-                pgI = pg[i].nome;
+                pgI = STR."\{pg[i].amico ? "a" : "ne"}mico\t\{pg[i].nome}";
             }catch (NullPointerException e){
                 pgI = "null";
             }
-            System.out.println((i+1) + ")\t" + pgI);
+            System.out.println(STR."\{i + 1})\t\{pgI}");
         }
     }
+
+    /**
+     * metodo che stampa un'elenco contenente tutte le statistiche dei personaggi allineandole a colonne per renderle più leggibili
+     */
     protected void elencoPg() {
         String[] simulazioneFile = new String[pg.length+1];
         simulazioneFile[0] = csv.Scrittore_csv.getDescrizioneCampi();
@@ -154,7 +177,7 @@ public class PgListWithArray {
             i++;
         }
         for(i=0;i<simulazioneFile.length;i++){
-            System.out.print(i + ")\t");
+            System.out.print(STR."\{i})\t");
             String[] row = simulazioneFile[i].split(",");
             for(int j=0;j<row.length;j++){
                 System.out.printf("%-35s", row[j]);
@@ -162,6 +185,11 @@ public class PgListWithArray {
             System.out.println();
         }
     }
+
+    /**
+     * metodo che prende in input il nome del file in cui salvare i personaggi e i esporta con tutte le loro statistiche attuali
+     * @param nomeFile nome del file in cui esportare i personaggi
+     */
     public void saveInFile(String nomeFile) {
         csv.Scrittore_csv writer = new csv.Scrittore_csv(nomeFile);
         try {
@@ -175,6 +203,9 @@ public class PgListWithArray {
         }
     }
 
+    /**
+     * metodo che mette in ordine tutti i personaggi sulla base del valore di iniziativa
+     */
     public void order(){
         boolean scambia;
         do {
@@ -190,6 +221,10 @@ public class PgListWithArray {
         }while (scambia);
     }
 
+    /**
+     * metodo che controlla di avere ancora personaggi vivi in ogni fazione e poi tira iniziativa e li mette in ordine per combattere
+     * @return un booleano che indica se la preparazione è stata compiuta con successo o manca una delle fazioni
+     */
     public boolean preparazione(){
         for(Personaggio Pg:pg){
             Pg.controllaMorto();

@@ -127,6 +127,10 @@ public class Personaggio {
         }
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     /**
      * metodo che prende in input una stringa
      * @return la string inserita dall'utente
