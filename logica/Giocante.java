@@ -290,7 +290,7 @@ public class Giocante extends Personaggio{
      */
     public void tiroControMorte() {
         // eseguo un tiro puro
-        int tiro = tiro(20, 0);
+        int tiro = tiro(1, 20);
         // controllo se il tiro viene superato oppure no
         if (verificaTiro(tiro, 10)) {
             // se supero il tiro aumento i successi
@@ -339,9 +339,10 @@ public class Giocante extends Personaggio{
      * metodo che controlla se il personaggio è morto definitivamente in alternativa lancia il tiro contro morte quando necessario
      */
     @Override
-    public void controllaMorto() {
+    public boolean controllaMorto() {
         if(puntiFerita.attuale<=-(puntiFerita.totale/2)) morto = true;
         else if(puntiFerita.attuale<1) tiroControMorte();
+        return morto;
     }
 
     /**
@@ -395,5 +396,14 @@ public class Giocante extends Personaggio{
         info += "," + bonusSalvezza;
         info += tiriControMorteToCsv();
         return info;
+    }
+
+    /**
+     * metodo che controlla se un personaggio è svenuto o morto
+     * @return true se il personaggio non può combattere
+     */
+    @Override
+    public boolean indisposto() {
+        return super.indisposto() || (tiriControMorte[0][0] || tiriControMorte[1][0]);
     }
 }

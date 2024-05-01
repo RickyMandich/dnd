@@ -427,8 +427,9 @@ public class Personaggio {
         throw new NoSuchStatistic("la statistica inserita non è stata trovata");
     }
 
-    public void controllaMorto() {
+    public boolean controllaMorto() {
         if(puntiFerita.attuale<=0) morto = true;
+        return morto;
     }
 
     protected class Vita{
@@ -548,5 +549,17 @@ public class Personaggio {
         info += saggezza.toCsv();
         info += carisma.toCsv();
         return info;
+    }
+
+    public void attacca(Personaggio[] nemici){
+
+    }
+
+    /**
+     * metodo che controlla se un personaggio è svenuto o morto
+     * @return true se il personaggio non può combattere
+     */
+    public boolean indisposto(){
+        return controllaMorto();
     }
 }
