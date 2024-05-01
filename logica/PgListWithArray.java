@@ -243,7 +243,7 @@ public class PgListWithArray {
     public void combattimento(){
         do{
             for(Personaggio pg:pg){
-                if(((Giocante) pg).indisposto()){
+                if(pg.indisposto()){
                     System.out.println("questo personaggio non può combattere perchè");
                 }
             }

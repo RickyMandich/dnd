@@ -207,7 +207,7 @@ public class Personaggio {
                     7)\tcambiare il danno iniziale
                     8)\tcambiare una statistica
                     9)\tcambiare la fazione
-                    """;
+                """;
         System.out.println(richiestaAttributoDaModificare);
         switch (getInt()){
             default -> {
@@ -264,7 +264,7 @@ public class Personaggio {
                     4)\tintelligenza
                     5)\tsaggezza
                     6)\tcarisma
-                    """;
+                """;
         System.out.println(richiestaStatisticaDaModificare);
         switch (getInt()) {
             case 1 -> {

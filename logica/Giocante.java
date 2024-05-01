@@ -164,7 +164,7 @@ public class Giocante extends Personaggio{
                     4)\tintelligenza
                     5)\tsaggezza
                     6)\tcarisma
-                    """;
+                """;
         System.out.println(richiestaStatisticaDaModificare);
         switch (getInt()) {
             case 1 -> {
