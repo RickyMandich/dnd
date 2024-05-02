@@ -241,10 +241,17 @@ public class PgListWithArray {
      * metodo che va a gestire il combattimento
      */
     public void combattimento(){
+        int i=0;
         do{
             for(Personaggio pg:pg){
                 if(pg.indisposto()){
                     System.out.println("questo personaggio non può combattere perchè");
+                }
+            }
+            i++;
+            if(i==3){
+                for(Personaggio pg:pg){
+                    pg.puntiFerita.attuale = -3;
                 }
             }
         }while (controlloMorte());
