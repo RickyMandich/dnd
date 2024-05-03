@@ -244,22 +244,28 @@ public class Giocante extends Personaggio{
             // se trovo una caratteristica ritorno il relativo tiro di caratteristica
             // e, se ne ha diritto, aggiungo il bonus salvezza
             case "for" -> {
-                return tiroForza() + (forza.salvezza ? bonusSalvezza : 0);
+                tiroForza();
+                return tiro + (forza.salvezza ? bonusSalvezza : 0);
             }
             case "des" -> {
-                return tiroDestrezza() + (destrezza.salvezza ? bonusSalvezza : 0);
+                tiroDestrezza();
+                return tiro + (destrezza.salvezza ? bonusSalvezza : 0);
             }
             case "cos" -> {
-                return tiroCostituzione() + (costituzione.salvezza ? bonusSalvezza : 0);
+                tiroCostituzione();
+                return tiro + (costituzione.salvezza ? bonusSalvezza : 0);
             }
             case "int" -> {
-                return tiroIntelligenza() + (intelligenza.salvezza ? bonusSalvezza : 0);
+                tiroIntelligenza();
+                return tiro + (intelligenza.salvezza ? bonusSalvezza : 0);
             }
             case "sag" -> {
-                return tiroSaggezza() + (saggezza.salvezza ? bonusSalvezza : 0);
+                tiroSaggezza();
+                return tiro + (saggezza.salvezza ? bonusSalvezza : 0);
             }
             case "car" -> {
-                return tiroCarisma() + (carisma.salvezza ? bonusSalvezza : 0);
+                tiroCarisma();
+                return tiro + (carisma.salvezza ? bonusSalvezza : 0);
             }
         }
         // nel caso in cui la stringa inserita non identifichi una caratteristica lancio un errore

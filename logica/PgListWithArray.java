@@ -231,8 +231,9 @@ public class PgListWithArray {
             Pg.controllaMorto();
         }
         if(!controlloMorte()) return false;
-        for(Personaggio Pg:pg){
-            Pg.iniziativa = Pg.tiro(1, 20, Pg.destrezza.bonus);
+        for(Personaggio pg:pg){
+            pg.tiro(1, 20, pg.destrezza.bonus);
+            pg.iniziativa = pg.tiro;
         }
         order();
         return true;

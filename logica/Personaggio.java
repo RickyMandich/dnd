@@ -326,11 +326,13 @@ public class Personaggio {
      * @param bonus il bonus che verrà aggiunto al risultato del dado
      * @return il risultato del tiro del dado dopo aver aggiunto il bonus
      */
-    public int tiro(int origin, int bound, int bonus){
-        return tiro(origin, bound) + bonus;
+    public boolean tiro(int origin, int bound, int bonus){
+        int naturale = tiro(origin, bound);
+        tiro = naturale + bonus;
+        return naturale == 20;
     }
 
-    public int tiro(String caratteristica) throws NoSuchStatistic {
+    public boolean tiro(String caratteristica) throws NoSuchStatistic {
         switch (caratteristica.toLowerCase()){
             case "for" -> {
                 return tiroForza();
@@ -368,7 +370,7 @@ public class Personaggio {
      * esegue un tiro con la caratteristica forza
      * @return il risultato del tiro
      */
-    public int tiroForza(){
+    public boolean tiroForza(){
         return tiro(0, 20, this.forza.bonus);
     }
 
@@ -376,7 +378,7 @@ public class Personaggio {
      * esegue un tiro con la caratteristica destrezza
      * @return il risultato del tiro
      */
-    public int tiroDestrezza(){
+    public boolean tiroDestrezza(){
         return tiro(0,20, this.destrezza.bonus);
     }
 
@@ -384,7 +386,7 @@ public class Personaggio {
      * esegue un tiro con la caratteristica costituzione
      * @return il risultato del tiro
      */
-    public int tiroCostituzione(){
+    public boolean tiroCostituzione(){
         return tiro(0,20, this.costituzione.bonus);
     }
 
@@ -392,7 +394,7 @@ public class Personaggio {
      * esegue un tiro con la caratteristica intelligenza
      * @return il risultato del tiro
      */
-    public int tiroIntelligenza(){
+    public boolean tiroIntelligenza(){
         return tiro(0,20, this.intelligenza.bonus);
     }
 
@@ -400,7 +402,7 @@ public class Personaggio {
      * esegue un tiro con la caratteristica saggezza
      * @return il risultato del tiro
      */
-    public int tiroSaggezza(){
+    public boolean tiroSaggezza(){
         return tiro(0,20, this.saggezza.bonus);
     }
 
@@ -408,7 +410,7 @@ public class Personaggio {
      * esegue un tiro con la caratteristica carisma
      * @return il risultato del tiro
      */
-    public int tiroCarisma(){
+    public boolean tiroCarisma(){
         return tiro(0,20, this.carisma.bonus);
     }
 
@@ -430,22 +432,28 @@ public class Personaggio {
         statistica = statistica.toLowerCase();
         switch (statistica) {
             case "for" -> {
-                return tiroForza();
+                tiroForza();
+                return tiro;
             }
             case "des" -> {
-                return tiroDestrezza();
+                tiroDestrezza();
+                return tiro;
             }
             case "cos" -> {
-                return tiroCostituzione();
+                tiroCostituzione();
+                return tiro;
             }
             case "int" -> {
-                return tiroIntelligenza();
+                tiroIntelligenza();
+                return tiro;
             }
             case "sag" -> {
-                return tiroSaggezza();
+                tiroSaggezza();
+                return tiro;
             }
             case "car" -> {
-                return tiroCarisma();
+                tiroCarisma();
+                return tiro;
             }
         }
         throw new NoSuchStatistic("la statistica inserita non è stata trovata");
@@ -588,7 +596,7 @@ public class Personaggio {
             System.out.println("hai competenza in questo attacco?");
             boolean competenza = getBoolean();
             System.out.println("quale bonus caratteristica usi per questo attacco?\tinserisci le prime tre lettere");
-            this.tiro = getNomeStatistica();
+            boolean critico = getNomeStatistica();
             if(competenza) tiro += this.competenza;
 
         }else{
@@ -596,7 +604,7 @@ public class Personaggio {
         }
     }
 
-    protected int getNomeStatistica() {
+    protected boolean getNomeStatistica() {
         try{
             return tiro(getString());
         }catch (NoSuchStatistic e){
