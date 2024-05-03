@@ -11,6 +11,7 @@ public class PgListWithArray {
      * @return booleano che indica se il combattimento deve continuare
      */
     public boolean controlloMorte(){
+        for(Personaggio pg:pg) pg.controllaMorto();
         boolean[] fazione = new boolean[2];
         fazione[0] = false;
         fazione[1] = false;
@@ -245,7 +246,9 @@ public class PgListWithArray {
         do{
             for(Personaggio pg:pg){
                 if(pg.indisposto()){
-                    System.out.println("questo personaggio non può combattere perchè");
+                    System.out.println(pg.nome + " non può combattere");
+                }else{
+                    System.out.println(pg.nome + " ora combatterà");
                 }
             }
             i++;
