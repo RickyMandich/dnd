@@ -340,8 +340,13 @@ public class Giocante extends Personaggio{
      */
     @Override
     public boolean controllaMorto() {
-        if(puntiFerita.attuale<=-(puntiFerita.totale/2)) morto = true;
-        else if(puntiFerita.attuale<1) tiroControMorte();
+        if(puntiFerita.attuale<=-(puntiFerita.totale/2)) {
+            System.out.println(nome + " è morto");
+            morto = true;
+        } else if(puntiFerita.attuale<1) {
+            System.out.println(nome + " ora sta tirando contro morte");
+            tiroControMorte();
+        }
         return morto;
     }
 
@@ -397,7 +402,20 @@ public class Giocante extends Personaggio{
         info += tiriControMorteToCsv();
         return info;
     }
+/*
+    @Override
+    public void attacca(Personaggio[] attaccati) {
+        System.out.println("stai facendo un attacco fisico?\t altrimenti suppongo che colpisci in automatico e l'avversario deve tirare su salvezza");
+        if(getBoolean()) {
+            System.out.println("hai competenza in questo attacco?");
+            boolean competenza = getBoolean();
+            System.out.println("quale bonus caratteristica usi per questo attacco?");
 
+        }else{
+
+        }
+    }
+*/
     /**
      * metodo che controlla se un personaggio è svenuto o morto
      * @return true se il personaggio non può combattere

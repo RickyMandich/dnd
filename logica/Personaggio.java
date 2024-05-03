@@ -330,6 +330,30 @@ public class Personaggio {
         return tiro(origin, bound) + bonus;
     }
 
+    public int tiro(String caratteristica) throws NoSuchStatistic {
+        switch (caratteristica.toLowerCase()){
+            case "for" -> {
+                return tiroForza();
+            }
+            case "des" -> {
+                return tiroDestrezza();
+            }
+            case "cos" -> {
+                return tiroCostituzione();
+            }
+            case "int" -> {
+                return tiroIntelligenza();
+            }
+            case "sag" -> {
+                return tiroSaggezza();
+            }
+            case "car" -> {
+                return tiroCarisma();
+            }
+        }
+        throw new NoSuchStatistic("caratteristica non riconosciuta");
+    }
+
     /**
      * metodo che serve a controllare se il tiro ha superato la sua classe difficoltà
      * @param tiro il risultato del tiro del dado da verificare
@@ -428,7 +452,10 @@ public class Personaggio {
     }
 
     public boolean controllaMorto() {
-        if(puntiFerita.attuale<=0) morto = true;
+        if(puntiFerita.attuale<=0) {
+            morto = true;
+            System.out.println(nome + " è morto");
+        }
         return morto;
     }
 
@@ -551,8 +578,31 @@ public class Personaggio {
         return info;
     }
 
-    public void attacca(Personaggio[] nemici){
+    /**
+     * metodo che simula il singolo attacco a uno o più personaggi avversari
+     * @param attaccati array di classe personaggio contenente tutti i personaggi che vengono attaccati
+     */
+    public void attacca(Personaggio[] attaccati){
+        System.out.println("stai facendo un attacco fisico?\t altrimenti suppongo che colpisci in automatico e l'avversario deve tirare su salvezza");
+        if(getBoolean()) {
+            System.out.println("hai competenza in questo attacco?");
+            boolean competenza = getBoolean();
+            System.out.println("quale bonus caratteristica usi per questo attacco?\tinserisci le prime tre lettere");
+            this.tiro = getNomeStatistica();
+            if(competenza) tiro += this.competenza;
 
+        }else{
+
+        }
+    }
+
+    protected int getNomeStatistica() {
+        try{
+            return tiro(getString());
+        }catch (NoSuchStatistic e){
+            System.out.println("caratteristica non riconosciuta, inserire nuovamente");
+            return getNomeStatistica();
+        }
     }
 
     /**

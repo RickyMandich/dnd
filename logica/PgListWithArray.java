@@ -242,21 +242,42 @@ public class PgListWithArray {
      * metodo che va a gestire il combattimento
      */
     public void combattimento(){
-        int i=0;
         do{
             for(Personaggio pg:pg){
                 if(pg.indisposto()){
                     System.out.println(pg.nome + " non può combattere");
                 }else{
                     System.out.println(pg.nome + " ora combatterà");
+                    System.out.println("quante azioni può eseguire " + pg.nome + " in questo turno?");
+                    int azioni = Personaggio.getInt(1);
+                    while (azioni-->0){
+                        Personaggio[] attaccati = inputAttaccati(new Personaggio[0]);
+                        pg.attacca(attaccati);
+                    }
                 }
             }
-            i++;
-            if(i==3){
-                for(Personaggio pg:pg){
-                    pg.puntiFerita.attuale = -3;
-                }
-            }
+            uccidiTutti();
         }while (controlloMorte());
+    }
+
+    private Personaggio[] inputAttaccati(Personaggio[] oldAttaccati) {
+        Personaggio[] newAttaccati = new Personaggio[oldAttaccati.length+1];
+        for(int i=0;i<oldAttaccati.length;i++){
+            newAttaccati[i] = oldAttaccati[i];
+        }
+        elencoPg();
+        System.out.println("inserisci il numero relativo al personaggio che viene attaccato");
+        newAttaccati[oldAttaccati.length] = this.pg[Personaggio.getInt(0, this.pg.length)];
+        System.out.println("questo attacco viene subito anche da un'altro personaggio?");
+        if(Personaggio.getBoolean()) return inputAttaccati(newAttaccati);
+        else return newAttaccati;
+    }
+
+    private void uccidiTutti() {
+        if(new java.util.Random().nextInt(1, 101)<20){
+            for(Personaggio pg:pg){
+                pg.puntiFerita.attuale = -3;
+            }
+        }
     }
 }
