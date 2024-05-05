@@ -332,6 +332,14 @@ public class Personaggio {
         return naturale == 20;
     }
 
+    public int tiroDado(int numeroDadi, int tipoDado){
+        int risultato = 0;
+        while (numeroDadi-->0){
+            risultato += tiro(1, tipoDado);
+        }
+        return risultato;
+    }
+
     public boolean tiro(String caratteristica) throws NoSuchStatistic {
         switch (caratteristica.toLowerCase()){
             case "for" -> {
@@ -598,12 +606,65 @@ public class Personaggio {
             System.out.println("quale bonus caratteristica usi per questo attacco?\tinserisci le prime tre lettere");
             boolean critico = getNomeStatistica();
             if(competenza) tiro += this.competenza;
-
+            System.out.println("in questo attacco c'è un ulteriore tiro bonus per colpire?");
+            if(getBoolean()) {
+                System.out.println("quanti dadi tiro?");
+                int numeroDadiBonus = getInt(1);
+                System.out.println("che dado tiro?");
+                tiro += tiroDado(numeroDadiBonus, getInt());
+            }
+            System.out.println("in questo attacco c'è un ulteriore bonus per colpire?");
+            if(getBoolean()){
+                System.out.println("inserisci l'ultriore bonus");
+                tiro = tiro + getInt();
+            }
+            for(Personaggio pg : attaccati){
+                if(pg.classeArmatura>=tiro){
+                    danneggia(pg);
+                    if(critico) {
+                        System.out.println(pg.nome + " ha subito un attacco critico per cui ora subirà di nuovo i danni");
+                        danneggia(pg);
+                    }
+                }
+            }
         }else{
 
         }
+        System.out.println("attacco terminato");
     }
 
+    /**
+     * metodo che assegna i danni che il peersonaggio su cui viene chiamato fa al personaggio passato come parametro
+     * @param pg personaggio che subise i danni
+     */
+    protected void danneggia(Personaggio pg){
+        System.out.println("quanti dadi tiro per i danni?");
+        int numeroDadi = getInt(1);
+        System.out.println("che dadi tiro?");
+        int danni = tiroDado(numeroDadi, getInt());
+        System.out.println("in questo attacco c'è un ulteriore tiro bonus di danni?");
+        if(getBoolean()) {
+            System.out.println("quanti dadi tiro?");
+            int numeroDadiBonus = getInt(1);
+            System.out.println("che dado tiro?");
+            tiro += tiroDado(numeroDadiBonus, getInt());
+        }
+        System.out.println("in questo attacco c'è un ulteriore bonus di danni?");
+        if(getBoolean()){
+            System.out.println("inserisci l'ultriore bonus");
+            tiro = tiro + getInt();
+        }
+        System.out.println(pg.nome + " ha resistenza a questo attacco?");
+        if(getBoolean()){
+            danni /= 2;
+        }
+        pg.puntiFerita.attuale -= danni;
+    }
+
+    /**
+     * metodo che fa un tiro su di una statistica di cui vengono passate le prime tre lettere del nome come parametro e mette il risultato nell'attributo tiro di personaggio
+     * @return se il risultato è un successo critico
+     */
     protected boolean getNomeStatistica() {
         try{
             return tiro(getString());
