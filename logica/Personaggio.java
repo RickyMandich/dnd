@@ -631,7 +631,7 @@ public class Personaggio {
                 }
             }
         }else{
-
+            System.out.println("devo ancora implementare l'attacco inevitabile");
         }
         System.out.println("attacco terminato");
     }

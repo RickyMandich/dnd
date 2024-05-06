@@ -188,6 +188,28 @@ public class PgListWithArray {
     }
 
     /**
+     * metodo che stampa un'elenco contenente tutte le statistiche dei personaggi di una fazione allineandole a colonne per renderle più leggibili
+     */
+    protected void elencoPg(boolean amico) {
+        String[] simulazioneFile = new String[pg.length+1];
+        simulazioneFile[0] = csv.Scrittore_csv.getDescrizioneCampi();
+        int i=1;
+        for(Personaggio personaggio:pg){
+            simulazioneFile[i] = personaggio.toCsv();
+            i++;
+        }
+        do{
+            System.out.print(i + ")\t");
+            String[] row = simulazioneFile[i].split(",");
+            for(int j=0;j<row.length;j++){
+                System.out.printf("%-35s", row[j]);
+            }
+            System.out.println();
+            i++;
+        }while(i<simulazioneFile.length && pg[i-1].amico == amico);
+    }
+
+    /**
      * metodo che prende in input il nome del file in cui salvare i personaggi e i esporta con tutte le loro statistiche attuali
      * @param nomeFile nome del file in cui esportare i personaggi
      */
@@ -256,7 +278,7 @@ public class PgListWithArray {
                         System.out.println("sto eseguendo un'azione di " + pg.nome);
                         System.out.println("in questa azione fai un attacco?\naltrimenti suppongo che ti muovi");
                         if(Personaggio.getBoolean()) {
-                            Personaggio[] attaccati = inputAttaccati(new Personaggio[0]);
+                            Personaggio[] attaccati = inputAttaccati(new Personaggio[0], !pg.amico);
                             pg.attacca(attaccati);
                         }else{
                             System.out.println(pg.nome + " si sta muovendo ma questa azione non viene gestita dal programma per cui segnatela");
@@ -268,17 +290,17 @@ public class PgListWithArray {
         }while (controlloMorte());
     }
 
-    private Personaggio[] inputAttaccati(Personaggio[] oldAttaccati) {
+    private Personaggio[] inputAttaccati(Personaggio[] oldAttaccati, boolean amico) {
         Personaggio[] newAttaccati = new Personaggio[oldAttaccati.length+1];
         for(int i=0;i<oldAttaccati.length;i++){
             newAttaccati[i] = oldAttaccati[i];
         }
-        elencoPg();
+        elencoPg(amico);
         System.out.println("inserisci il numero relativo al personaggio che viene attaccato");
         newAttaccati[oldAttaccati.length] = this.pg[Personaggio.getInt(1, this.pg.length)-1];
         System.out.println("ho aggiunto " + newAttaccati[oldAttaccati.length].nome + " ai personaggi che vengono attaccati");
         System.out.println("questo attacco viene subito anche da un'altro personaggio?");
-        if(Personaggio.getBoolean()) return inputAttaccati(newAttaccati);
+        if(Personaggio.getBoolean()) return inputAttaccati(newAttaccati, amico);
         else return newAttaccati;
     }
 
