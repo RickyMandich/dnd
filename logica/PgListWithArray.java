@@ -252,8 +252,14 @@ public class PgListWithArray {
                     System.out.println("quante azioni può eseguire " + pg.nome + " in questo turno?");
                     int azioni = Personaggio.getInt(1);
                     while (azioni-->0){
-                        Personaggio[] attaccati = inputAttaccati(new Personaggio[0]);
-                        pg.attacca(attaccati);
+                        System.out.println("sto eseguendo un'azione di " + pg.nome);
+                        System.out.println("in questa azione fai un attacco?\naltrimenti suppongo ce ti muovi");
+                        if(Personaggio.getBoolean()) {
+                            Personaggio[] attaccati = inputAttaccati(new Personaggio[0]);
+                            pg.attacca(attaccati);
+                        }else{
+                            System.out.println(pg.nome + " si sta muovendo ma questa azione non viene gestita dal programma per cui segnatela");
+                        }
                     }
                 }
             }
@@ -268,7 +274,8 @@ public class PgListWithArray {
         }
         elencoPg();
         System.out.println("inserisci il numero relativo al personaggio che viene attaccato");
-        newAttaccati[oldAttaccati.length] = this.pg[Personaggio.getInt(0, this.pg.length)];
+        newAttaccati[oldAttaccati.length] = this.pg[Personaggio.getInt(1, this.pg.length)-1];
+        System.out.println("ho aggiunto " + newAttaccati[oldAttaccati.length].nome + " ai personaggi che vengono attaccati");
         System.out.println("questo attacco viene subito anche da un'altro personaggio?");
         if(Personaggio.getBoolean()) return inputAttaccati(newAttaccati);
         else return newAttaccati;

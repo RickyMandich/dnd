@@ -2,7 +2,7 @@ package logica;
 public class Giocante extends Personaggio{
     protected boolean ispirazione;
     protected int bonusSalvezza;
-    public static boolean test;
+    public static boolean test = true;
     protected boolean[][] tiriControMorte;
 
     /**

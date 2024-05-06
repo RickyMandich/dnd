@@ -599,7 +599,7 @@ public class Personaggio {
      * @param attaccati array di classe personaggio contenente tutti i personaggi che vengono attaccati
      */
     public void attacca(Personaggio[] attaccati){
-        System.out.println("stai facendo un attacco fisico?\t altrimenti suppongo che colpisci in automatico e l'avversario deve tirare su salvezza");
+        System.out.println("stai facendo un attacco fisico?\naltrimenti suppongo che colpisci in automatico e l'avversario deve tirare su salvezza");
         if(getBoolean()) {
             System.out.println("hai competenza in questo attacco?");
             boolean competenza = getBoolean();
@@ -619,12 +619,15 @@ public class Personaggio {
                 tiro = tiro + getInt();
             }
             for(Personaggio pg : attaccati){
-                if(pg.classeArmatura>=tiro){
+                System.out.println("controllo " + pg.classeArmatura + "<" + tiro);
+                if(pg.classeArmatura<tiro){
                     danneggia(pg);
                     if(critico) {
                         System.out.println(pg.nome + " ha subito un attacco critico per cui ora subirà di nuovo i danni");
                         danneggia(pg);
                     }
+                }else{
+                    System.out.println("questo attacco non è andato a segno");
                 }
             }
         }else{

@@ -7,15 +7,14 @@ public class TestVari {
         pg[0] = new Giocante(matString.split(","));
         String paesanoString = "Paesano,10,5,5,10,0,0,1,0,true,false,10,false,10,false,10,false,10,false,10,false,10,false";
         pg[1] = new Personaggio(paesanoString.split(","));
-        String banditoString = "Malvivente dei marchi rossi,14,16,16,14,2,100,1,0,true,false,11,false,14,false,12,false,9,false,9,false,11,false";
+        String banditoString = "Malvivente dei marchi rossi,14,16,16,14,2,100,1,0,false,false,11,false,14,false,12,false,9,false,9,false,11,false";
         pg[2] = new Personaggio(banditoString.split(","));
         PgListWithArray exec = new PgListWithArray(pg);
 
-
-        System.out.println("quante azioni può eseguire " + pg[0].nome + " in questo turno?");
-        int azioni = Personaggio.getInt(1);
-        while (azioni-->0){
-            System.out.println(azioni);
-        }
+        if (exec.preparazione()) {
+            System.out.println("ora inizia il combattimento");
+            exec.combattimento();
+        } else
+            System.out.println("non posso iniziare il combattimente visto che le condizioni non sono soddisfatte (almeno una delle due fazioni non ha personaggi in vita");
     }
 }
