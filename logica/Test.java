@@ -1,5 +1,7 @@
 package logica;
 
+import csv.Lettore_csv;
+
 public class Test{
     public static void main(String[] args) {
         //creazione di oggetti necessari sia durante la creazione che durante la chiusura del programma
@@ -33,6 +35,11 @@ public class Test{
             exec.elencoNomiPg();
             System.out.println("vuoi i dettagli dei personaggi?");
             if (Personaggio.getBoolean()) exec.elencoPg();
+            System.out.println("vuoi salvare lo stato dei personaggi prima di iniziare il combattimento?");
+            if (Personaggio.getBoolean()) {
+                // generazione di un file di output con le statistiche di tutti i personaggi
+                printFile(readerFileName, exec);
+            }
             // simulazione dello scontro
             if(exec.preparazione()) {
                 System.out.println("ora inizia il combattimento");
@@ -42,14 +49,18 @@ public class Test{
             // chiusura dei vari oggetti e salvataggio finale
             System.out.println("vuoi salvare i dati dei personaggi?");
             if (Personaggio.getBoolean()) {
-                // generazione di un file di output con le statistiche finali di tutti i personaggi
-                System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\t\tATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
-                String nomeFile = new java.util.Scanner(System.in).nextLine() + ".csv";
-                csv.Scrittore_csv saveNameFile = new csv.Scrittore_csv(readerFileName, nomeFile);
-                saveNameFile.close();
-                exec.saveInFile("csv\\file_dati\\" + nomeFile);
+                printFile(readerFileName, exec);
             }
             System.out.print("fine programma");
         }
+    }
+
+    static void printFile(Lettore_csv readerFileName, PgListWithArray exec) {
+        // generazione di un file di output con le statistiche di tutti i personaggi
+        System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\nATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
+        String nomeFile = new java.util.Scanner(System.in).nextLine() + ".csv";
+        csv.Scrittore_csv saveNameFile = new csv.Scrittore_csv(readerFileName, nomeFile);
+        saveNameFile.close();
+        exec.saveInFile("csv\\file_dati\\" + nomeFile);
     }
 }
