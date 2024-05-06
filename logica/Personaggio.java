@@ -379,7 +379,7 @@ public class Personaggio {
      * @return il risultato del tiro
      */
     public boolean tiroForza(){
-        return tiro(0, 20, this.forza.bonus);
+        return tiro(1, 21, this.forza.bonus);
     }
 
     /**
@@ -387,7 +387,7 @@ public class Personaggio {
      * @return il risultato del tiro
      */
     public boolean tiroDestrezza(){
-        return tiro(0,20, this.destrezza.bonus);
+        return tiro(1,21, this.destrezza.bonus);
     }
 
     /**
@@ -395,7 +395,7 @@ public class Personaggio {
      * @return il risultato del tiro
      */
     public boolean tiroCostituzione(){
-        return tiro(0,20, this.costituzione.bonus);
+        return tiro(1,21, this.costituzione.bonus);
     }
 
     /**
@@ -403,7 +403,7 @@ public class Personaggio {
      * @return il risultato del tiro
      */
     public boolean tiroIntelligenza(){
-        return tiro(0,20, this.intelligenza.bonus);
+        return tiro(1,21, this.intelligenza.bonus);
     }
 
     /**
@@ -411,7 +411,7 @@ public class Personaggio {
      * @return il risultato del tiro
      */
     public boolean tiroSaggezza(){
-        return tiro(0,20, this.saggezza.bonus);
+        return tiro(1,21, this.saggezza.bonus);
     }
 
     /**
@@ -419,7 +419,7 @@ public class Personaggio {
      * @return il risultato del tiro
      */
     public boolean tiroCarisma(){
-        return tiro(0,20, this.carisma.bonus);
+        return tiro(1,21, this.carisma.bonus);
     }
 
     /**

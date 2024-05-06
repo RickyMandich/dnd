@@ -158,7 +158,7 @@ public class PgListWithArray {
         for(int i = 0; i< pg.length; i++){
             String pgI;
             try {
-                pgI = (pg[i].amico ? "a" : "ne") + "mico\t" + pg[i].nome;
+                pgI = (pg[i].amico ? "a" : "ne") + "mico\t" + pg[i].classeArmatura + "\t" + pg[i].puntiFerita.attuale + "\t" + pg[i].nome;
             }catch (NullPointerException e){
                 pgI = "null";
             }
@@ -236,6 +236,7 @@ public class PgListWithArray {
             pg.iniziativa = pg.tiro;
         }
         order();
+        elencoNomiPg();
         return true;
     }
 
@@ -253,7 +254,7 @@ public class PgListWithArray {
                     int azioni = Personaggio.getInt(1);
                     while (azioni-->0){
                         System.out.println("sto eseguendo un'azione di " + pg.nome);
-                        System.out.println("in questa azione fai un attacco?\naltrimenti suppongo ce ti muovi");
+                        System.out.println("in questa azione fai un attacco?\naltrimenti suppongo che ti muovi");
                         if(Personaggio.getBoolean()) {
                             Personaggio[] attaccati = inputAttaccati(new Personaggio[0]);
                             pg.attacca(attaccati);
