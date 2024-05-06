@@ -11,10 +11,7 @@ public class TestVari {
         pg[2] = new Personaggio(banditoString.split(","));
         PgListWithArray exec = new PgListWithArray(pg);
 
-        if (exec.preparazione()) {
-            System.out.println("ora inizia il combattimento");
-            exec.combattimento();
-        } else
-            System.out.println("non posso iniziare il combattimente visto che le condizioni non sono soddisfatte (almeno una delle due fazioni non ha personaggi in vita");
+        System.out.println("vuoi un'elenco di nemici?");
+        exec.elencoPg(!Personaggio.getBoolean());
     }
 }

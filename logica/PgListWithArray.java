@@ -188,7 +188,7 @@ public class PgListWithArray {
     }
 
     /**
-     * metodo che stampa un'elenco contenente tutte le statistiche dei personaggi di una fazione allineandole a colonne per renderle più leggibili
+     * metodo che stampa un'elenco contenente tutte le statistiche dei personaggi allineandole a colonne per renderle più leggibili
      */
     protected void elencoPg(boolean amico) {
         String[] simulazioneFile = new String[pg.length+1];
@@ -198,15 +198,18 @@ public class PgListWithArray {
             simulazioneFile[i] = personaggio.toCsv();
             i++;
         }
+        i = 0;
         do{
-            System.out.print(i + ")\t");
-            String[] row = simulazioneFile[i].split(",");
-            for(int j=0;j<row.length;j++){
-                System.out.printf("%-35s", row[j]);
+            if(simulazioneFile[i].equals(csv.Scrittore_csv.getDescrizioneCampi()) || pg[i-1].amico == amico) {
+                System.out.print(i + ")\t");
+                String[] row = simulazioneFile[i].split(",");
+                for (int j = 0; j < row.length; j++) {
+                    System.out.printf("%-35s", row[j]);
+                }
+                System.out.println();
             }
-            System.out.println();
             i++;
-        }while(i<simulazioneFile.length && pg[i-1].amico == amico);
+        }while(i<simulazioneFile.length);
     }
 
     /**
