@@ -76,6 +76,7 @@ public class PgListWithArray {
             reader.outElencoPersonaggi();
             System.out.println("inserisci il numero relativo al personaggio da prelevare");
             String[] row = reader.tabel[Personaggio.getInt(1, reader.tabel.length-1)].split(",");
+            System.out.println("ho prelevato " + row[0] + " dal file");
             try{
                 if(row.length == 23) return new logica.Personaggio(row);
                 else if(row.length == 31) return new logica.Giocante(row);
@@ -85,7 +86,7 @@ public class PgListWithArray {
                 return creaPg(reader);
             }
         }else {
-            if(reader.tabel.length == 0) System.out.println("dato che nel file non sono presenti personaggi lo creo da 0");
+            if(reader.tabel.length == 0) System.out.println("dato che nel file non sono presenti personaggi lo creo da zero");
             System.out.println("vuoi creare un personaggio giocante?");
             if (Personaggio.getBoolean()) {
                 return new logica.Giocante();
@@ -104,7 +105,8 @@ public class PgListWithArray {
         try{
             readerFileName.outElencoNomiFile();
             System.out.println("inserisci il numero relativo al file sorgente scelto");
-            reader.getFile("csv\\file_dati\\" + readerFileName.tabel[Personaggio.getInt()]);
+            System.out.println("ATTENZIONE: i nomi dei file che iniziano con \"cestino\\\" sono dei file obsoleti che vengono lasciati nel programma solo per avere uno storico affidabile, non selezionarli");
+            reader.getFile("csv\\file_dati\\" + readerFileName.tabel[Personaggio.getInt(0, readerFileName.tabel.length-1)]);
         }catch (java.io.FileNotFoundException e){
             System.out.println("questo file non esiste");
             readFile(reader, readerFileName);

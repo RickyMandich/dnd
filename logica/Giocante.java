@@ -10,15 +10,16 @@ public class Giocante extends Personaggio{
      */
     public Giocante(){
         super();
+        this.morto = !(puntiFerita.attuale>0) && (tiriControMorte[0][2] || tiriControMorte[1][2]);
         // chiedo in input all'utente tutte le sue statistiche
         System.out.println(this.nome + " ha ispirazione?");
         this.ispirazione = getBoolean();
         this.bonusSalvezza = competenza;
         this.tiriControMorte = new boolean[2][3];
         System.out.println("quanti successi nei tiri contro morte ha " + nome);
-        int successi = getInt();
+        int successi = getInt(0, 3);
         System.out.println("quanti fallimenti nei tiri contro morte ha " + nome);
-        int fallimenti = getInt();
+        int fallimenti = getInt(0, 3);
         for(int i=0;i<successi;i++){
             tiriControMorte[0][i] = true;
         }
