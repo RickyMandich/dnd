@@ -469,7 +469,6 @@ public class Personaggio {
     public boolean controllaMorto() {
         if(puntiFerita.attuale<=0) {
             morto = true;
-            System.out.println(nome + " è morto");
         }
         return morto;
     }
@@ -618,8 +617,8 @@ public class Personaggio {
                 tiro = tiro + getInt();
             }
             for(Personaggio pg : attaccati){
-                System.out.println("controllo " + pg.classeArmatura + "<" + tiro);
-                if(pg.classeArmatura<tiro){
+                System.out.println("controllo " + pg.classeArmatura + "<=" + tiro);
+                if(pg.classeArmatura<=tiro){
                     danneggia(pg);
                     if(critico) {
                         System.out.println(pg.nome + " ha subito un attacco critico per cui ora subirà di nuovo i danni");
@@ -661,6 +660,7 @@ public class Personaggio {
             danni /= 2;
         }
         pg.puntiFerita.attuale -= danni;
+        pg.controllaMorto();
     }
 
     /**
