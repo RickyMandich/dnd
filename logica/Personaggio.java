@@ -649,12 +649,12 @@ public class Personaggio {
             System.out.println("quanti dadi tiro?");
             int numeroDadiBonus = getInt(1);
             System.out.println("che dado tiro?");
-            tiro += tiroDado(numeroDadiBonus, getInt());
+            danni += tiroDado(numeroDadiBonus, getInt());
         }
         System.out.println("in questo attacco c'è un ulteriore bonus di danni?");
         if(getBoolean()){
             System.out.println("inserisci l'ultriore bonus");
-            tiro = tiro + getInt();
+            danni = danni + getInt();
         }
         System.out.println(pg.nome + " ha resistenza a questo attacco?");
         if(getBoolean()){

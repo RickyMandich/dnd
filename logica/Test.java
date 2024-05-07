@@ -59,8 +59,12 @@ public class Test{
         // generazione di un file di output con le statistiche di tutti i personaggi
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\nATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
         String nomeFile = new java.util.Scanner(System.in).nextLine() + ".csv";
-        csv.Scrittore_csv saveNameFile = new csv.Scrittore_csv(readerFileName, nomeFile);
-        saveNameFile.close();
-        exec.saveInFile("csv\\file_dati\\" + nomeFile);
+        try {
+            exec.saveInFile("csv\\file_dati\\" + nomeFile);
+            csv.Scrittore_csv saveNameFile = new csv.Scrittore_csv(readerFileName, nomeFile);
+            saveNameFile.close();
+        } catch (Exception e) {
+            System.out.println("file non valido, il salvataggio non verrà eseguito");
+        }
     }
 }
