@@ -274,25 +274,6 @@ public class Giocante extends Personaggio{
     }
 
     /**
-     * metodo che ritorna il tiro salvezza su di una carattaristica inserita dall'utente
-     * @return risultato di un tiro salvezza
-     */
-    public int inputTiroSalvezza(){
-        // chiedo all'utente di inserire la caratteristica su cui lanciare il tiro salvezza
-        System.out.println("inserisci le prime tre lettere della statistica che vuoi usare");
-        String car = new java.util.Scanner(System.in).nextLine();
-        try {
-            // ritorno il risultato del tiro salvezza
-            return tiroSalvezza(car);
-        } catch (NoSuchStatistic e) {
-            // nel caso in cui l'utente ha inserito una stringa che non identifica una caratteristica lo avviso
-            // e ritorno questo stesso metodo
-            System.out.println("caratteristica non riconosciuta");
-            return inputTiroSalvezza();
-        }
-    }
-
-    /**
      * eseguo un singolo tiro contro morte e poi vado a verificare se il personaggio si è ripreso o se è morto definitivamente
      */
     public void tiroControMorte() {

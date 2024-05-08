@@ -476,6 +476,20 @@ public class Personaggio {
         throw new NoSuchStatistic("la statistica inserita non è stata trovata");
     }
 
+    /**
+     * metodo che chiede all'utente la statistica da usare per il tiro salvezza e ristorna il risultato dello stesso
+     * @return il risultato del tiro salvezza
+     */
+    public int inputTiroSalvezza(){
+        System.out.println("inserisci le prime tre lettere della statistica che vuoi usare");
+        String car = new java.util.Scanner(System.in).nextLine();
+        try {
+            return tiroSalvezza(car);
+        } catch (NoSuchStatistic e) {
+            return inputTiroSalvezza();
+        }
+    }
+
     public boolean controllaMorto() {
         if(puntiFerita.attuale<=0) {
             morto = true;
@@ -639,7 +653,80 @@ public class Personaggio {
                 }
             }
         }else{
-            System.out.println("devo ancora implementare l'attacco inevitabile");
+            //System.out.println("devo ancora implementare l'attacco inevitabile");
+            System.out.println("come costruisco la classe difficoltà del tiro salvezza?");
+            System.out.println("inseriscila nel formato \"valore\"+\"caratteristica\"+\"competenza\"");
+            System.out.println("l'ordine e il numero degli operandi è irrilevante");
+            System.out.println("per indicare una caratteristica inserire le prime 3 lettere");
+            System.out.println("con una caratteristica si intende il suo bonus");
+            System.out.println("per indicara il bonus competenza dell'incantatore è sufficente scrivere \"comp\"");
+            System.out.println("non inserire spezi da nessuna parte");
+            String[] cdTiroSalvezzaString = getString().split("\\+");
+            int cdTiroSalvezzaInt = 0;
+            for (String cd : cdTiroSalvezzaString) {
+                try {
+                    cdTiroSalvezzaInt += Integer.parseInt(cd);
+                    System.out.print(Integer.parseInt(cd));
+                } catch (NumberFormatException e) {
+                    switch (cd.toLowerCase().replace(" ", "")) {
+                        case "for" -> {
+                            cdTiroSalvezzaInt += forza.bonus;
+                            System.out.print(forza.bonus);
+                        }
+                        case "des" -> {
+                            cdTiroSalvezzaInt += destrezza.bonus;
+                            System.out.print(destrezza.bonus);
+                        }
+                        case "cos" -> {
+                            cdTiroSalvezzaInt += costituzione.bonus;
+                            System.out.print(costituzione.bonus);
+                        }
+                        case "int" -> {
+                            cdTiroSalvezzaInt += intelligenza.bonus;
+                            System.out.print(intelligenza.bonus);
+                        }
+                        case "sag" -> {
+                            cdTiroSalvezzaInt += saggezza.bonus;
+                            System.out.print(saggezza.bonus);
+                        }
+                        case "car" -> {
+                            cdTiroSalvezzaInt += carisma.bonus;
+                            System.out.print(carisma.bonus);
+                        }
+                        case "comp", "competenza" -> {
+                            cdTiroSalvezzaInt += competenza;
+                            System.out.print(competenza);
+                        }
+                    }
+                }
+                if(cd.equals(cdTiroSalvezzaString[cdTiroSalvezzaString.length - 1])) System.out.println();
+                else System.out.print("+");
+            }
+            System.out.println("cd tiro complessiva:\t" + cdTiroSalvezzaInt);
+            for (Personaggio pg : attaccati) {
+                System.out.println("quanti dadi tiro per i danni?");
+                int numeroDadi = getInt(1);
+                System.out.println("che dadi tiro?");
+                int danni = tiroDado(numeroDadi, getInt());
+                System.out.println("in questo attacco c'è un ulteriore tiro bonus di danni?");
+                if(getBoolean()){
+                    System.out.println("quanti dadi tiro?");
+                    int numeroDadiBonus = getInt(1);
+                    System.out.println("che dado tiro?");
+                    danni += tiroDado(numeroDadiBonus, getInt());
+                }
+                System.out.println("in questo attacco c'è un ulteriore bonus di danni?");
+                if(getBoolean()){
+                    System.out.println("inserisci l'ultriore bonus");
+                    danni = danni + getInt();
+                }
+                if(pg.inputTiroSalvezza() > cdTiroSalvezzaInt){
+                    danni /= 2;
+                }
+                pg.puntiFerita.attuale -= danni;
+                System.out.println("ho inflitto " + danni + " danni a " + pg.nome);
+                pg.controllaMorto();
+            }
         }
         System.out.println("attacco terminato");
     }

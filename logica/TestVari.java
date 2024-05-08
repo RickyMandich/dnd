@@ -11,7 +11,9 @@ public class TestVari {
         pg[2] = new Personaggio(banditoString.split(","));
         PgListWithArray exec = new PgListWithArray(pg);
 
-        System.out.println("vuoi un'elenco di nemici?");
-        exec.elencoPg(!Personaggio.getBoolean());
+        Personaggio[] attaccati = new Personaggio[2];
+        attaccati[0] = pg[1];
+        attaccati[1] = pg[2];
+        pg[0].attacca(attaccati);
     }
 }

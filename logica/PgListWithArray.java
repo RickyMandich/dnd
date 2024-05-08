@@ -115,10 +115,12 @@ public class PgListWithArray {
      * @param reader  oggetto di tipo csv.Lettore_csv che contiene la copia del file letto per importare un personaggio dal file
      */
     protected void importAll(csv.Lettore_csv reader){
+        System.out.println("vuoi modificare almeno un personaggio?");
+        boolean modifica = Personaggio.getBoolean();
         for (int i = 0, j = 1; i < pg.length; i++, j++) {
             if(pg[i] == null){
                 pg[i] = importaPgSicuro(reader, j);
-                pg[i].richiediModifica();
+                if(modifica) pg[i].richiediModifica();
             }
             if(importaPgSicuro(reader, j+1) != null && i+1==pg.length) aggiungiPg();
         }

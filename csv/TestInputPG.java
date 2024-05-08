@@ -98,16 +98,6 @@ public class TestInputPG {
         }
     }
 
-    public static int inputTiroSalvezza(logica.Personaggio p){
-        String car = "";
-        System.out.println("inserisci le prime tre lettere della statistica che vuoi usare");
-        car = new java.util.Scanner(System.in).nextLine();
-        try {
-            return p.tiroSalvezza(car);
-        } catch (logica.NoSuchStatistic e) {
-            return inputTiroSalvezza(p);
-        }
-    }
     public static logica.Personaggio[] creaUltimoPg(logica.Personaggio[] pg){
         System.out.println("vuoi aggiungere un'altro pg");
         if(getBoolean()) return aggiungiPg(pg);
