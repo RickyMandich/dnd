@@ -193,7 +193,7 @@ public class Personaggio {
     /**
      * metodo che serve a modificare un Personaggio
      */
-    public void modifica(){
+    private void modifica(){
         String richiestaAttributoDaModificare = """
                 cosa vuoi fare?
                     0)\tterminare la modifica
@@ -249,6 +249,11 @@ public class Personaggio {
             }
         }
         modifica();
+    }
+
+    public void richiediModifica(){
+        System.out.println("vuoi modificare " + nome);
+        if (Personaggio.getBoolean()) modifica();
     }
 
     /**

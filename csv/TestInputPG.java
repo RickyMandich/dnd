@@ -20,10 +20,7 @@ public class TestInputPG {
         for (int i = 0; i < pg.length; i++) {
             if(pg[i] == null) {
                 pg[i] = creaPgSicuro(reader, pg);
-                System.out.println("hai sbagliato a inserire i dati o devi modificare qualcosa del personaggio già salvato?");
-                if (getBoolean()) {
-                    pg[i].modifica();
-                }
+                pg[i].richiediModifica();
             }
             if(i+1==pg.length) pg = creaUltimoPg(pg);
         }

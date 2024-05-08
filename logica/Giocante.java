@@ -347,12 +347,10 @@ public class Giocante extends Personaggio{
      */
     @Override
     public boolean controllaMorto() {
-        if(puntiFerita.attuale<=-(puntiFerita.totale/2)) {
-            System.out.println(nome + " è morto");
-            morto = true;
-        } else if(puntiFerita.attuale<1) {
-            System.out.println(nome + " ora sta tirando contro morte");
-            tiroControMorte();
+        if(!morto){
+            if(puntiFerita.attuale<=-(puntiFerita.totale/2)) {
+                morto = true;
+            }
         }
         return morto;
     }

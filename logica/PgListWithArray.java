@@ -29,10 +29,7 @@ public class PgListWithArray {
         for (int i = 0; i < pg.length; i++) {
             if(pg[i] == null) {
                 pg[i] = creaPgSicuro(reader);
-                System.out.println("hai sbagliato a inserire i dati o devi modificare qualcosa del personaggio già salvato?");
-                if (Personaggio.getBoolean()) {
-                    pg[i].modifica();
-                }
+                pg[i].richiediModifica();
             }
             if(i+1==pg.length) creaUltimoPg();
         }
@@ -119,7 +116,10 @@ public class PgListWithArray {
      */
     protected void importAll(csv.Lettore_csv reader){
         for (int i = 0, j = 1; i < pg.length; i++, j++) {
-            if(pg[i] == null) pg[i] = importaPgSicuro(reader, j);
+            if(pg[i] == null){
+                pg[i] = importaPgSicuro(reader, j);
+                pg[i].richiediModifica();
+            }
             if(importaPgSicuro(reader, j+1) != null && i+1==pg.length) aggiungiPg();
         }
     }
@@ -271,29 +271,32 @@ public class PgListWithArray {
      * metodo che va a gestire il combattimento
      */
     public void combattimento(){
-        int i=0;
+        int i = 0;
         do{
-            if(i==pg.length) i = 0;
-            Personaggio pg = this.pg[ i ];
-            if ( pg.indisposto ( ) ) {
-                System.out.println ( pg.nome + " non può combattere" );
-            } else {
-                System.out.println ( pg.nome + " ora combatterà" );
-                System.out.println ( "quante azioni può eseguire " + pg.nome + " in questo turno?" );
-                int azioni = Personaggio.getInt ( 1 );
-                while ( azioni-- > 0 ) {
-                    System.out.println ( "sto eseguendo un'azione di " + pg.nome );
-                    System.out.println ( "in questa azione fai un attacco?\naltrimenti suppongo che ti muovi" );
-                    if ( Personaggio.getBoolean ( ) ) {
-                        Personaggio[] attaccati = inputAttaccati ( new Personaggio[ 0 ], ! pg.amico );
-                        pg.attacca ( attaccati );
-                    } else {
-                        System.out.println ( pg.nome + " si sta muovendo ma questa azione non viene gestita dal programma per cui segnatela" );
+            if(i == pg.length) i = 0;
+            Personaggio pg = this.pg[i];
+            if(pg.indisposto()){
+                System.out.println(pg.nome + " non può combattere");
+                if(!pg.morto && pg instanceof Giocante){
+                    ((Giocante) pg).tiroControMorte();
+                }
+            } else{
+                System.out.println(pg.nome + " ora combatterà");
+                System.out.println("quante azioni può eseguire " + pg.nome + " in questo turno?");
+                int azioni = Personaggio.getInt(1);
+                while(azioni-- > 0){
+                    System.out.println("sto eseguendo un'azione di " + pg.nome);
+                    System.out.println("in questa azione fai un attacco?\naltrimenti suppongo che ti muovi");
+                    if(Personaggio.getBoolean()){
+                        Personaggio[] attaccati = inputAttaccati(new Personaggio[0], ! pg.amico);
+                        pg.attacca(attaccati);
+                    } else{
+                        System.out.println(pg.nome + " si sta muovendo ma questa azione non viene gestita dal programma per cui segnatela");
                     }
                 }
             }
             i++;
-        } while ( controlloMorte ( ) );
+        } while(controlloMorte());
     }
 
     private Personaggio[] inputAttaccati(Personaggio[] oldAttaccati, boolean amico) {

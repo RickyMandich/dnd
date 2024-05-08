@@ -44,7 +44,7 @@ public class Test{
             if(exec.preparazione()) {
                 System.out.println("ora inizia il combattimento");
                 exec.combattimento();
-            } else System.out.println("non posso iniziare il combattimente visto che le condizioni non sono soddisfatte (almeno una delle due fazioni non ha personaggi in vita");
+            } else System.out.println("non posso iniziare il combattimente visto che le condizioni non sono soddisfatte (almeno una delle due fazioni non ha personaggi in vita)");
         }finally {
             // chiusura dei vari oggetti e salvataggio finale
             System.out.println("vuoi salvare i dati dei personaggi?");
