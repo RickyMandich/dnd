@@ -105,7 +105,7 @@ public class PgListWithArray {
         try{
             readerFileName.outElencoNomiFile();
             System.out.println("inserisci il numero relativo al file sorgente scelto");
-            System.out.println("ATTENZIONE: i nomi dei file che iniziano con \"cestino\\\" sono dei file obsoleti che vengono lasciati nel programma solo per avere uno storico affidabile, non selezionarli");
+            System.out.println("ATTENZIONE:non selezionare i nomi dei file che iniziano con \"cestino\\\" sono file obsoleti che vengono lasciati nel programma solo per avere uno storico");
             reader.getFile("csv\\file_dati\\" + readerFileName.tabel[Personaggio.getInt(0, readerFileName.tabel.length-1)]);
         }catch (java.io.FileNotFoundException e){
             System.out.println("questo file non esiste");
@@ -263,7 +263,7 @@ public class PgListWithArray {
             pg.iniziativa = pg.tiro;
         }
         order();
-        elencoNomiPg();
+        elencoPg();
         return true;
     }
 
@@ -271,6 +271,10 @@ public class PgListWithArray {
      * metodo che va a gestire il combattimento
      */
     public void combattimento(){
+        /*
+        todo
+        modificare i cicli unificandoli
+         */
         do{
             for(Personaggio pg:pg){
                 if(pg.indisposto()){
