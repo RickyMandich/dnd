@@ -202,7 +202,7 @@ public class PgListWithArray {
         }
         i = 0;
         do{
-            if(simulazioneFile[i].equals(csv.Scrittore_csv.getDescrizioneCampi()) || pg[i-1].amico == amico) {
+            if(simulazioneFile[i].equals(csv.Scrittore_csv.getDescrizioneCampi()) || pg[i-1].amico == amico && !pg[i-1].morto) {
                 System.out.print(i + ")\t");
                 String[] row = simulazioneFile[i].split(",");
                 for (int j = 0; j < row.length; j++) {
@@ -271,12 +271,10 @@ public class PgListWithArray {
      * metodo che va a gestire il combattimento
      */
     public void combattimento(){
-        /*
-        todo
-        modificare i cicli unificandoli
-         */
+        int i=0;
         do{
-            for(Personaggio pg:pg){
+            if(i==pg.length) i = 0;
+            Personaggio pg = this.pg[i];
                 if(pg.indisposto()){
                     System.out.println(pg.nome + " non può combattere");
                 }else{
@@ -294,8 +292,7 @@ public class PgListWithArray {
                         }
                     }
                 }
-            }
-            uccidiTutti();
+                i++;
         }while (controlloMorte());
     }
 

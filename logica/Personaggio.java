@@ -313,7 +313,12 @@ public class Personaggio {
      * @return il risultato del tiro del dado
      */
     public int tiro(int origin, int bound){
-        int num = new java.util.Random().nextInt(origin, bound);
+        int num = 0;
+        if (origin == bound) {
+            num = origin;
+        }else{
+            num = new java.util.Random().nextInt(origin, bound);
+        }
         System.out.println("il risultato del tiro di " + nome + " è:\t" + num);
         return num;
     }
@@ -660,6 +665,7 @@ public class Personaggio {
             danni /= 2;
         }
         pg.puntiFerita.attuale -= danni;
+        System.out.println("ho inflitto " + danni + " danni a " + pg.nome);
         pg.controllaMorto();
     }
 
