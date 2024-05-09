@@ -388,20 +388,16 @@ public class Giocante extends Personaggio{
         info += tiriControMorteToCsv();
         return info;
     }
-/*
-    @Override
-    public void attacca(Personaggio[] attaccati) {
-        System.out.println("stai facendo un attacco fisico?\t altrimenti suppongo che colpisci in automatico e l'avversario deve tirare su salvezza");
-        if(getBoolean()) {
-            System.out.println("hai competenza in questo attacco?");
-            boolean competenza = getBoolean();
-            System.out.println("quale bonus caratteristica usi per questo attacco?");
 
-        }else{
+    /*
+    todo
+        creare l'override del metodo String:getNomiAttributi();
+        ossia un metodo che da in output il nome di tutti gli attributi alternati con una virgola
+        |
+        creare creare l'override del metodo String:toPrint();
+        ossia un metodo che da in output il nome di tutti i valori degli attributi nello stesso ordine del getNomeAttributi() sempre alternati da una virgola
+     */
 
-        }
-    }
-*/
     /**
      * metodo che controlla se un personaggio è svenuto o morto
      * @return true se il personaggio non può combattere

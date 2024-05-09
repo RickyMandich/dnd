@@ -172,20 +172,15 @@ public class PgListWithArray {
         }
     }
 
-    /*
-    todo
-        sistemare elencoPg affinchè compaiano tutti gli attributi
-     */
-
     /**
      * metodo che stampa un'elenco contenente tutte le statistiche dei personaggi allineandole a colonne per renderle più leggibili
      */
     protected void elencoPg() {
         String[] simulazioneFile = new String[pg.length+1];
-        simulazioneFile[0] = csv.Scrittore_csv.getDescrizioneCampi();
+        simulazioneFile[0] = csv.Scrittore_csv.getNomiAttributi();
         int i=1;
         for(Personaggio personaggio:pg){
-            simulazioneFile[i] = personaggio.toCsv();
+            simulazioneFile[i] = personaggio.toPrint();
             i++;
         }
         for(i=0;i<simulazioneFile.length;i++){

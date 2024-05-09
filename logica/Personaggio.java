@@ -615,6 +615,15 @@ public class Personaggio {
         return info;
     }
 
+    /*
+    todo
+        creare metodo String:getNomiAttributi();
+        ossia un metodo che da in output il nome di tutti gli attributi alternati con una virgola
+        |
+        creare metodo String:toPrint();
+        ossia un metodo che da in output il nome di tutti i valori degli attributi nello stesso ordine del getNomeAttributi() sempre alternati da una virgola
+     */
+
     /**
      * metodo che simula il singolo attacco a uno o più personaggi avversari
      * @param attaccati array di classe personaggio contenente tutti i personaggi che vengono attaccati
