@@ -159,16 +159,23 @@ public class PgListWithArray {
      * metodo che stampa un'elenco contenente il nome di tutti i personaggi e la loro fazione
      */
     protected void elencoNomiPg() {
+        System.out.println("ora ti elencherò i personaggi con queste caratteristiche:");
+        System.out.println("fazione1, classe armatura, punti ferita attuali, iniziativa, nome");
         for(int i = 0; i< pg.length; i++){
             String pgI;
             try {
-                pgI = (pg[i].amico ? "a" : "ne") + "mico\t" + pg[i].classeArmatura + "\t" + pg[i].puntiFerita.attuale + "\t" + pg[i].nome;
+                pgI = (pg[i].amico ? "a" : "ne") + "mico\t" + pg[i].classeArmatura + "\t" + pg[i].puntiFerita.attuale + "\t" + pg[i].iniziativa + "\t" + pg[i].nome;
             }catch (NullPointerException e){
                 pgI = "null";
             }
             System.out.println((i + 1) + "\t" + pgI);
         }
     }
+
+    /*
+    todo
+        sistemare elencoPg affinchè compaiano tutti gli attributi
+     */
 
     /**
      * metodo che stampa un'elenco contenente tutte le statistiche dei personaggi allineandole a colonne per renderle più leggibili
