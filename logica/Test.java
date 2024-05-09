@@ -1,7 +1,5 @@
 package logica;
 
-import csv.Lettore_csv;
-
 public class Test{
     public static void main(String[] args) {
         //creazione di oggetti necessari sia durante la creazione che durante la chiusura del programma
@@ -55,7 +53,7 @@ public class Test{
         }
     }
 
-    static void printFile(Lettore_csv readerFileName, PgListWithArray exec) {
+    static void printFile(csv.Lettore_csv readerFileName, PgListWithArray exec) {
         // generazione di un file di output con le statistiche di tutti i personaggi
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\nATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
         String nomeFile = new java.util.Scanner(System.in).nextLine() + ".csv";
