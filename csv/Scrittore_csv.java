@@ -46,7 +46,6 @@ public class Scrittore_csv {
      */
     public static String getDescrizioneCampi() {
         String info = "nome";
-        info += "," + "iniziativa";
         info += puntiFeritaToCsv();
         info += "," + "classeArmatura";
         info += "," + "competenza";

@@ -77,49 +77,49 @@ public class Personaggio {
      * @param row un array di stringhe che rappresenta la riga del file
      */
     public Personaggio(String[] row){
+        int i=0;
         try {
-            nome = row[0];
-            iniziativa = Integer.parseInt(row[1]);
+            nome = row[i++];
             String[] subStringVita = new String[2];
-            for (int sub = 0, originale = 2; sub < subStringVita.length; sub++, originale++)
-                subStringVita[sub] = row[originale];
+            for (int sub = 0; sub < subStringVita.length; sub++)
+                subStringVita[sub] = row[i++];
             puntiFerita = new Vita(subStringVita);
-            classeArmatura = Integer.parseInt(row[4]);
-            competenza = Integer.parseInt(row[5]);
-            puntiEsperienza = Integer.parseInt(row[6]);
-            livello = Integer.parseInt(row[7]);
-            dannoIniziale = Integer.parseInt(row[8]);
-            this.amico = Boolean.parseBoolean(row[9]);
-            this.morto = Boolean.parseBoolean(row[10]);
+            classeArmatura = Integer.parseInt(row[i++]);
+            competenza = Integer.parseInt(row[i++]);
+            puntiEsperienza = Integer.parseInt(row[i++]);
+            livello = Integer.parseInt(row[i++]);
+            dannoIniziale = Integer.parseInt(row[i++]);
+            this.amico = Boolean.parseBoolean(row[i++]);
+            this.morto = Boolean.parseBoolean(row[i++]);
 
             String[] subStringForza = new String[2];
-            for (int sub = 0, originale = 11; sub < subStringForza.length; sub++, originale++)
-                subStringForza[sub] = row[originale];
+            for (int sub = 0; sub < subStringForza.length; sub++)
+                subStringForza[sub] = row[i++];
             forza = new Statistica(subStringForza);
 
             String[] subStringDestrezza = new String[2];
-            for (int sub = 0, originale = 13; sub < subStringDestrezza.length; sub++, originale++)
-                subStringDestrezza[sub] = row[originale];
+            for (int sub = 0; sub < subStringDestrezza.length; sub++)
+                subStringDestrezza[sub] = row[i++];
             destrezza = new Statistica(subStringDestrezza);
 
             String[] subStringCostituzione = new String[2];
-            for (int sub = 0, originale = 15; sub < subStringCostituzione.length; sub++, originale++)
-                subStringCostituzione[sub] = row[originale];
+            for (int sub = 0; sub < subStringCostituzione.length; sub++)
+                subStringCostituzione[sub] = row[i++];
             costituzione = new Statistica(subStringCostituzione);
 
             String[] subStringIntelligenza = new String[2];
-            for (int sub = 0, originale = 17; sub < subStringIntelligenza.length; sub++, originale++)
-                subStringIntelligenza[sub] = row[originale];
+            for (int sub = 0; sub < subStringIntelligenza.length; sub++)
+                subStringIntelligenza[sub] = row[i++];
             intelligenza = new Statistica(subStringIntelligenza);
 
             String[] subStringSaggezza = new String[2];
-            for (int sub = 0, originale = 19; sub < subStringSaggezza.length; sub++, originale++)
-                subStringSaggezza[sub] = row[originale];
+            for (int sub = 0; sub < subStringSaggezza.length; sub++)
+                subStringSaggezza[sub] = row[i++];
             saggezza = new Statistica(subStringSaggezza);
 
             String[] subStringCarisma = new String[2];
-            for (int sub = 0, originale = 21; sub < subStringCarisma.length; sub++, originale++)
-                subStringCarisma[sub] = row[originale];
+            for (int sub = 0; sub < subStringCarisma.length; sub++)
+                subStringCarisma[sub] = row[i++];
             carisma = new Statistica(subStringCarisma);
         }catch (java.lang.NumberFormatException e){
             throw new csv.exception.UnexpectedTypeOnCsvException();
@@ -598,7 +598,6 @@ public class Personaggio {
     public String toCsv(){
         String info = "";
         info += nome;
-        info += "," + iniziativa;
         info += puntiFerita.toCsv();
         info += "," + classeArmatura;
         info += "," + competenza;

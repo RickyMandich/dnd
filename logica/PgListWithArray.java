@@ -75,8 +75,8 @@ public class PgListWithArray {
             String[] row = reader.tabel[Personaggio.getInt(1, reader.tabel.length-1)].split(",");
             System.out.println("ho prelevato " + row[0] + " dal file");
             try{
-                if(row.length == 23) return new logica.Personaggio(row);
-                else if(row.length == 31) return new logica.Giocante(row);
+                if(row.length == 22) return new logica.Personaggio(row);
+                else if(row.length == 30) return new logica.Giocante(row);
                 else throw new csv.exception.IncompatibileRowLengthInCsvException();
             }catch (csv.exception.UnexpectedTypeOnCsvException e){
                 System.out.println("in questa riga non è presente un personaggio compatibile");
@@ -135,8 +135,8 @@ public class PgListWithArray {
     public logica.Personaggio importaPgSicuro(csv.Lettore_csv reader, int i){
         try{
             String[] row = reader.tabel[i].split(",");
-            if(row.length == 23) return new logica.Personaggio(row);
-            else if(row.length == 31) return new logica.Giocante(row);
+            if(row.length == 22) return new logica.Personaggio(row);
+            else if(row.length == 30) return new logica.Giocante(row);
             else throw new csv.exception.IncompatibileRowLengthInCsvException();
         }catch (csv.exception.IncompatibileRowLengthInCsvException e){
             System.out.println("questa serie di dati non è compatibile, potrebbe essere una vecchia versione di un personaggio o una serie sbagliata per cui la ignoro e inserisco la successiva");

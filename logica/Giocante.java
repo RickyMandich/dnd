@@ -37,17 +37,17 @@ public class Giocante extends Personaggio{
      */
     public Giocante(String[] row){
         super(row);
+        int i = 22;
         try {
             //vado a inserire ogni elemento di questo personaggio presente nel file nel relativo attributo
-            this.ispirazione = Boolean.parseBoolean(row[23]);
-            bonusSalvezza = Integer.parseInt(row[24]);
+            this.ispirazione = Boolean.parseBoolean(row[i++]);
+            bonusSalvezza = Integer.parseInt(row[i++]);
             tiriControMorte = new boolean[2][3];
-            this.tiriControMorte[0][0] = Boolean.parseBoolean(row[25]);
-            this.tiriControMorte[0][1] = Boolean.parseBoolean(row[26]);
-            this.tiriControMorte[0][2] = Boolean.parseBoolean(row[27]);
-            this.tiriControMorte[1][0] = Boolean.parseBoolean(row[28]);
-            this.tiriControMorte[1][1] = Boolean.parseBoolean(row[29]);
-            this.tiriControMorte[1][2] = Boolean.parseBoolean(row[30]);
+            for(int h = 0; h<2; h++){
+                for (int j = 0; j < 3; j++) {
+                    this.tiriControMorte[h][j] = Boolean.parseBoolean(row[i++]);
+                }
+            }
             morto = tiriControMorte[1][2];
         }catch (java.lang.NumberFormatException e){
             // nel caso le operazione di parsing trovino un tipo che non si aspettano nelle stringhe vado a lanciare
