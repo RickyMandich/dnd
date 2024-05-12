@@ -513,10 +513,18 @@ public class Personaggio {
 
         public String toString(){
             String info = "";
-            info += "\tattuali:\t\t\t" + attuale + "\n";
-            info += "\ttotali:\t\t\t\t" + totale + "\n";
+            info += attuale + ",";
+            info += totale + ",";
             return info;
         }
+
+        private static String getNomiAttributi(){
+            String info = "";
+            info += "punti ferita attuali,";
+            info += "punti ferita totali,";
+            return info;
+        }
+
         public String toCsv(){
             String info = "";
             info += "," + attuale;
@@ -550,9 +558,17 @@ public class Personaggio {
         @Override
         public String toString() {
             String info = "";
-            info += "\tpunteggio:\t\t\t" + punteggio + "\n";
-            info += "\tbonus:\t\t\t\t" + bonus + "\n";
-            info += "\tsalvezza:\t\t\t" + salvezza + "\n";
+            info += punteggio + ",";
+            info += bonus + ",";
+            info += salvezza + ",";
+            return info;
+        }
+
+        private static String getNomiAttributi(String nomeStatistica){
+            String info = "";
+            info += "punteggio " + nomeStatistica + ",";
+            info += "bonus " + nomeStatistica + ",";
+            info += "salvezza " + nomeStatistica + ",";
             return info;
         }
 
@@ -571,23 +587,45 @@ public class Personaggio {
     @Override
     public String toString(){
         String info = "";
-        info += "nome:\t\t\t\t\t" + nome + "\n";
-        info += "iniziativa:\t\t\t\t" + iniziativa + "\n";
-        info += "punti ferita:\n" + puntiFerita;
-        info += "classe armatura:\t\t" + classeArmatura + "\n";
-        info += "competenza:\t\t\t\t" + competenza + "\n";
-        info += "punti esperienza:\t\t" + puntiEsperienza + "\n";
-        info += "livello:\t\t\t\t" + livello + "\n";
-        if(tiro != 0) info += "tiro:\t\t\t\t\t" + tiro + "\n";
-        info += "danno iniziale:\t\t\t" + dannoIniziale + "\n";
-        info += "amico:\t\t\t\t\t" + amico + "\n";
-        info += "morto:\t\t\t\t\t" + morto + "\n";
-        info += "forza:\n" + forza;
-        info += "destrezza:\n" + destrezza;
-        info += "costituzione:\n" + costituzione;
-        info += "intelligenza:\n" + intelligenza;
-        info += "saggezza:\n" + saggezza;
-        info += "carisma:\n" + carisma;
+        info += nome + ",";
+        info += iniziativa + ",";
+        info += puntiFerita;
+        info += classeArmatura + ",";
+        info += competenza + ",";
+        info += puntiEsperienza + ",";
+        info += livello + ",";
+        info += tiro + ",";
+        info += dannoIniziale + ",";
+        info += amico + ",";
+        info += morto + ",";
+        info += forza;
+        info += destrezza;
+        info += costituzione;
+        info += intelligenza;
+        info += saggezza;
+        info += carisma;
+        return info;
+    }
+
+    public static String getNomiAttributi(){
+        String info = "";
+        info += "nome,";
+        info += "iniziativa,";
+        info += Vita.getNomiAttributi();
+        info += "classeArmatura,";
+        info += "competenza,";
+        info += "puntiEsperienza,";
+        info += "livello,";
+        info += "tiro,";
+        info += "dannoIniziale,";
+        info += "amico,";
+        info += "morto,";
+        info += Statistica.getNomiAttributi("forza");
+        info += Statistica.getNomiAttributi("destrezza");
+        info += Statistica.getNomiAttributi("costituzione");
+        info += Statistica.getNomiAttributi("intelligenza");
+        info += Statistica.getNomiAttributi("saggezza");
+        info += Statistica.getNomiAttributi("carisma");
         return info;
     }
 

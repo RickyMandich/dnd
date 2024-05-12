@@ -342,11 +342,9 @@ public class Giocante extends Personaggio{
      */
     public String tiriControMorteToString() {
         String info = "";
-        info += "\tsuccessi:\t\t\t";
-        for (int i = 0; i < 3; i++) info = info.concat(tiriControMorte[0][i] + "\t");
-        info = info.concat("\n\tfallimenti:\t\t\t");
-        for (int i = 0; i < 3; i++) info = info.concat(tiriControMorte[1][i] + "\t");
-        return info + "\n";
+        for (int i = 0; i < 3; i++) info = info.concat(tiriControMorte[0][i] + ",");
+        for (int i = 0; i < 3; i++) info = info.concat(tiriControMorte[1][i] + ",");
+        return info;
     }
 
     /**
@@ -358,21 +356,35 @@ public class Giocante extends Personaggio{
      */
     private String tiriControMorteToCsv() {
         String info = "";
-        info = info.concat("," + tiriControMorte[0][0]);
-        info = info.concat("," + tiriControMorte[0][1]);
-        info = info.concat("," + tiriControMorte[0][2]);
-        info = info.concat("," + tiriControMorte[1][0]);
-        info = info.concat("," + tiriControMorte[1][1]);
-        info = info.concat("," + tiriControMorte[1][2]);
+        for (int i = 0; i < 3; i++) info = info.concat("," + tiriControMorte[0][i]);
+        for (int i = 0; i < 3; i++) info = info.concat("," + tiriControMorte[1][i]);
+        return info;
+    }
+
+    private static String getNomiAttributiTiriControMorte(){
+        String info = "";
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 3; j++){
+                info = info.concat((j+1) + "° " + (i == 0 ? "successo" : "fallimento") + " contro morte");
+            }
+        }
         return info;
     }
 
     @Override
     public String toString() {
         String info = super.toString();
-        info += "ispirazione:\t\t\t" + ispirazione + "\n";
-        info += "bonus salvezza:\t\t\t" + bonusSalvezza + "\n";
+        info += ispirazione + ",";
+        info += bonusSalvezza + ",";
         info += tiriControMorteToString();
+        return info;
+    }
+
+    public static String getNomiAttributi(){
+        String info = Personaggio.getNomiAttributi();
+        info += "ispirazione,";
+        info += "bonus salvezza,";
+        info += getNomiAttributiTiriControMorte();
         return info;
     }
 
@@ -388,15 +400,6 @@ public class Giocante extends Personaggio{
         info += tiriControMorteToCsv();
         return info;
     }
-
-    /*
-    todo
-        creare l'override del metodo String:getNomiAttributi();
-        ossia un metodo che da in output il nome di tutti gli attributi alternati con una virgola
-        |
-        creare creare l'override del metodo String:toPrint();
-        ossia un metodo che da in output il nome di tutti i valori degli attributi nello stesso ordine del getNomeAttributi() sempre alternati da una virgola
-     */
 
     /**
      * metodo che controlla se un personaggio è svenuto o morto

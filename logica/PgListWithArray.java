@@ -177,10 +177,10 @@ public class PgListWithArray {
      */
     protected void elencoPg() {
         String[] simulazioneFile = new String[pg.length+1];
-        simulazioneFile[0] = csv.Scrittore_csv.getNomiAttributi();
+        simulazioneFile[0] = Personaggio.getNomiAttributi();
         int i=1;
         for(Personaggio personaggio:pg){
-            simulazioneFile[i] = personaggio.toPrint();
+            simulazioneFile[i] = personaggio.toString();
             i++;
         }
         for(i=0;i<simulazioneFile.length;i++){
