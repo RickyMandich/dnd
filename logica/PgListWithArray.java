@@ -160,7 +160,7 @@ public class PgListWithArray {
      */
     protected void elencoNomiPg() {
         System.out.println("ora ti elencherò i personaggi con queste caratteristiche:");
-        System.out.println("fazione1, classe armatura, punti ferita attuali, iniziativa, nome");
+        System.out.println("fazione, classe armatura, punti ferita attuali, iniziativa, nome");
         for(int i = 0; i< pg.length; i++){
             String pgI;
             try {

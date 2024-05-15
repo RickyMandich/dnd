@@ -10,7 +10,7 @@ public class Test{
             readerFileName = new csv.Lettore_csv();
             // lettura dell'elenco di file sorgenti disponibili
             try {
-                readerFileName.getFile("csv\\elencoFileDati");
+                readerFileName.getFile("csv/elencoFileDati");
             } catch (java.io.FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -58,7 +58,7 @@ public class Test{
         System.out.println("inserisci il nome del file da creare per salvare l'attuale esecuzione\nATTENZIONE: NEL CASO IL FILE ESISTA GIÀ VERRÀ SOVRASCRITTO");
         String nomeFile = new java.util.Scanner(System.in).nextLine() + ".csv";
         try {
-            exec.saveInFile("csv\\file_dati\\" + nomeFile);
+            exec.saveInFile("csv/file_dati/" + nomeFile);
             csv.Scrittore_csv saveNameFile = new csv.Scrittore_csv(readerFileName, nomeFile);
             saveNameFile.close();
         } catch (Exception e) {

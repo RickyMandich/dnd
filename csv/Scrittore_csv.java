@@ -9,7 +9,7 @@ public class Scrittore_csv {
      */
     public Scrittore_csv(Lettore_csv reader, String file) {
         try {
-            writer = new java.io.FileWriter("csv\\elencoFileDati");
+            writer = new java.io.FileWriter("csv/elencoFileDati");
             reader.aggiungiRiga(file);
             reader.orderAndCompact();
 
