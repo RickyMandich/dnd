@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="csv.inputPG" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="csv.exception.inputPG" />
+    <module name="dnd" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
