@@ -667,7 +667,7 @@ public class Personaggio {
      * @param attaccati array di classe personaggio contenente tutti i personaggi che vengono attaccati
      */
     public void attacca(Personaggio[] attaccati){
-        //attaccati = compatta(attaccati);
+        attaccati = compatta(attaccati);
         System.out.println("stai facendo un attacco fisico?\naltrimenti suppongo che colpisci in automatico e l'avversario deve tirare su salvezza");
         if(getBoolean()) {
             System.out.println("hai competenza in questo attacco?");
@@ -779,7 +779,7 @@ public class Personaggio {
         System.out.println("attacco terminato");
     }
     
-    private Personaggio[] compatta(Personaggio[] pg){
+    protected Personaggio[] compatta(Personaggio[] pg){
         for(int i=0;i<pg.length;i++){
             for(int j=i+1;j<pg.length;j++){
                 if(pg[i].equals(pg[j])) pg[j] = null;
