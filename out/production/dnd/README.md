@@ -21,3 +21,6 @@ programma che va a simulare il combattimento nella 5e di Dangeouns and Dragons c
   - la classe `ArrayStatistica.java` ossia la classe che definisce l'array di 6 elemente di tipo `statistica`
   - la classe `Interazione` accessibile anche nella repository [Interazione](https://github.com/MandichRiccardo/java_00_Class_Interazione) che definisce dei metodi di input e di output con l'utente
   - la classe `Dadi.java` ossia la classe che definisce il tiro dei dadi
+
+
+### ATTENZIONE: esiste la possibilità che il file sia stato aggiornato, di conseguenza è giusto sapere che il file con questo nome presente nel link esterno è la versione più recente e più corretta 
