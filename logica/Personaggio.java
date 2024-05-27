@@ -667,6 +667,7 @@ public class Personaggio {
      * @param attaccati array di classe personaggio contenente tutti i personaggi che vengono attaccati
      */
     public void attacca(Personaggio[] attaccati){
+        //attaccati = compatta(attaccati);
         System.out.println("stai facendo un attacco fisico?\naltrimenti suppongo che colpisci in automatico e l'avversario deve tirare su salvezza");
         if(getBoolean()) {
             System.out.println("hai competenza in questo attacco?");
@@ -706,8 +707,9 @@ public class Personaggio {
             System.out.println("per indicare una caratteristica inserire le prime 3 lettere");
             System.out.println("con una caratteristica si intende il suo bonus");
             System.out.println("per indicara il bonus competenza dell'incantatore è sufficente scrivere \"comp\"");
-            System.out.println("non inserire spezi da nessuna parte");
-            String[] cdTiroSalvezzaString = getString().split("\\+");
+            System.out.println("non inserire spazi da nessuna parte");
+            System.out.println("esempio: 10+comp+for mi darà come cd " + 10+competenza+forza.bonus + " ossia 10+" + competenza + "+" + forza.bonus);
+            String[] cdTiroSalvezzaString = getString().replace(" ", "").split("\\+");
             int cdTiroSalvezzaInt = 0;
             for (String cd : cdTiroSalvezzaString) {
                 try {
@@ -775,6 +777,31 @@ public class Personaggio {
             }
         }
         System.out.println("attacco terminato");
+    }
+    
+    private Personaggio[] compatta(Personaggio[] pg){
+        for(int i=0;i<pg.length;i++){
+            for(int j=i+1;j<pg.length;j++){
+                if(pg[i].equals(pg[j])) pg[j] = null;
+            }
+        }
+        for(int i=0;i<pg.length;i++){
+            if(pg[i] == null){
+                for(int j=i;j<pg.length-1;j++){
+                    pg[j] = pg[j+1];
+                }
+                pg[pg.length-1] = null;
+            }
+        }
+        int length = 0;
+        for(Personaggio p:pg){
+            if(p != null) length++;
+        }
+        Personaggio[] compatta = new Personaggio[length];
+        for(int i=0;i<compatta.length;i++){
+            compatta[i] = pg[i];
+        }
+        return compatta;
     }
 
     /**
