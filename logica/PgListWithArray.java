@@ -103,7 +103,7 @@ public class PgListWithArray {
             readerFileName.outElencoNomiFile();
             System.out.println("inserisci il numero relativo al file sorgente scelto");
             System.out.println("ATTENZIONE:non selezionare i nomi dei file che iniziano con \"cestino\\\" sono file obsoleti che vengono lasciati nel programma solo per avere uno storico");
-            reader.getFile("csv\\file_dati\\" + readerFileName.tabel[Personaggio.getInt(0, readerFileName.tabel.length-1)]);
+            reader.getFile("csv/file_dati/" + readerFileName.tabel[Personaggio.getInt(0, readerFileName.tabel.length-1)]);
         }catch (java.io.FileNotFoundException e){
             System.out.println("questo file non esiste");
             readFile(reader, readerFileName);
