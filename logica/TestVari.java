@@ -10,7 +10,7 @@ public class TestVari {
         String banditoString = "Malvivente dei marchi rossi,16,16,14,2,100,1,0,false,false,11,false,14,false,12,false,9,false,9,false,11,false";
         pg[2] = new Personaggio(banditoString.split(","));
         PgListWithArray exec = new PgListWithArray(pg);
-
+        exec.elencoPg();
         Personaggio[] attaccati = new Personaggio[4];
         int i=0;
         for(Personaggio p : pg){
@@ -18,8 +18,9 @@ public class TestVari {
         }
         attaccati[i] = pg[2];
         new PgListWithArray(attaccati).elencoPg();
-        attaccati = pg[0].compatta(attaccati);
         System.out.println("\ncompatto is running...\n");
+        attaccati = pg[0].compatta(attaccati, true);
+        System.out.println("compatto has runned");
         new PgListWithArray(attaccati).elencoPg();
     }
 }

@@ -518,6 +518,11 @@ public class Personaggio {
             return info;
         }
 
+        public boolean equals(Vita v){
+            if(attuale != v.attuale) return false;
+            return totale == v.totale;
+        }
+
         private static String getNomiAttributi(){
             String info = "";
             info += "punti ferita attuali,";
@@ -564,6 +569,12 @@ public class Personaggio {
             return info;
         }
 
+        public boolean equals(Statistica s){
+            if(punteggio!=s.punteggio) return false;
+            if(bonus!=s.bonus) return false;
+            return salvezza == s.salvezza;
+        }
+
         private static String getNomiAttributi(String nomeStatistica){
             String info = "";
             info += "punteggio " + nomeStatistica + ",";
@@ -605,6 +616,23 @@ public class Personaggio {
         info += saggezza;
         info += carisma;
         return info;
+    }
+
+    public boolean equals(Personaggio p){
+        if(!nome.equals(p.nome)) return false;
+        if(!puntiFerita.equals(p.puntiFerita)) return false;
+        if(classeArmatura != p.classeArmatura) return false;
+        if(competenza != p.competenza) return false;
+        if(puntiEsperienza != p.puntiEsperienza) return false;
+        if(livello != p.livello) return false;
+        if(dannoIniziale != p.dannoIniziale) return false;
+        if(amico != p.amico) return false;
+        if(!forza.equals(p.forza)) return false;
+        if(!destrezza.equals(p.destrezza)) return false;
+        if(!costituzione.equals(p.costituzione)) return false;
+        if(!intelligenza.equals(p.intelligenza)) return false;
+        if(!saggezza.equals(p.saggezza)) return false;
+        return carisma.equals(p.carisma);
     }
 
     public static String getNomiAttributi(){
@@ -667,7 +695,7 @@ public class Personaggio {
      * @param attaccati array di classe personaggio contenente tutti i personaggi che vengono attaccati
      */
     public void attacca(Personaggio[] attaccati){
-        attaccati = compatta(attaccati);
+        attaccati = compatta(attaccati, amico);
         System.out.println("stai facendo un attacco fisico?\naltrimenti suppongo che colpisci in automatico e l'avversario deve tirare su salvezza");
         if(getBoolean()) {
             System.out.println("hai competenza in questo attacco?");
@@ -779,18 +807,27 @@ public class Personaggio {
         System.out.println("attacco terminato");
     }
     
-    protected Personaggio[] compatta(Personaggio[] pg){
+    protected Personaggio[] compatta(Personaggio[] pg, boolean fazioneAmica){
+        for(int i=0;i<pg.length;i++) {
+            if(pg[i].amico == fazioneAmica) pg[i] = null;
+        }
         for(int i=0;i<pg.length;i++){
             for(int j=i+1;j<pg.length;j++){
-                if(pg[i].equals(pg[j])) pg[j] = null;
+                if(pg[i] != null && pg[i].equals(pg[j])) pg[j] = null;
             }
         }
         for(int i=0;i<pg.length;i++){
-            if(pg[i] == null){
+            boolean finito = false;
+            if(pg[i] == null && !finito){
+                finito = true;
                 for(int j=i;j<pg.length-1;j++){
                     pg[j] = pg[j+1];
                 }
                 pg[pg.length-1] = null;
+                for(int j=1;j<pg.length;j++){
+                    if(!(pg[j] != null && pg[j-1] == null)) finito = false;
+                }
+                i--;
             }
         }
         int length = 0;
