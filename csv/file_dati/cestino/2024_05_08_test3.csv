@@ -1,12 +1,12 @@
 nome,punti ferita attuali,punti ferita totali,classeArmatura,competenza,puntiEsperienza,livello,dannoIniziale,amico,morto,punteggio forza,bonus salvezza forza,punteggio destrezza,bonus salvezza destrezza,punteggio costituzione,bonus salvezza costituzione,punteggio intelligenza,bonus salvezza intelligenza,punteggio saggezza,bonus salvezza saggezza,punteggio carisma,bonus salvezza carisma,ispirazione,bonusSalvezza,1 successo tiri contro morte,2 successo tiri contro morte,3 successo tiri contro morte,1 fallimento tiri contro morte,2 fallimento tiri contro morte,3 fallimento tiri contro morte
-Aarakocra,-1,13,12,2,50,1,0,false,true,10,false,14,false,10,false,11,false,12,false,11,false,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+Aarakocra,-1,13,12,2,50,1,0,false,true,10,false,14,false,10,false,11,false,12,false,11,false
 Zylan,8,8,10,2,0,1,0,true,false,17,false,10,false,10,false,17,true,12,true,17,false,false,2,false,false,false,false,false,false
 Marcus Anduril,9,9,15,2,0,1,0,true,false,10,false,14,false,14,true,12,false,12,false,16,true,false,2,false,false,false,false,false,false
 Sana Marijuana,9,9,13,2,0,1,0,true,false,18,true,12,true,12,false,10,false,14,false,15,false,false,2,false,false,false,false,false,false
 Rogby Mountanfeller,16,16,15,2,0,1,0,true,false,16,true,14,false,16,true,8,false,10,false,8,false,false,2,false,false,false,false,false,false
 Mat al'Aybara,52,52,12,3,6500,5,0,true,false,12,false,12,false,14,false,12,false,12,true,16,true,true,3,false,false,false,false,false,false
-Bugbear,-9,27,16,2,200,1,0,false,true,15,false,14,false,13,false,8,false,11,false,9,false,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+Bugbear,-9,27,16,2,200,1,0,false,true,15,false,14,false,13,false,8,false,11,false,9,false
 Ares,15,15,15,2,0,1,0,true,false,16,true,14,false,16,true,10,false,12,false,10,false,false,2,false,false,false,false,false,false
-Paesano,5,5,10,0,0,1,0,true,false,10,false,10,false,10,false,10,false,10,false,10,false,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+Paesano,5,5,10,0,0,1,0,true,false,10,false,10,false,10,false,10,false,10,false,10,false
 "Kenny ""Kennuccio"" Zaraki",16,16,16,2,0,1,0,true,false,16,true,16,false,16,true,8,false,12,false,10,false,false,2,false,false,false,false,false,false
-Malvivente dei marchi rossi,-1,16,14,2,100,1,0,false,true,11,false,14,false,12,false,9,false,9,false,11,false,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
+Malvivente dei marchi rossi,-1,16,14,2,100,1,0,false,true,11,false,14,false,12,false,9,false,9,false,11,false
