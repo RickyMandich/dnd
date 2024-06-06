@@ -619,6 +619,7 @@ public class Personaggio {
     }
 
     public boolean equals(Personaggio p){
+        if(p == null) return false;
         if(!nome.equals(p.nome)) return false;
         if(!puntiFerita.equals(p.puntiFerita)) return false;
         if(classeArmatura != p.classeArmatura) return false;
@@ -695,7 +696,7 @@ public class Personaggio {
      * @param attaccati array di classe personaggio contenente tutti i personaggi che vengono attaccati
      */
     public void attacca(Personaggio[] attaccati){
-        attaccati = compatta(attaccati, amico);
+        attaccati = compatta(attaccati);
         System.out.println("stai facendo un attacco fisico?\naltrimenti suppongo che colpisci in automatico e l'avversario deve tirare su salvezza");
         if(getBoolean()) {
             System.out.println("hai competenza in questo attacco?");
@@ -806,38 +807,59 @@ public class Personaggio {
         }
         System.out.println("attacco terminato");
     }
-    
-    protected Personaggio[] compatta(Personaggio[] pg, boolean fazioneAmica){
+
+    /**
+     * metodo che, preso un array come parametro, fa in modo che ogni personaggio compaia una volta sola e che non esistano celle nulle
+     * in più rimuove tutti i personaggi amici
+     * @param pg array di personaggi da elaborare
+     * @return l'array elaborato
+     */
+    protected Personaggio[] compatta(Personaggio[] pg){
+        System.out.println("ora elimino gli amici");
         for(int i=0;i<pg.length;i++) {
-            if(pg[i].amico == fazioneAmica) pg[i] = null;
+            if(pg[i].amico == amico) pg[i] = null;
         }
+        System.out.println("amici eliminati");
+        System.out.println("ora elimino i duplicati");
         for(int i=0;i<pg.length;i++){
             for(int j=i+1;j<pg.length;j++){
                 if(pg[i] != null && pg[i].equals(pg[j])) pg[j] = null;
             }
         }
+        System.out.println("duplicati eliminati");
+        /*
+        System.out.println("ora riunisco tutti i personaggi eliminati all'inizio dell'array così da avere tutti i null alla fine");
         for(int i=0;i<pg.length;i++){
             boolean finito = false;
             if(pg[i] == null && !finito){
                 finito = true;
+                System.out.println("sposto tutti gli elementi");
                 for(int j=i;j<pg.length-1;j++){
                     pg[j] = pg[j+1];
                 }
                 pg[pg.length-1] = null;
-                for(int j=1;j<pg.length;j++){
-                    if(!(pg[j] != null && pg[j-1] == null)) finito = false;
+                System.out.println("ora controllo se ci sono ancora elementi");
+                for(int j=i+1;j<pg.length;j++){
+                    if(pg[j] != null) finito = false;
                 }
-                i--;
+                //i--;
             }
         }
+        System.out.println("ho finito di raggruppare i personaggi");
+        */
+        System.out.println("ora conto i personaggi");
         int length = 0;
         for(Personaggio p:pg){
             if(p != null) length++;
         }
+        System.out.println("ho contato i personaggi");
+        System.out.println("ora creo un nuovo array contenente solo i personaggi esistenti");
         Personaggio[] compatta = new Personaggio[length];
-        for(int i=0;i<compatta.length;i++){
-            compatta[i] = pg[i];
+        for(int iC=0, iP = 0;iC<compatta.length;iC++, iP++){
+            while(pg[iP] == null) iP++;
+            compatta[iC] = pg[iP];
         }
+        System.out.println("ho creato l'array compatto");
         return compatta;
     }
 
